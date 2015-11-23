@@ -16,5 +16,7 @@ namespace Life_safety
         public float loadDepth(float windSpeed, float mass);
         public float[] loadCoeffs();
         public float loadDensity();
+        public float loadTranslationSpeed();
+        public float loadDepth(float equivalentMass);
     }
 }

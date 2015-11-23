@@ -23,16 +23,19 @@ namespace Life_safety
             density = paramLoader.loadDensity();
         }
 
-        public Core.DangerZone calcDangerZone()
-        {
-
-        }
-
-        private float depth()
+        private float depth(float time)
         {
             float mass_first_cloud = coeffs[1] * coeffs[3] *
                                      coeffs[5] * coeffs[7] *
                                      damageParams.mass;
+            
+            float time_steam = timeOfSteam();
+            if (time_steam < 1.0f) time_steam = 1.0f;
+            if (time < time_steam) {
+                coeffs[6] = (float)Math.Pow(time, 0.8);
+            } else {
+                coeffs[6] = (float)Math.Pow(time_steam, 0.8);
+            }
 
             float mass_second_cloud = (1.0f - coeffs[1]) * coeffs[2] *
                                       coeffs[3] * coeffs[4] *
@@ -40,8 +43,15 @@ namespace Life_safety
                                       coeffs[7] * damageParams.mass /
                                       damageParams.thickness / density;
 
+            float transSpeed = paramLoader.loadTranslationSpeed();
+            float max_depth = time * transSpeed;
 
-            return 0.0f;
+            float depth_first = paramLoader.loadDepth(mass_first_cloud);
+            float depth_second = paramLoader.loadDepth(mass_second_cloud);
+
+            float depth = Math.Max(depth_first, depth_second) + 0.5f * Math.Min(depth_first, depth_second);
+
+            return Math.Min(max_depth, depth);
         }
 
         private float timeOfSteam()
@@ -49,6 +59,7 @@ namespace Life_safety
             return (damageParams.thickness * density) / 
                    (coeffs[2] * coeffs[4] * coeffs[7]);
         }
+
         // Init DangerZone by params
         // Get DangerZone by time
         // Get death count
