@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Life_safety"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="768" Width="1024" ResizeMode="NoResize">
+    <Window.Resources>
+        <BitmapImage x:Key="nn-map" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\projects\courses\life-safety-project\Life-safety\assets\nn_map.png"/>
+    </Window.Resources>
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Left" Height="150" Margin="19,30,0,0" VerticalAlignment="Top" Width="149">
+            <ComboBox x:Name="substanceBox"/>
+            <ComboBox x:Name="substanceStateBox"/>
+            <TextBox x:Name="substanceMassField"/>
+            <TextBox x:Name="windSpeedField"/>
+            <ComboBox x:Name="airTypeBox"/>
+            <ComboBox x:Name="airOverflowTypeBox"/>
+            <ComboBox x:Name="temperatureTypeBox"/>
+        </StackPanel>
+        <Image x:Name="mapField" HorizontalAlignment="Left" Height="500" Margin="191,30,0,0" VerticalAlignment="Top" Width="800" Source="{DynamicResource nn-map}"/>
+        <TextBlock x:Name="timeBarDescription" Text="Время" Height="30" Width="100" Margin="191,463,787,246"/>
+        <Slider x:Name="timeBar" Height="30" Width="300" Margin="246,463,472,246"/>
+
     </Grid>
 </Window>
