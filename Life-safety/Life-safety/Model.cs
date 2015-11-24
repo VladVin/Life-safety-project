@@ -9,7 +9,6 @@ namespace Life_safety
     class Model
     {
         private Core.DamageParams damageParams;
-        private Core.DangerZone dangerZone;
         private ParametersLoader paramLoader;
         private float[] coeffs;
         private float density;
@@ -27,17 +26,20 @@ namespace Life_safety
             paramLoader.updateDamageParams(damageParams);
         }
     
-        private float depth(float time)
+        private float Depth(float time)
         {
             float mass_first_cloud = coeffs[1] * coeffs[3] *
                                      coeffs[5] * coeffs[7] *
                                      damageParams.Mass;
             
-            float time_steam = timeOfSteam();
+            float time_steam = TimeOfSteam();
             if (time_steam < 1.0f) time_steam = 1.0f;
-            if (time < time_steam) {
+            if (time < time_steam)
+            {
                 coeffs[6] = (float)Math.Pow(time, 0.8);
-            } else {
+            }
+            else
+            {
                 coeffs[6] = (float)Math.Pow(time_steam, 0.8);
             }
 
@@ -58,14 +60,148 @@ namespace Life_safety
             return Math.Min(max_depth, depth);
         }
 
-        private float timeOfSteam()
+        public float TimeOfSteam()
         {
             return (damageParams.Thickness * density) / 
                    (coeffs[2] * coeffs[4] * coeffs[7]);
         }
 
-        // Init DangerZone by params
-        // Get DangerZone by time
-        // Get death count
+        private float Angle()
+        {
+            float phi;
+            float windSpeed = damageParams.WindSpeed;
+            if (windSpeed < 0.5f)
+            {
+                phi = 360f;
+            }
+            else if (windSpeed >= 0.5f && windSpeed < 1f)
+            {
+                phi = 180f;
+            }
+            else if (windSpeed >= 1f && windSpeed < 2f)
+            {
+                phi = 90f;
+            }
+            else
+            {
+                phi = 45f;
+            }
+
+            return phi;
+        }
+
+        private float Width(float depth)
+        {
+            float width;
+            float windSpeed = damageParams.WindSpeed;
+            if (windSpeed < 0.5f)
+            {
+                width = depth;
+            }
+            else if (windSpeed >= 0.5f && windSpeed < 1f)
+            {
+                width = depth / 4f;
+            }
+            else if (windSpeed >= 1f && windSpeed < 2f)
+            {
+                width = depth / 8f;
+            }
+            else
+            {
+                width = depth / 16f;
+            }
+
+            return width;
+        }
+
+        private System.Windows.Point ShiftedCenter(float depth)
+        {
+            float windSpeed = damageParams.WindSpeed;
+            System.Windows.Point position = damageParams.Position;
+            System.Windows.Point center;
+            System.Windows.Vector shift = damageParams.WindVector;
+            shift.Normalize();
+
+            if (windSpeed < 0.5f)
+            {
+                center = position;
+            }
+            else if (windSpeed >= 0.5f && windSpeed < 1f)
+            {
+                center = System.Windows.Point.Add(position, System.Windows.Vector.Multiply(depth / 8f, shift));
+            }
+            else if (windSpeed >= 1f && windSpeed < 2f)
+            {
+                center = System.Windows.Point.Add(position, System.Windows.Vector.Multiply(depth / 4f, shift));
+            }
+            else
+            {
+                center = System.Windows.Point.Add(position, System.Windows.Vector.Multiply(depth / 2f, shift));
+            }
+
+            return center;
+        }
+
+        private float PossibleZoneArea(float time)
+        {
+            float phi = Angle();
+            float depth = Depth(time);
+            return 8.72f * 0.001f * depth * depth * phi;
+        }
+
+        private float RealZoneArea(float time)
+        {
+            float coeff8;
+            Core.DamageParams.AirType air = damageParams.Air;
+            if (air == Core.DamageParams.AirType.Inversion)
+            {
+                coeff8 = 0.081f;
+            }
+            else if (air == Core.DamageParams.AirType.Isotermia)
+            {
+                coeff8 = 0.133f;
+            }
+            else
+            {
+                coeff8 = 0.235f;
+            }
+
+            float depth = Depth(time);
+
+            return coeff8 * depth * depth * (float)Math.Pow(time, 0.2);
+        }
+
+        public Core.PossibleDangerZone getPossibleDangerZone(float time)
+        {
+            Core.PossibleDangerZone pDangerZone = new Core.PossibleDangerZone();
+            pDangerZone.Angle = Angle();
+            pDangerZone.Depth = Depth(time);
+            pDangerZone.Area = PossibleZoneArea(time);
+            pDangerZone.Position = damageParams.Position;
+            pDangerZone.Direction = damageParams.WindVector;
+            return pDangerZone;
+        }
+
+        public Core.RealDangerZone getRealDangerZone(float time)
+        {
+            Core.RealDangerZone rDangerZone = new Core.RealDangerZone();
+            rDangerZone.Depth = Depth(time);
+            rDangerZone.Area = RealZoneArea(time);
+            rDangerZone.Width = Width(rDangerZone.Depth);
+            rDangerZone.Position = damageParams.Position;
+            rDangerZone.Direction = damageParams.WindVector;
+            rDangerZone.ShiftedCenter = ShiftedCenter(rDangerZone.Depth);
+            return rDangerZone;
+        }
+
+        public float TimeOfComing(System.Windows.Point point)
+        {
+            float trans_speed = paramLoader.loadTranslationSpeed();
+            System.Windows.Vector v = new System.Windows.Vector(
+                point.X - damageParams.Position.X, 
+                point.Y - damageParams.Position.Y);
+            float dist = (float)v.Length;
+            return dist / trans_speed;
+        }
     }
 }

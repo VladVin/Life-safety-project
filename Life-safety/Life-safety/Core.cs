@@ -19,7 +19,7 @@ namespace Life_safety
             {
                 Clean, Cloudy
             }
-            public enum OverflowType { Free, VPoddon, VObvalovku }
+            public enum OverflowType { Free, VPoddon }
             public enum TemperatureType { Freezy, Cold, Norm, Warm, Hot }
 
             // Substance params
@@ -27,11 +27,12 @@ namespace Life_safety
             private SubstanceStateType substanceState;
             private float mass;
             private float thickness;
+            private Point position;
 
             // Air params
-            private float windSpeed;
+            private Vector windVector;
             private AirType airType;
-            private OverflowType overflowType;
+            private OverflowType overflow;
             private TemperatureType temperature;
 
             public SubstanceType Substance
@@ -74,6 +75,10 @@ namespace Life_safety
             {
                 get
                 {
+                    if (overflow == OverflowType.VPoddon)
+                    {
+                        return thickness - 0.2f;
+                    }
                     return thickness;
                 }
                 set
@@ -82,15 +87,35 @@ namespace Life_safety
                 }
             }
 
+            public Point Position
+            {
+                get
+                {
+                    return position;
+                }
+                set
+                {
+                    position = value;
+                }
+            }
+
             public float WindSpeed
             {
                 get
                 {
-                    return windSpeed;
+                    return (float)windVector.Length;
+                }
+            }
+
+            public Vector WindVector
+            {
+                get
+                {
+                    return windVector;
                 }
                 set
                 {
-                    windSpeed = value;
+                    windVector = value;
                 }
             }
 
@@ -110,11 +135,11 @@ namespace Life_safety
             {
                 get
                 {
-                    return overflowType;
+                    return overflow;
                 }
                 set
                 {
-                    overflowType = value;
+                    overflow = value;
                 }
             }
 
@@ -131,14 +156,95 @@ namespace Life_safety
             }
         }
 
-        public class DangerZone
+        public class PossibleDangerZone
+        {
+            private float angle;
+            private float depth;
+            private Point position;
+            private Vector direction;
+            private float area;
+
+            public float Angle
+            {
+                get
+                {
+                    return angle;
+                }
+                set
+                {
+                    angle = value;
+                }
+            }
+
+            public float Depth
+            {
+                get
+                {
+                    return depth;
+                }
+                set
+                {
+                    depth = value;
+                }
+            }
+
+            public Point Position
+            {
+                get
+                {
+                    return position;
+                }
+                set
+                {
+                    position = value;
+                }
+            }
+
+            public Vector Direction
+            {
+                get
+                {
+                    return direction;
+                }
+                set
+                {
+                    direction = value;
+                }
+            }
+
+            public float Area
+            {
+                get
+                {
+                    return area;
+                }
+                set
+                {
+                    area = value;
+                }
+            }
+        }
+
+        public class RealDangerZone
         {
             private float width;
             private float depth;
             private Point position;
-            private float azimuth;
+            private Point shiftedCenter;
+            private Vector direction;
             private float area;
 
+            public Point ShiftedCenter
+            {
+                get
+                {
+                    return shiftedCenter;
+                }
+                set
+                {
+                    shiftedCenter = value;
+                }
+            }
             public float Width
             {
                 get
@@ -175,15 +281,15 @@ namespace Life_safety
                 }
             }
 
-            public float Azimuth
+            public Vector Direction
             {
                 get
                 {
-                    return azimuth;
+                    return direction;
                 }
                 set
                 {
-                    azimuth = value;
+                    direction = value;
                 }
             }
 
