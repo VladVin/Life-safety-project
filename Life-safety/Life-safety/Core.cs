@@ -9,7 +9,7 @@ namespace Life_safety
 {
     class Core
     {
-        class DamageParams
+        public class DamageParams
         {
             public enum Substance { Ammonia }
             public enum SubstanceState { Gas, Fluid }
@@ -23,36 +23,25 @@ namespace Life_safety
             public enum TemperatureType { Freezy, Cold, Norm, Warm, Hot }
 
             // Substance params
-            private Substance substance;
-            private SubstanceState substanceState;
-            private float mass;
+            public Substance substance;
+            public SubstanceState substanceState;
+            public float mass;
+            public float thickness;
 
             // Air params
-            private float windSpeed;
-            private AirType airType;
-            private OverflowType overflowType;
-            private TemperatureType temperature;
+            public float windSpeed;
+            public AirType airType;
+            public OverflowType overflowType;
+            public TemperatureType temperature;
         }
 
-        class DangerZone
+        public class DangerZone
         {
-            private float width;
-            private float depth;
-            private Point position;
-            private float azimuth;
-            private float area;
-
-            public float Area
-            {
-                get
-                {
-                    return area;
-                }
-                set
-                {
-                    area = value;
-                }
-            }
+            public float width;
+            public float depth;
+            public Point position;
+            public float azimuth;
+            public float area;
         }
     }
 }
