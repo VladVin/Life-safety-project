@@ -142,7 +142,8 @@ namespace Life_safety
                 if (tablesName[i] == "")
                     continue;
                 tables[i] = new DataSet();
-                tables[i].ReadXml(dataPath + tablesName[i]);
+                string file = dataPath + tablesName[i];
+                tables[i].ReadXml(file);
                 if (tables[i].Tables.Count != 1)
                     throw new Exception("XML parsing error");
             }
@@ -164,6 +165,24 @@ namespace Life_safety
                     return tables[4].Tables[0];
             }
             throw new Exception("Incorrect table ID");
+        }
+    }
+    public class InitSubstanceLoader
+    {
+        private DataLoader dataLoader;
+        public InitSubstanceLoader(DataLoader dataLoader)
+        {
+            this.dataLoader = dataLoader;
+        }
+        public string[] getSubstancesNames()
+        {
+            List<string> result = new List<string>();
+            DataTable table = dataLoader.GetTable(DataLoader.Table.SUBSTANCES);
+            foreach (DataRow row in table.Rows)
+            {
+                result.Add((string)row["substance"]);
+            }
+            return result.ToArray();
         }
     }
 } 
