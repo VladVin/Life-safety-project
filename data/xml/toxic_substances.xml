@@ -1,0 +1,528 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<table>
+	<row id="1">
+		<substance>Акролеин</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,839</liquid_density>
+		<heat_temperature>52,7</heat_temperature>
+		<toxic_dose>0,2*</toxic_dose>
+		<k1>0</k1>
+		<k2>0,013</k2>
+		<k3>3,0</k3>
+		<k7m40>0,1</k7m40>
+		<k7m20>0,2</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,2</k7p40>
+	</row>
+	<row id="2">
+		<substance>Аммиак хранение под давлением</substance>
+		<gas_density>0,0008</gas_density>
+		<liquid_density>0,681</liquid_density>
+		<heat_temperature>-33,42</heat_temperature>
+		<toxic_dose>15</toxic_dose>
+		<k1>0,18</k1>
+		<k2>0,025</k2>
+		<k3>0,04</k3>
+		<k7m40>0/0,9</k7m40>
+		<k7m20>0,3/1</k7m20>
+		<k7p0>0,6/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,4/1</k7p40>
+	</row>
+	<row id="3">
+		<substance>Аммиак изотермическое хранение</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,681</liquid_density>
+		<heat_temperature>-33,42</heat_temperature>
+		<toxic_dose>15</toxic_dose>
+		<k1>0,01</k1>
+		<k2>0,025</k2>
+		<k3>0,04</k3>
+		<k7m40>0/0,9</k7m40>
+		<k7m20>1/1</k7m20>
+		<k7p0>1/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1/1</k7p40>
+	</row>
+	<row id="4">
+		<substance>Ацетонитрил</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,786</liquid_density>
+		<heat_temperature>81,6</heat_temperature>
+		<toxic_dose>21,6**</toxic_dose>
+		<k1>0</k1>
+		<k2>0,004</k2>
+		<k3>0,028</k3>
+		<k7m40>0,02</k7m40>
+		<k7m20>0,1</k7m20>
+		<k7p0>0,3</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,6</k7p40>
+	</row>
+	<row id="5">
+		<substance>Ацетонциангидрин</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,932</liquid_density>
+		<heat_temperature>120</heat_temperature>
+		<toxic_dose>1,9**</toxic_dose>
+		<k1>0</k1>
+		<k2>0,002</k2>
+		<k3>0,316</k3>
+		<k7m40>0</k7m40>
+		<k7m20>0</k7m20>
+		<k7p0>0,3</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>1,5</k7p40>
+	</row>
+	<row id="6">
+		<substance>Водород мышьяковистый</substance>
+		<gas_density>0,0035</gas_density>
+		<liquid_density>1,64</liquid_density>
+		<heat_temperature>-62,47</heat_temperature>
+		<toxic_dose>0,2**</toxic_dose>
+		<k1>0,17</k1>
+		<k2>0,054</k2>
+		<k3>3,0</k3>
+		<k7m40>0,3/1</k7m40>
+		<k7m20>0,5/1</k7m20>
+		<k7p0>0,8/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,2/1</k7p40>
+	</row>
+	<row id="7">
+		<substance>Водород фтористый</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,989</liquid_density>
+		<heat_temperature>19,52</heat_temperature>
+		<toxic_dose>4</toxic_dose>
+		<k1>0</k1>
+		<k2>0,028</k2>
+		<k3>0,15</k3>
+		<k7m40>0,1</k7m40>
+		<k7m20>0,2</k7m20>
+		<k7p0>0,5</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>1</k7p40>
+	</row>
+	<row id="8">
+		<substance>Водород хлористый</substance>
+		<gas_density>0,0016</gas_density>
+		<liquid_density>1,191</liquid_density>
+		<heat_temperature>-85,10</heat_temperature>
+		<toxic_dose>2</toxic_dose>
+		<k1>0,28</k1>
+		<k2>0,037</k2>
+		<k3>0,30</k3>
+		<k7m40>0,4/1</k7m40>
+		<k7m20>0,6/1</k7m20>
+		<k7p0>0,8/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,2/1</k7p40>
+	</row>
+	<row id="9">
+		<substance>Водород бромистый</substance>
+		<gas_density>0,0036</gas_density>
+		<liquid_density>1,490</liquid_density>
+		<heat_temperature>-66,77</heat_temperature>
+		<toxic_dose>2,4*</toxic_dose>
+		<k1>0,13</k1>
+		<k2>0,055</k2>
+		<k3>0,25</k3>
+		<k7m40>0,3/1</k7m40>
+		<k7m20>0,5/1</k7m20>
+		<k7p0>0,8/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,2/1</k7p40>
+	</row>
+	<row id="10">
+		<substance>Водород цианистый</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,687</liquid_density>
+		<heat_temperature>25,7</heat_temperature>
+		<toxic_dose>0,2</toxic_dose>
+		<k1>0</k1>
+		<k2>0,026</k2>
+		<k3>3,0</k3>
+		<k7m40>0</k7m40>
+		<k7m20>0</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>1,3</k7p40>
+	</row>
+	<row id="11">
+		<substance>Диметиламин</substance>
+		<gas_density>0,0020</gas_density>
+		<liquid_density>0,680</liquid_density>
+		<heat_temperature>6,9</heat_temperature>
+		<toxic_dose>1,2*</toxic_dose>
+		<k1>0,06</k1>
+		<k2>0,041</k2>
+		<k3>0,5</k3>
+		<k7m40>0/0,1</k7m40>
+		<k7m20>0/0,3</k7m20>
+		<k7p0>0/0,8</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>2,5/1</k7p40>
+	</row>
+	<row id="12">
+		<substance>Метиламин</substance>
+		<gas_density>0,0014</gas_density>
+		<liquid_density>0,699</liquid_density>
+		<heat_temperature>-6,5</heat_temperature>
+		<toxic_dose>1,2*</toxic_dose>
+		<k1>0,13</k1>
+		<k2>0,034</k2>
+		<k3>0,5</k3>
+		<k7m40>0/0,3</k7m40>
+		<k7m20>0/0,7</k7m20>
+		<k7p0>0,3/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,8/1</k7p40>
+	</row>
+	<row id="13">
+		<substance>Метил бромистый</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>1,732</liquid_density>
+		<heat_temperature>3,6</heat_temperature>
+		<toxic_dose>1,2*</toxic_dose>
+		<k1>0,04</k1>
+		<k2>0,039</k2>
+		<k3>0,5</k3>
+		<k7m40>0/0,2</k7m40>
+		<k7m20>0/0,4</k7m20>
+		<k7p0>0/0,9</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>2,3/1</k7p40>
+	</row>
+	<row id="14">
+		<substance>Метил хлористый</substance>
+		<gas_density>0,0023</gas_density>
+		<liquid_density>0,983</liquid_density>
+		<heat_temperature>-23,76</heat_temperature>
+		<toxic_dose>10,8**</toxic_dose>
+		<k1>0,125</k1>
+		<k2>0,044</k2>
+		<k3>0,056</k3>
+		<k7m40>0/0,5</k7m40>
+		<k7m20>0,1/1</k7m20>
+		<k7p0>0,6/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,5/1</k7p40>
+	</row>
+	<row id="15">
+		<substance>Метилакрилат</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,953</liquid_density>
+		<heat_temperature>80,2</heat_temperature>
+		<toxic_dose>6*</toxic_dose>
+		<k1>0</k1>
+		<k2>0,005</k2>
+		<k3>0,1</k3>
+		<k7m40>0,1</k7m40>
+		<k7m20>0,2</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>3,1</k7p40>
+	</row>
+	<row id="16">
+		<substance>Метилмеркаптан</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,867</liquid_density>
+		<heat_temperature>5,95</heat_temperature>
+		<toxic_dose>1,7</toxic_dose>
+		<k1>0,06</k1>
+		<k2>0,043</k2>
+		<k3>0,353</k3>
+		<k7m40>0/0,1</k7m40>
+		<k7m20>0/0,3</k7m20>
+		<k7p0>0/0,8</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>2,4/1</k7p40>
+	</row>
+	<row id="17">
+		<substance>Нитрил акриловой кислоты</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,806</liquid_density>
+		<heat_temperature>77,3</heat_temperature>
+		<toxic_dose>0,75</toxic_dose>
+		<k1>0</k1>
+		<k2>0,007</k2>
+		<k3>0,80</k3>
+		<k7m40>0,04</k7m40>
+		<k7m20>0,1</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,4</k7p40>
+	</row>
+	<row id="18">
+		<substance>Окислы азота</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>1,491</liquid_density>
+		<heat_temperature>21,0</heat_temperature>
+		<toxic_dose>1,5</toxic_dose>
+		<k1>0</k1>
+		<k2>0,040</k2>
+		<k3>0,40</k3>
+		<k7m40>0</k7m40>
+		<k7m20>0</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>1</k7p40>
+	</row>
+	<row id="19">
+		<substance>Окись этилена</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,882</liquid_density>
+		<heat_temperature>10,7</heat_temperature>
+		<toxic_dose>2,2**</toxic_dose>
+		<k1>0,05</k1>
+		<k2>0,041</k2>
+		<k3>0,27</k3>
+		<k7m40>0/0,1</k7m40>
+		<k7m20>0/0,3</k7m20>
+		<k7p0>0/0,7</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>3,2/1</k7p40>
+	</row>
+	<row id="20">
+		<substance>Сернистый ангидрид</substance>
+		<gas_density>0,0029</gas_density>
+		<liquid_density>1,462</liquid_density>
+		<heat_temperature>-10,1</heat_temperature>
+		<toxic_dose>1,8</toxic_dose>
+		<k1>0,11</k1>
+		<k2>0,049</k2>
+		<k3>0,333</k3>
+		<k7m40>0/0,2</k7m40>
+		<k7m20>0/0,5</k7m20>
+		<k7p0>0,3/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,7/1</k7p40>
+	</row>
+	<row id="21">
+		<substance>Сероводород</substance>
+		<gas_density>0,0015</gas_density>
+		<liquid_density>0,964</liquid_density>
+		<heat_temperature>-60,35</heat_temperature>
+		<toxic_dose>16,1</toxic_dose>
+		<k1>0,27</k1>
+		<k2>0,042</k2>
+		<k3>0,036</k3>
+		<k7m40>0,3/1</k7m40>
+		<k7m20>0,5/1</k7m20>
+		<k7p0>0,8/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,2/1</k7p40>
+	</row>
+	<row id="22">
+		<substance>Сероуглерод</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>1,263</liquid_density>
+		<heat_temperature>46,2</heat_temperature>
+		<toxic_dose>45</toxic_dose>
+		<k1>0</k1>
+		<k2>0,021</k2>
+		<k3>0,013</k3>
+		<k7m40>0,1</k7m40>
+		<k7m20>0,2</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,1</k7p40>
+	</row>
+	<row id="23">
+		<substance>Соляная кислота (концентрированная)</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>1,198</liquid_density>
+		<heat_temperature>-</heat_temperature>
+		<toxic_dose>2</toxic_dose>
+		<k1>0</k1>
+		<k2>0,021</k2>
+		<k3>0,30</k3>
+		<k7m40>0</k7m40>
+		<k7m20>0,1</k7m20>
+		<k7p0>0,3</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>1,6</k7p40>
+	</row>
+	<row id="24">
+		<substance>Триметиламин</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,671</liquid_density>
+		<heat_temperature>2,9</heat_temperature>
+		<toxic_dose>6*</toxic_dose>
+		<k1>0,07</k1>
+		<k2>0,047</k2>
+		<k3>0,1</k3>
+		<k7m40>0/0,1</k7m40>
+		<k7m20>0/0,4</k7m20>
+		<k7p0>0/0,9</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>2,2/1</k7p40>
+	</row>
+	<row id="25">
+		<substance>Формальдегид</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,815</liquid_density>
+		<heat_temperature>-19,0</heat_temperature>
+		<toxic_dose>0,6*</toxic_dose>
+		<k1>0,19</k1>
+		<k2>0,034</k2>
+		<k3>1,0</k3>
+		<k7m40>0/0,4</k7m40>
+		<k7m20>0/1</k7m20>
+		<k7p0>0,5/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,5/1</k7p40>
+	</row>
+	<row id="26">
+		<substance>Фосген</substance>
+		<gas_density>0,0035</gas_density>
+		<liquid_density>1,432</liquid_density>
+		<heat_temperature>8,2</heat_temperature>
+		<toxic_dose>0,6</toxic_dose>
+		<k1>0,05</k1>
+		<k2>0,061</k2>
+		<k3>1,0</k3>
+		<k7m40>0/0,1</k7m40>
+		<k7m20>0/0,3</k7m20>
+		<k7p0>0/0,7</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>2,7/1</k7p40>
+	</row>
+	<row id="27">
+		<substance>Фтор</substance>
+		<gas_density>0,0017</gas_density>
+		<liquid_density>1,512</liquid_density>
+		<heat_temperature>-188,2</heat_temperature>
+		<toxic_dose>0,2*</toxic_dose>
+		<k1>0,95</k1>
+		<k2>0,038</k2>
+		<k3>3,0</k3>
+		<k7m40>0,7/1</k7m40>
+		<k7m20>0,8/1</k7m20>
+		<k7p0>0,9/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,1/1</k7p40>
+	</row>
+	<row id="28">
+		<substance>Фосфор треххлористый</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>1,570</liquid_density>
+		<heat_temperature>75,3</heat_temperature>
+		<toxic_dose>3</toxic_dose>
+		<k1>0</k1>
+		<k2>0,010</k2>
+		<k3>0,2</k3>
+		<k7m40>0,1</k7m40>
+		<k7m20>0,2</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,3</k7p40>
+	</row>
+	<row id="29">
+		<substance>Фосфора хлорокись</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>1,675</liquid_density>
+		<heat_temperature>107,2</heat_temperature>
+		<toxic_dose>0,06*</toxic_dose>
+		<k1>0</k1>
+		<k2>0,003</k2>
+		<k3>10,0</k3>
+		<k7m40>0,05</k7m40>
+		<k7m20>0,1</k7m20>
+		<k7p0>0,3</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,6</k7p40>
+	</row>
+	<row id="30">
+		<substance>Хлор</substance>
+		<gas_density>0,0032</gas_density>
+		<liquid_density>1,553</liquid_density>
+		<heat_temperature>-34,1</heat_temperature>
+		<toxic_dose>0,6</toxic_dose>
+		<k1>0,18</k1>
+		<k2>0,052</k2>
+		<k3>1,0</k3>
+		<k7m40>0/0,9</k7m40>
+		<k7m20>0,3/1</k7m20>
+		<k7p0>0,6/1</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>1,4/1</k7p40>
+	</row>
+	<row id="31">
+		<substance>Хлорпикрин</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>1,658</liquid_density>
+		<heat_temperature>112,3</heat_temperature>
+		<toxic_dose>0,02</toxic_dose>
+		<k1>0</k1>
+		<k2>0,002</k2>
+		<k3>30,0</k3>
+		<k7m40>0,03</k7m40>
+		<k7m20>0,1</k7m20>
+		<k7p0>0,3</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,9</k7p40>
+	</row>
+	<row id="32">
+		<substance>Хлорциан</substance>
+		<gas_density>0,0021</gas_density>
+		<liquid_density>1,220</liquid_density>
+		<heat_temperature>12,6</heat_temperature>
+		<toxic_dose>0,75</toxic_dose>
+		<k1>0,04</k1>
+		<k2>0,048</k2>
+		<k3>0,80</k3>
+		<k7m40>0/0</k7m40>
+		<k7m20>0/0</k7m20>
+		<k7p0>0/0,6</k7p0>
+		<k7p20>1/1</k7p20>
+		<k7p40>3,9/1</k7p40>
+	</row>
+	<row id="33">
+		<substance>Этиленимин</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,838</liquid_density>
+		<heat_temperature>55,0</heat_temperature>
+		<toxic_dose>4,8</toxic_dose>
+		<k1>0</k1>
+		<k2>0,009</k2>
+		<k3>0,125</k3>
+		<k7m40>0,05</k7m40>
+		<k7m20>0,1</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,2</k7p40>
+	</row>
+	<row id="34">
+		<substance>Этиленсульфид</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>1,005</liquid_density>
+		<heat_temperature>55,0</heat_temperature>
+		<toxic_dose>0,1*</toxic_dose>
+		<k1>0</k1>
+		<k2>0,013</k2>
+		<k3>6,0</k3>
+		<k7m40>0,05</k7m40>
+		<k7m20>0,1</k7m20>
+		<k7p0>0,4</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>2,2</k7p40>
+	</row>
+	<row id="35">
+		<substance>Этилмеркаптан</substance>
+		<gas_density>-</gas_density>
+		<liquid_density>0,839</liquid_density>
+		<heat_temperature>35</heat_temperature>
+		<toxic_dose>2,2**</toxic_dose>
+		<k1>0</k1>
+		<k2>0,028</k2>
+		<k3>0,27</k3>
+		<k7m40>0,1</k7m40>
+		<k7m20>0,2</k7m20>
+		<k7p0>0,5</k7p0>
+		<k7p20>1</k7p20>
+		<k7p40>1,7</k7p40>
+	</row>
+</table>
