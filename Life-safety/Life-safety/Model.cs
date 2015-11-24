@@ -27,7 +27,7 @@ namespace Life_safety
         {
             float mass_first_cloud = coeffs[1] * coeffs[3] *
                                      coeffs[5] * coeffs[7] *
-                                     damageParams.mass;
+                                     damageParams.Mass;
             
             float time_steam = timeOfSteam();
             if (time_steam < 1.0f) time_steam = 1.0f;
@@ -40,11 +40,11 @@ namespace Life_safety
             float mass_second_cloud = (1.0f - coeffs[1]) * coeffs[2] *
                                       coeffs[3] * coeffs[4] *
                                       coeffs[5] * coeffs[6] *
-                                      coeffs[7] * damageParams.mass /
-                                      damageParams.thickness / density;
+                                      coeffs[7] * damageParams.Mass /
+                                      damageParams.Thickness / density;
 
-            float transSpeed = paramLoader.loadTranslationSpeed();
-            float max_depth = time * transSpeed;
+            float trans_speed = paramLoader.loadTranslationSpeed();
+            float max_depth = time * trans_speed;
 
             float depth_first = paramLoader.loadDepth(mass_first_cloud);
             float depth_second = paramLoader.loadDepth(mass_second_cloud);
@@ -56,7 +56,7 @@ namespace Life_safety
 
         private float timeOfSteam()
         {
-            return (damageParams.thickness * density) / 
+            return (damageParams.Thickness * density) / 
                    (coeffs[2] * coeffs[4] * coeffs[7]);
         }
 
