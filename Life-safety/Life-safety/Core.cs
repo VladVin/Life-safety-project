@@ -23,25 +23,25 @@ namespace Life_safety
             public enum TemperatureType { Freezy, Cold, Norm, Warm, Hot }
 
             // Substance params
-            public Substance substance;
-            public SubstanceState substanceState;
-            public float mass;
-            public float thickness;
+            private Substance substance;
+            private SubstanceState substanceState;
+            private float mass;
+            private float thickness;
 
             // Air params
-            public float windSpeed;
-            public AirType airType;
-            public OverflowType overflowType;
-            public TemperatureType temperature;
+            private float windSpeed;
+            private AirType airType;
+            private OverflowType overflowType;
+            private TemperatureType temperature;
         }
 
         public class DangerZone
         {
-            public float width;
-            public float depth;
-            public Point position;
-            public float azimuth;
-            public float area;
+            private float width;
+            private float depth;
+            private Point position;
+            private float azimuth;
+            private float area;
         }
     }
 }
