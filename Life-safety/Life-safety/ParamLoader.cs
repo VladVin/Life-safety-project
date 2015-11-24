@@ -184,5 +184,48 @@ namespace Life_safety
             }
             return result.ToArray();
         }
+
+        string[] getSubstancesStates()
+        {
+            return new string[] { "Газ", "Жидкость"};
+        }
+        public float[] getSubstancesMasses()
+        {
+            List<float> result = new List<float>();
+            DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
+            foreach (DataColumn column in table.Columns)
+            {
+                result.Add(float.Parse(column.ColumnName));
+            }
+            return result.ToArray();
+        }
+        float[] getWindSpeedVariants()
+        {
+            List<float> result = new List<float>();
+            DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
+            foreach (DataRow row in table.Rows)
+            {
+                result.Add(float.Parse((string)row["velocity"]));
+            }
+            return result.ToArray();
+        }
+        string[] getAirTypes()
+        {
+            List<string> result = new List<string>();
+            DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
+            foreach (DataRow row in table.Rows)
+            {
+                result.Add((string)row["state"]);
+            }
+            return result.ToArray();
+        }
+        String[] getOverflowTypes()
+        {
+            return new string[] {"В поддон", "Открыто"}
+        }
+        float[] getTemperatureVariants()
+        {
+            return new float[] { -40, -20, 0, 20, 40 };
+        }
     }
 } 
