@@ -125,7 +125,24 @@ namespace Life_safety
         
         public float loadDensity()
         {
-            // Stub
+            DataTable table = dataLoader.GetTable(DataLoader.Table.SUBSTANCES);
+            foreach (DataRow row in table.Rows)
+            {
+                string field;
+                if (damageParams.SubstanceState == Core.DamageParams.SubstanceStateType.Fluid)
+                {
+                    field = "liquid_density";
+                }
+                else
+                {
+                    field = "gas_density";
+                }
+                if ((string)row["substance"] == damageParams.Substance.ToString())
+                {
+                    float result = float.Parse((string)row[field]);
+                    return result;
+                }
+            }
             return 0;
         }
     }
