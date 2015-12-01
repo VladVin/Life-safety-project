@@ -12,10 +12,14 @@ namespace Life_safety
         private Core.DamageParams damageParams;
         private DataLoader dataLoader;
         
-        public ParametersLoader(Core.DamageParams damageParams, DataLoader dataLoader)
+        public ParametersLoader()
+        {
+            this.dataLoader = new DataLoader();
+        }
+
+        public void updateDamageParams(Core.DamageParams damageParams)
         {
             this.damageParams = damageParams;
-            this.dataLoader = dataLoader;
         }
         
         public float loadDepth(float windSpeed, float mass)
@@ -128,6 +132,8 @@ namespace Life_safety
 
     public class DataLoader
     {
+        private const string DATA_PATH = "../../../../data/xml/";    // Bin path
+
         public enum Table
         {
             ATMOSPHERE,
@@ -140,14 +146,14 @@ namespace Life_safety
         private readonly string[] tablesName = { "", "", "", "toxic_substances.xml", "" };
         private DataSet[] tables = new DataSet[5];
         
-        public DataLoader(string dataPath)
+        public DataLoader()
         {
             for (int i = 0; i < tablesName.Length; i++)
             {
                 if (tablesName[i] == "")
                     continue;
                 tables[i] = new DataSet();
-                string file = dataPath + tablesName[i];
+                string file = DATA_PATH + tablesName[i];
                 tables[i].ReadXml(file);
                 if (tables[i].Tables.Count != 1)
                     throw new Exception("XML parsing error");
@@ -177,9 +183,9 @@ namespace Life_safety
     {
         private DataLoader dataLoader;
         
-        public InitSubstanceLoader(DataLoader dataLoader)
+        public InitSubstanceLoader()
         {
-            this.dataLoader = dataLoader;
+            this.dataLoader = new DataLoader();
         }
         
         public string[] getSubstancesNames()

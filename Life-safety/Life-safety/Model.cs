@@ -14,14 +14,17 @@ namespace Life_safety
         private float[] coeffs;
         private float density;
 
-        Model(Core.DamageParams damageParams)
+        Model()
         {
-            this.damageParams = damageParams;
-
-            // FIXME
-            paramLoader = new ParametersLoader(damageParams, new DataLoader("giveMePath"));
+            paramLoader = new ParametersLoader();
             coeffs = paramLoader.loadCoeffs();
             density = paramLoader.loadDensity();
+        }
+
+        public void updateDamageParams(Core.DamageParams damageParams)
+        {
+            this.damageParams = damageParams;
+            paramLoader.updateDamageParams(damageParams);
         }
     
         private float depth(float time)
@@ -53,7 +56,6 @@ namespace Life_safety
             float depth = Math.Max(depth_first, depth_second) + 0.5f * Math.Min(depth_first, depth_second);
 
             return Math.Min(max_depth, depth);
-            return 0.0f;
         }
 
         private float timeOfSteam()
