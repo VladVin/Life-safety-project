@@ -125,7 +125,24 @@ namespace Life_safety
         
         public float loadDensity()
         {
-            // Stub
+            DataTable table = dataLoader.GetTable(DataLoader.Table.SUBSTANCES);
+            foreach (DataRow row in table.Rows)
+            {
+                string field;
+                if (damageParams.SubstanceState == Core.DamageParams.SubstanceStateType.Fluid)
+                {
+                    field = "liquid_density";
+                }
+                else
+                {
+                    field = "gas_density";
+                }
+                if ((string)row["substance"] == damageParams.Substance.ToString())
+                {
+                    float result = float.Parse((string)row[field]);
+                    return result;
+                }
+            }
             return 0;
         }
     }
@@ -143,7 +160,7 @@ namespace Life_safety
             WIND_VELOCITY
         }
 
-        private readonly string[] tablesName = { "", "", "", "toxic_substances.xml", "" };
+        private readonly string[] tablesName = { "", "depth.xml", "toxic_substances.xml", "k4.xml" , "wind_velocity.xml" };
         private DataSet[] tables = new DataSet[5];
         
         public DataLoader()
@@ -210,7 +227,7 @@ namespace Life_safety
             DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
             foreach (DataColumn column in table.Columns)
             {
-                result.Add(float.Parse(column.ColumnName));
+                result.Add(float.Parse(column.ColumnName.Substring(1)));
             }
             return result.ToArray();
         }
@@ -218,10 +235,10 @@ namespace Life_safety
         public float[] getWindSpeedVariants()
         {
             List<float> result = new List<float>();
-            DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
-            foreach (DataRow row in table.Rows)
+            DataTable table = dataLoader.GetTable(DataLoader.Table.WIND_VELOCITY);
+            foreach (DataColumn column in table.Columns)
             {
-                result.Add(float.Parse((string)row["velocity"]));
+                result.Add(float.Parse(column.ColumnName.Substring(1)));
             }
             return result.ToArray();
         }
@@ -229,7 +246,7 @@ namespace Life_safety
         public string[] getAirTypes()
         {
             List<string> result = new List<string>();
-            DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
+            DataTable table = dataLoader.GetTable(DataLoader.Table.WIND_VELOCITY);
             foreach (DataRow row in table.Rows)
             {
                 result.Add((string)row["state"]);
