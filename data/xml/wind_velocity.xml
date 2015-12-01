@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <table>
 	<row id="inv">
+		<state>Инверсия</state>
 		<v1>5</v1>
 		<v2>10</v2>
 		<v3>16</v3>
@@ -18,6 +19,7 @@
 		<v15>-</v15>
 	</row>
 	<row id="izo">
+		<state>Изотермия</state>
 		<v1>6</v1>
 		<v2>12</v2>
 		<v3>18</v3>
@@ -35,6 +37,7 @@
 		<v15>88</v15>
 	</row>
 	<row id="conv">
+		<state>Конверсия</state>
 		<v1>7</v1>
 		<v2>14</v2>
 		<v3>21</v3>
