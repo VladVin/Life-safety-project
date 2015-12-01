@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Life_safety
 {
-    class Core
+    public class Core
     {
         public class DamageParams
         {

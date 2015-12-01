@@ -135,7 +135,7 @@ namespace Life_safety
         private readonly string[] tablesName = { "", "", "", "toxic_substances.xml", "" };
         private DataSet[] tables = new DataSet[5];
 
-        public DataLoader(String dataPath)
+        public DataLoader(string dataPath)
         {
             for (int i = 0; i < tablesName.Length; i++)
             {
@@ -219,9 +219,9 @@ namespace Life_safety
             }
             return result.ToArray();
         }
-        String[] getOverflowTypes()
+        string[] getOverflowTypes()
         {
-            return new string[] {"В поддон", "Открыто"}
+            return new string[] { "В поддон", "Открыто" };
         }
         float[] getTemperatureVariants()
         {
