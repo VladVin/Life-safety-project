@@ -227,6 +227,8 @@ namespace Life_safety
             DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
             foreach (DataColumn column in table.Columns)
             {
+                if (column.ColumnName == "velocity" || column.ColumnName == "id")
+                    continue;
                 result.Add(float.Parse(column.ColumnName.Substring(1)));
             }
             return result.ToArray();
@@ -238,6 +240,8 @@ namespace Life_safety
             DataTable table = dataLoader.GetTable(DataLoader.Table.WIND_VELOCITY);
             foreach (DataColumn column in table.Columns)
             {
+                if (column.ColumnName == "state" || column.ColumnName == "id")
+                    continue;
                 result.Add(float.Parse(column.ColumnName.Substring(1)));
             }
             return result.ToArray();
