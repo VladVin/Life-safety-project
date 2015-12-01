@@ -143,7 +143,7 @@ namespace Life_safety
             WIND_VELOCITY
         }
 
-        private readonly string[] tablesName = { "", "", "", "toxic_substances.xml", "" };
+        private readonly string[] tablesName = { "", "depth.xml", "toxic_substances.xml", "k4.xml" , "wind_velocity.xml" };
         private DataSet[] tables = new DataSet[5];
         
         public DataLoader()
