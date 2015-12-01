@@ -9,14 +9,19 @@ namespace Life_safety
 {
     public class ParametersLoader
     {
-        
         private Core.DamageParams damageParams;
         private DataLoader dataLoader;
-        public ParametersLoader(Core.DamageParams damageParams, DataLoader dataLoader)
+        
+        public ParametersLoader()
+        {
+            this.dataLoader = new DataLoader();
+        }
+
+        public void updateDamageParams(Core.DamageParams damageParams)
         {
             this.damageParams = damageParams;
-            this.dataLoader = dataLoader;
         }
+        
         public float loadDepth(float windSpeed, float mass)
         {
             DataTable table = dataLoader.GetTable(DataLoader.Table.SUBSTANCES);
@@ -31,6 +36,7 @@ namespace Life_safety
 
             throw new Exception("Incorrect depth data");
         }
+        
         public float[] loadCoeffs()
         {
             DataTable table = dataLoader.GetTable(DataLoader.Table.SUBSTANCES);
@@ -88,6 +94,7 @@ namespace Life_safety
             }
             return null;
         }
+        
         public float loadTranslationSpeed()
         {
             DataTable table = dataLoader.GetTable(DataLoader.Table.WIND_VELOCITY);
@@ -101,6 +108,7 @@ namespace Life_safety
             }
             return 0;
         }
+        
         public float loadDepth(float equivalentMass)
         {
             DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
@@ -114,6 +122,7 @@ namespace Life_safety
             }
             return 0;
         }
+        
         public float loadDensity()
         {
             // Stub
@@ -123,6 +132,8 @@ namespace Life_safety
 
     public class DataLoader
     {
+        private const string DATA_PATH = "../../../../data/xml/";    // Bin path
+
         public enum Table
         {
             ATMOSPHERE,
@@ -134,15 +145,15 @@ namespace Life_safety
 
         private readonly string[] tablesName = { "", "", "", "toxic_substances.xml", "" };
         private DataSet[] tables = new DataSet[5];
-
-        public DataLoader(string dataPath)
+        
+        public DataLoader()
         {
             for (int i = 0; i < tablesName.Length; i++)
             {
                 if (tablesName[i] == "")
                     continue;
                 tables[i] = new DataSet();
-                string file = dataPath + tablesName[i];
+                string file = DATA_PATH + tablesName[i];
                 tables[i].ReadXml(file);
                 if (tables[i].Tables.Count != 1)
                     throw new Exception("XML parsing error");
@@ -167,13 +178,16 @@ namespace Life_safety
             throw new Exception("Incorrect table ID");
         }
     }
+
     public class InitSubstanceLoader
     {
         private DataLoader dataLoader;
-        public InitSubstanceLoader(DataLoader dataLoader)
+        
+        public InitSubstanceLoader()
         {
-            this.dataLoader = dataLoader;
+            this.dataLoader = new DataLoader();
         }
+        
         public string[] getSubstancesNames()
         {
             List<string> result = new List<string>();
@@ -185,10 +199,11 @@ namespace Life_safety
             return result.ToArray();
         }
 
-        string[] getSubstancesStates()
+        public string[] getSubstancesStates()
         {
             return new string[] { "Газ", "Жидкость"};
         }
+        
         public float[] getSubstancesMasses()
         {
             List<float> result = new List<float>();
@@ -199,7 +214,8 @@ namespace Life_safety
             }
             return result.ToArray();
         }
-        float[] getWindSpeedVariants()
+        
+        public float[] getWindSpeedVariants()
         {
             List<float> result = new List<float>();
             DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
@@ -209,7 +225,8 @@ namespace Life_safety
             }
             return result.ToArray();
         }
-        string[] getAirTypes()
+        
+        public string[] getAirTypes()
         {
             List<string> result = new List<string>();
             DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
@@ -219,13 +236,15 @@ namespace Life_safety
             }
             return result.ToArray();
         }
-        string[] getOverflowTypes()
+        
+        public string[] getOverflowTypes()
         {
             return new string[] { "В поддон", "Открыто" };
         }
-        float[] getTemperatureVariants()
+        
+        public int[] getTemperatureVariants()
         {
-            return new float[] { -40, -20, 0, 20, 40 };
+            return new int[] { -40, -20, 0, 20, 40 };
         }
     }
 } 

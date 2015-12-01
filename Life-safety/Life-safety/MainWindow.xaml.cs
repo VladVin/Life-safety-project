@@ -20,9 +20,13 @@ namespace Life_safety
     /// </summary>
     public partial class MainWindow : Window
     {
+        InitSubstanceLoader initSubstanceLoader;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            initSubstanceLoader = new InitSubstanceLoader();
         }
     }
 }
