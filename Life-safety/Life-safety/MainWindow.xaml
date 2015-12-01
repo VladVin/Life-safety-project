@@ -10,7 +10,7 @@
         <BitmapImage x:Key="nn-map" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\projects\courses\life-safety-project\Life-safety\assets\nn_map.png"/>
     </Window.Resources>
     <Grid>
-        <Rectangle Fill="#FFAED581" HorizontalAlignment="Left" Height="109" Margin="10,620,0,0" Stroke="Black" VerticalAlignment="Top" Width="316"/>
+        <Rectangle Fill="#FFAED581" HorizontalAlignment="Left" Height="109" Margin="8,620,0,0" VerticalAlignment="Top" Width="322" Opacity="0.3"/>
         <StackPanel HorizontalAlignment="Left" Height="90" Margin="11,630,0,0" VerticalAlignment="Top" Width="155">
             <ComboBox x:Name="substanceBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
             <ComboBox x:Name="substanceStateBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
@@ -28,7 +28,8 @@
         <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>
         <Slider x:Name="timeBar" Height="30" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" SmallChange="1" Margin="90,547,682,162" Maximum="180"/>
 
-        <StackPanel Orientation="Vertical" Margin="352,579,0,0" Width="270" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Background="#64B5F6">
+        <Rectangle Margin="348,579,0,0" Width="278" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Fill="#64B5F6" Opacity="0.3"/>
+            <StackPanel Orientation="Vertical" Margin="352,579,0,0" Width="270" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Глубина" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                 <TextBlock x:Name="depthField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
@@ -51,14 +52,15 @@
             </StackPanel>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Margin="652,579,0,0" Width="350" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Background="#FFFFB74D">
+        <Rectangle Margin="648,579,0,0" Width="358" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Fill="#FFB74D" Opacity="0.3"/>
+        <StackPanel Orientation="Vertical" Margin="652,579,0,0" Width="350" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Кол-во защищ. людей" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBox x:Name="safetyPeopleCountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20" Background="#FFFFB74D"/>
+                <TextBox x:Name="safetyPeopleCountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20" Background="#FFB74D" Opacity="0.0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Кол-во незащищ. людей" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBox x:Name="nonSafetyPeopleCountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20" Background="#FFFFB74D"/>
+                <TextBox x:Name="nonSafetyPeopleCountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20" Background="#FFB74D" Opacity="0.0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Малой тяжести" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
