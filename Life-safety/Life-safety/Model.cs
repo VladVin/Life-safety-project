@@ -10,7 +10,7 @@ namespace Life_safety
     {
         private Core.DamageParams damageParams;
         private Core.DangerZone dangerZone;
-        //private ParamLoader paramLoader;
+        private ParamLoader paramLoader;
         private float[] coeffs;
         private float density;
 
@@ -18,10 +18,9 @@ namespace Life_safety
         {
             this.damageParams = damageParams;
             
-            // FIXME
-            //paramLoader = new ParamLoader(damageParams);
-            //coeffs = paramLoader.loadCoeffs();
-            //density = paramLoader.loadDensity();
+            paramLoader = new ParamLoader(damageParams);
+            coeffs = paramLoader.loadCoeffs();
+            density = paramLoader.loadDensity();
         }
 
         private float depth(float time)
@@ -44,18 +43,15 @@ namespace Life_safety
                                       coeffs[7] * damageParams.Mass /
                                       damageParams.Thickness / density;
 
-            // FIXME
+            float trans_speed = paramLoader.loadTranslationSpeed();
+            float max_depth = time * trans_speed;
 
-            //float trans_speed = paramLoader.loadTranslationSpeed();
-            //float max_depth = time * trans_speed;
+            float depth_first = paramLoader.loadDepth(mass_first_cloud);
+            float depth_second = paramLoader.loadDepth(mass_second_cloud);
 
-            //float depth_first = paramLoader.loadDepth(mass_first_cloud);
-            //float depth_second = paramLoader.loadDepth(mass_second_cloud);
+            float depth = Math.Max(depth_first, depth_second) + 0.5f * Math.Min(depth_first, depth_second);
 
-            //float depth = Math.Max(depth_first, depth_second) + 0.5f * Math.Min(depth_first, depth_second);
-
-            //return Math.Min(max_depth, depth);
-            return 0.0f;
+            return Math.Min(max_depth, depth);
         }
 
         private float timeOfSteam()
