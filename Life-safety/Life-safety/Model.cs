@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace Life_safety
 {
-    class Model
+    public class Model
     {
         private Core.DamageParams damageParams;
         private ParametersLoader paramLoader;
         private float[] coeffs;
         private float density;
 
-        Model()
+        public Model()
         {
-            paramLoader = new ParametersLoader();
-            coeffs = paramLoader.loadCoeffs();
-            density = paramLoader.loadDensity();
+            this.paramLoader = new ParametersLoader();
         }
 
         public void updateDamageParams(Core.DamageParams damageParams)
@@ -25,13 +23,52 @@ namespace Life_safety
             this.damageParams = damageParams;
             paramLoader.updateDamageParams(damageParams);
         }
-    
+
+        public Core.PossibleDangerZone getPossibleDangerZone(float time)
+        {
+            coeffs = paramLoader.loadCoeffs();
+            paramLoader = new ParametersLoader();
+            density = paramLoader.loadDensity();
+            Core.PossibleDangerZone pDangerZone = new Core.PossibleDangerZone();
+            pDangerZone.Angle = Angle();
+            pDangerZone.Depth = Depth(time);
+            pDangerZone.Area = PossibleZoneArea(time);
+            pDangerZone.Position = damageParams.Position;
+            pDangerZone.Direction = damageParams.WindVector;
+            return pDangerZone;
+        }
+
+        public Core.RealDangerZone getRealDangerZone(float time)
+        {
+            coeffs = paramLoader.loadCoeffs();
+            paramLoader = new ParametersLoader();
+            density = paramLoader.loadDensity();
+            Core.RealDangerZone rDangerZone = new Core.RealDangerZone();
+            rDangerZone.Depth = Depth(time);
+            rDangerZone.Area = RealZoneArea(time);
+            rDangerZone.Width = Width(rDangerZone.Depth);
+            rDangerZone.Position = damageParams.Position;
+            rDangerZone.Direction = damageParams.WindVector;
+            rDangerZone.ShiftedCenter = ShiftedCenter(rDangerZone.Depth);
+            return rDangerZone;
+        }
+
+        public float TimeOfComing(System.Windows.Point point)
+        {
+            float trans_speed = paramLoader.loadTranslationSpeed();
+            System.Windows.Vector v = new System.Windows.Vector(
+                point.X - damageParams.Position.X, 
+                point.Y - damageParams.Position.Y);
+            float dist = (float)v.Length;
+            return dist / trans_speed;
+        }
+
         private float Depth(float time)
         {
             float mass_first_cloud = coeffs[1] * coeffs[3] *
                                      coeffs[5] * coeffs[7] *
                                      damageParams.Mass;
-            
+
             float time_steam = TimeOfSteam();
             if (time_steam < 1.0f) time_steam = 1.0f;
             if (time < time_steam)
@@ -62,7 +99,7 @@ namespace Life_safety
 
         public float TimeOfSteam()
         {
-            return (damageParams.Thickness * density) / 
+            return (damageParams.Thickness * density) /
                    (coeffs[2] * coeffs[4] * coeffs[7]);
         }
 
@@ -169,39 +206,6 @@ namespace Life_safety
             float depth = Depth(time);
 
             return coeff8 * depth * depth * (float)Math.Pow(time, 0.2);
-        }
-
-        public Core.PossibleDangerZone getPossibleDangerZone(float time)
-        {
-            Core.PossibleDangerZone pDangerZone = new Core.PossibleDangerZone();
-            pDangerZone.Angle = Angle();
-            pDangerZone.Depth = Depth(time);
-            pDangerZone.Area = PossibleZoneArea(time);
-            pDangerZone.Position = damageParams.Position;
-            pDangerZone.Direction = damageParams.WindVector;
-            return pDangerZone;
-        }
-
-        public Core.RealDangerZone getRealDangerZone(float time)
-        {
-            Core.RealDangerZone rDangerZone = new Core.RealDangerZone();
-            rDangerZone.Depth = Depth(time);
-            rDangerZone.Area = RealZoneArea(time);
-            rDangerZone.Width = Width(rDangerZone.Depth);
-            rDangerZone.Position = damageParams.Position;
-            rDangerZone.Direction = damageParams.WindVector;
-            rDangerZone.ShiftedCenter = ShiftedCenter(rDangerZone.Depth);
-            return rDangerZone;
-        }
-
-        public float TimeOfComing(System.Windows.Point point)
-        {
-            float trans_speed = paramLoader.loadTranslationSpeed();
-            System.Windows.Vector v = new System.Windows.Vector(
-                point.X - damageParams.Position.X, 
-                point.Y - damageParams.Position.Y);
-            float dist = (float)v.Length;
-            return dist / trans_speed;
         }
     }
 }

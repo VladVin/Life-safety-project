@@ -42,7 +42,7 @@ namespace Life_safety
             DataTable table = dataLoader.GetTable(DataLoader.Table.SUBSTANCES);
             foreach (DataRow row in table.Rows)
             {
-                if ((string)row["substance"] == damageParams.Substance.ToString())
+                if ((string)row["substance"] == damageParams.Substance)
                 {
                     float[] result = new float[8];
                     result[0] = float.Parse((string)row["k1"]);

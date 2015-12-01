@@ -11,19 +11,13 @@ namespace Life_safety
     {
         public class DamageParams
         {
-            public enum SubstanceType { Ammonia }
-            public enum SubstanceStateType { Gas, Fluid }
-
-            public enum AirType { Convection, Isotermia, Inversion }
-            public enum Clouds
-            {
-                Clean, Cloudy
-            }
-            public enum OverflowType { Free, VPoddon }
-            public enum TemperatureType { Freezy, Cold, Norm, Warm, Hot }
+            public enum SubstanceStateType {None, Gas, Fluid }
+            public enum OverflowType { None, Free, VPoddon }
+            public enum TemperatureType { None, Freezy, Cold, Norm, Warm, Hot }
+            public enum AirType { None, Convection, Isotermia, Inversion }
 
             // Substance params
-            private SubstanceType substance;
+            private string substance;
             private SubstanceStateType substanceState;
             private float mass;
             private float thickness;
@@ -35,7 +29,9 @@ namespace Life_safety
             private OverflowType overflow;
             private TemperatureType temperature;
 
-            public SubstanceType Substance
+            private float time;
+
+            public string Substance
             {
                 get
                 {
@@ -152,6 +148,18 @@ namespace Life_safety
                 set
                 {
                     temperature = value;
+                }
+            }
+
+            public float Time
+            {
+                get
+                {
+                    return time;
+                }
+                set
+                {
+                    time = value;
                 }
             }
         }
