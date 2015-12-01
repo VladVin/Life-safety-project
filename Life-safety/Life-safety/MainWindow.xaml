@@ -10,18 +10,72 @@
         <BitmapImage x:Key="nn-map" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\projects\courses\life-safety-project\Life-safety\assets\nn_map.png"/>
     </Window.Resources>
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="150" Margin="19,30,0,0" VerticalAlignment="Top" Width="149">
-            <ComboBox x:Name="substanceBox"/>
-            <ComboBox x:Name="substanceStateBox"/>
-            <TextBox x:Name="substanceMassField"/>
-            <TextBox x:Name="windSpeedField"/>
-            <ComboBox x:Name="airTypeBox"/>
-            <ComboBox x:Name="airOverflowTypeBox"/>
-            <ComboBox x:Name="temperatureTypeBox"/>
+        <Rectangle Fill="#FFAED581" HorizontalAlignment="Left" Height="109" Margin="10,620,0,0" Stroke="Black" VerticalAlignment="Top" Width="316"/>
+        <StackPanel HorizontalAlignment="Left" Height="90" Margin="11,630,0,0" VerticalAlignment="Top" Width="155">
+            <ComboBox x:Name="substanceBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
+            <ComboBox x:Name="substanceStateBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
+            <ComboBox x:Name="substanceMassField" Background="#FFAED581" BorderBrush="#FFAED581"/>
+            <ComboBox x:Name="windSpeedField" Background="#FFAED581" BorderBrush="#FFAED581"/>
         </StackPanel>
-        <Image x:Name="mapField" HorizontalAlignment="Left" Height="500" Margin="191,30,0,0" VerticalAlignment="Top" Width="800" Source="{DynamicResource nn-map}"/>
-        <TextBlock x:Name="timeBarDescription" Text="Время" Height="30" Width="100" Margin="191,463,787,246"/>
-        <Slider x:Name="timeBar" Height="30" Width="300" Margin="246,463,472,246"/>
+
+        <StackPanel HorizontalAlignment="Left" Height="70" Margin="171,630,0,0" VerticalAlignment="Top" Width="155">
+            <ComboBox x:Name="airTypeBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
+            <ComboBox x:Name="airOverflowTypeBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
+            <ComboBox x:Name="temperatureTypeBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
+        </StackPanel>
+
+        <Image x:Name="mapField" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" Source="{DynamicResource nn-map}"/>
+        <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>
+        <Slider x:Name="timeBar" Height="30" AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" SmallChange="1" Margin="90,547,682,162" Maximum="180"/>
+
+        <StackPanel Orientation="Vertical" Margin="352,579,0,0" Width="270" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Background="#64B5F6">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Глубина" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="depthField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ширина" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="widthField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Площадь" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="areaField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время подхода" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" TextAlignment="Justify"/>
+                <TextBlock x:Name="timeField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время испарения" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" TextAlignment="Justify"/>
+                <TextBlock x:Name="safetyTimeField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Margin="652,579,0,0" Width="350" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Background="#FFFFB74D">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Кол-во защищ. людей" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                <TextBox x:Name="safetyPeopleCountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20" Background="#FFFFB74D"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Кол-во незащищ. людей" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                <TextBox x:Name="nonSafetyPeopleCountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20" Background="#FFFFB74D"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Малой тяжести" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="death1CountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Средней тяжести" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="death2CountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="С летальным исходом" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
+                <TextBlock x:Name="death3CountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+            </StackPanel>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Margin="68,582,0,0" TextWrapping="Wrap" Text="Параметры АХОВ" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
+        <TextBlock HorizontalAlignment="Left" Margin="352,544,0,0" TextWrapping="Wrap" Text="Распространение АХОВ" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
+        <TextBlock HorizontalAlignment="Left" Margin="785,541,0,0" TextWrapping="Wrap" Text="Потери" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
 
     </Grid>
 </Window>
