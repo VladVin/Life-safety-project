@@ -13,15 +13,15 @@
         <Rectangle Fill="#FFAED581" HorizontalAlignment="Left" Height="109" Margin="8,620,0,0" VerticalAlignment="Top" Width="322" Opacity="0.3"/>
         <StackPanel HorizontalAlignment="Left" Height="90" Margin="11,630,0,0" VerticalAlignment="Top" Width="155">
             <ComboBox x:Name="substanceBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceBox_SelectionChanged"/>
-            <ComboBox x:Name="substanceStateBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
-            <ComboBox x:Name="substanceMassBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
-            <ComboBox x:Name="windSpeedBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
+            <ComboBox x:Name="substanceStateBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceStateBox_SelectionChanged"/>
+            <ComboBox x:Name="substanceMassBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceMassBox_SelectionChanged"/>
+            <ComboBox x:Name="windSpeedBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="windSpeedBox_SelectionChanged"/>
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Left" Height="70" Margin="171,630,0,0" VerticalAlignment="Top" Width="155">
-            <ComboBox x:Name="airTypeBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
-            <ComboBox x:Name="overflowTypeBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
-            <ComboBox x:Name="temperatureTypeBox" Background="#FFAED581" BorderBrush="#FFAED581"/>
+            <ComboBox x:Name="airTypeBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="airTypeBox_SelectionChanged"/>
+            <ComboBox x:Name="overflowTypeBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="overflowTypeBox_SelectionChanged"/>
+            <ComboBox x:Name="temperatureTypeBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="temperatureTypeBox_SelectionChanged"/>
         </StackPanel>
 
         <Image x:Name="mapField" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" Source="{DynamicResource nn-map}"/>

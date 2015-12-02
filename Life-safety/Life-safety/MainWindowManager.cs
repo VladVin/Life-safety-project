@@ -11,17 +11,19 @@ namespace Life_safety
     {
         private MainWindow mainWindow;
         private Core.DamageParams damageParams;
+        private Vector normWindVector;
         private Model model;
 
         public MainWindowManager(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
 
+            this.normWindVector = new Vector(1.0, 0.0);
             this.damageParams = new Core.DamageParams();
             this.damageParams.Substance = "";
             this.damageParams.SubstanceState = Core.DamageParams.SubstanceStateType.None;
             this.damageParams.Mass = -1.0f;
-            this.damageParams.WindVector = new Vector(0.0f, 0.0f);
+            this.damageParams.WindVector = new Vector(1.0, 0.0);
             this.damageParams.Position = new Point(0.0, 0.0);
             this.damageParams.Air = Core.DamageParams.AirType.None;
             this.damageParams.Overflow = Core.DamageParams.OverflowType.None;
@@ -33,6 +35,72 @@ namespace Life_safety
         public void UpdateSubstanceName(string substanceName)
         {
             damageParams.Substance = substanceName;
+            UpdateAll();
+        }
+
+        public void UpdateSubstanceState(Core.DamageParams.SubstanceStateType substanceState)
+        {
+            damageParams.SubstanceState = substanceState;
+            UpdateAll();
+        }
+
+        public void UpdateSubstanceMass(float mass)
+        {
+            damageParams.Mass = mass;
+            UpdateAll();
+        }
+
+        public void UpdateWindVector(Vector windVector)
+        {
+            if (windVector.Length != 0.0)
+            {
+                normWindVector = windVector / windVector.Length;
+            }
+            else
+            {
+                normWindVector.X = 0.0;
+                normWindVector.Y = 0.0;
+            }
+            damageParams.WindVector = normWindVector * damageParams.WindSpeed;
+            UpdateAll();
+        }
+
+        public void UpdateWindSpeed(float windSpeed)
+        {
+            if (damageParams.WindVector.Length != 0.0)
+            {
+                normWindVector = damageParams.WindVector / damageParams.WindVector.Length;
+            }
+            else
+            {
+                normWindVector.X = 0.0;
+                normWindVector.Y = 0.0;
+            }
+            damageParams.WindVector = normWindVector * windSpeed;
+            UpdateAll();
+        }
+
+        public void UpdatePosition(Point position)
+        {
+            damageParams.Position = position;
+            UpdateAll();
+        }
+
+        public void UpdateAirType(Core.DamageParams.AirType airType)
+        {
+            damageParams.Air = airType;
+            UpdateAll();
+        }
+
+        public void UpdateOverflow(Core.DamageParams.OverflowType overflowType)
+        {
+            damageParams.Overflow = overflowType;
+            UpdateAll();
+        }
+
+        public void UpdateTemperature(Core.DamageParams.TemperatureType temperatureType)
+        {
+            damageParams.Temperature = temperatureType;
             UpdateAll();
         }
 
