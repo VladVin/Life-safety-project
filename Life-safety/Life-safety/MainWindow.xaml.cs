@@ -52,17 +52,17 @@ namespace Life_safety
                 substanceStateBox.Items.Add(substanceState);
             }
 
-            //float[] masses = initSubstanceLoader.getSubstancesMasses();
-            //foreach (float mass in masses)
-            //{
-            //    substanceMassBox.Items.Add(Convert.ToString(mass));
-            //}
+            float[] masses = initSubstanceLoader.getSubstancesMasses();
+            foreach (float mass in masses)
+            {
+                substanceMassBox.Items.Add(Convert.ToString(mass));
+            }
 
-            //float[] windSpeedVariants = initSubstanceLoader.getWindSpeedVariants();
-            //foreach (float windSpeedVariant in windSpeedVariants)
-            //{
-            //    windSpeedBox.Items.Add(Convert.ToString(windSpeedVariant));
-            //}
+            float[] windspeedvariants = initSubstanceLoader.getWindSpeedVariants();
+            foreach (float windspeedvariant in windspeedvariants)
+            {
+                windSpeedBox.Items.Add(Convert.ToString(windspeedvariant));
+            }
 
             string[] airTypes = initSubstanceLoader.getAirTypes();
             foreach (string airType in airTypes)

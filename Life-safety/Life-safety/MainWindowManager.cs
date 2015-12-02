@@ -18,12 +18,12 @@ namespace Life_safety
         {
             this.mainWindow = mainWindow;
 
-            this.normWindVector = new Vector(0.0, 0.0);
+            this.normWindVector = new Vector(1.0, 0.0);
             this.damageParams = new Core.DamageParams();
             this.damageParams.Substance = "";
             this.damageParams.SubstanceState = Core.DamageParams.SubstanceStateType.None;
             this.damageParams.Mass = -1.0f;
-            this.damageParams.WindVector = new Vector(0.0f, 0.0f);
+            this.damageParams.WindVector = new Vector(1.0, 0.0);
             this.damageParams.Position = new Point(0.0, 0.0);
             this.damageParams.Air = Core.DamageParams.AirType.None;
             this.damageParams.Overflow = Core.DamageParams.OverflowType.None;
