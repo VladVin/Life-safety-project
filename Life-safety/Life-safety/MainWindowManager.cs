@@ -104,13 +104,22 @@ namespace Life_safety
             UpdateAll();
         }
 
+        public void UpdateTime(float time)
+        {
+            damageParams.Time = time;
+            UpdateAll();
+        }
+
         private void UpdateAll()
         {
             if (!isReadyToCalculate()) return;
+            damageParams.Thickness = 0.05f;
             model.updateDamageParams(damageParams);
             Core.PossibleDangerZone possibleDangerZone = model.getPossibleDangerZone(damageParams.Time);
             Core.RealDangerZone realDangerZone = model.getRealDangerZone(damageParams.Time);
-            mainWindow.RefreshAll(possibleDangerZone, realDangerZone);
+            float timeOfComing = model.TimeOfComing(new Point(3.0, 3.0));
+            float timeOfSteam = model.TimeOfSteam();
+            mainWindow.RefreshAll(possibleDangerZone, realDangerZone, timeOfComing, timeOfSteam);
         }
 
         private bool isReadyToCalculate()

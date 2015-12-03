@@ -27,7 +27,6 @@ namespace Life_safety
         public Core.PossibleDangerZone getPossibleDangerZone(float time)
         {
             coeffs = paramLoader.loadCoeffs();
-            paramLoader = new ParametersLoader();
             density = paramLoader.loadDensity();
             Core.PossibleDangerZone pDangerZone = new Core.PossibleDangerZone();
             pDangerZone.Angle = Angle();
@@ -41,7 +40,6 @@ namespace Life_safety
         public Core.RealDangerZone getRealDangerZone(float time)
         {
             coeffs = paramLoader.loadCoeffs();
-            paramLoader = new ParametersLoader();
             density = paramLoader.loadDensity();
             Core.RealDangerZone rDangerZone = new Core.RealDangerZone();
             rDangerZone.Depth = Depth(time);
@@ -61,6 +59,12 @@ namespace Life_safety
                 point.Y - damageParams.Position.Y);
             float dist = (float)v.Length;
             return dist / trans_speed;
+        }
+
+        public float TimeOfSteam()
+        {
+            return (damageParams.Thickness * density) /
+                   (coeffs[2] * coeffs[4] * coeffs[7]);
         }
 
         private float Depth(float time)
@@ -95,12 +99,6 @@ namespace Life_safety
             float depth = Math.Max(depth_first, depth_second) + 0.5f * Math.Min(depth_first, depth_second);
 
             return Math.Min(max_depth, depth);
-        }
-
-        public float TimeOfSteam()
-        {
-            return (damageParams.Thickness * density) /
-                   (coeffs[2] * coeffs[4] * coeffs[7]);
         }
 
         private float Angle()
