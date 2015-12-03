@@ -27,7 +27,7 @@
         <Image x:Name="mapField" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" Source="{DynamicResource nn-map}"/>
         <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>
         <TextBox x:Name="timeTextField" Text="{Binding ElementName=timeSlider, Path=Value, StringFormat='{}{0:F0}'}"  Width="40" Height="30" Margin="90,547,888,162" TextAlignment="Center"/>
-        <Slider x:Name="timeSlider" Height="30" Margin="130,547,682,162" Maximum="180" Value="{Binding ElementName=timeTextField, Path=Text}" SmallChange="1"/>
+        <Slider x:Name="timeSlider" Height="30" Margin="130,547,682,162" Maximum="180" Value="{Binding ElementName=timeTextField, Path=Text}" SmallChange="1" ValueChanged="timeSlider_ValueChanged"/>
 
         <Rectangle Margin="348,579,0,0" Width="278" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Fill="#64B5F6" Opacity="0.3"/>
             <StackPanel Orientation="Vertical" Margin="352,579,0,0" Width="270" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top">
@@ -37,7 +37,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ширина" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBlock x:Name="widthField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+                <TextBlock x:Name="widthField" HorizontalAlignment="Left" TextWrapping="Wrap" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Площадь" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
@@ -49,7 +49,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время испарения" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" TextAlignment="Justify"/>
-                <TextBlock x:Name="safetyTimeField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
+                <TextBlock x:Name="timeOfSteamField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
             </StackPanel>
         </StackPanel>
 

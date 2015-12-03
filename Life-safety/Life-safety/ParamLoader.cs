@@ -51,24 +51,24 @@ namespace Life_safety
 
                     switch(damageParams.Temperature)
                     {
-                        case Core.DamageParams.TemperatureType.Cold:
-                            result[7] = float.Parse((string)row["k7m40"]);
+                        case Core.DamageParams.TemperatureType.Freezy:
+                            result[7] = float.Parse(((string)row["k7m40"]).Split('/')[0]);
                             break;
 
-                        case Core.DamageParams.TemperatureType.Freezy:
-                            result[7] = float.Parse((string)row["k7m20"]);
+                        case Core.DamageParams.TemperatureType.Cold:
+                            result[7] = float.Parse(((string)row["k7m20"]).Split('/')[0]);
                             break;
 
                         case Core.DamageParams.TemperatureType.Norm:
-                            result[7] = float.Parse((string)row["k7p0"]);
+                            result[7] = float.Parse(((string)row["k7p0"]).Split('/')[0]);
                             break;
 
                         case Core.DamageParams.TemperatureType.Warm:
-                            result[7] = float.Parse((string)row["k7p20"]); 
+                            result[7] = float.Parse(((string)row["k7p20"]).Split('/')[0]);
                             break;
 
                         case Core.DamageParams.TemperatureType.Hot:
-                            result[7] = float.Parse((string)row["k7p40"]);
+                            result[7] = float.Parse(((string)row["k7p40"]).Split('/')[0]);
                             break;
                     }
 
@@ -87,7 +87,7 @@ namespace Life_safety
                     }
 
                     DataTable wind = dataLoader.GetTable(DataLoader.Table.WIND_COEF);
-                    result[4] = float.Parse((string)wind.Rows[0][damageParams.WindSpeed.ToString()]);
+                    result[4] = float.Parse((string)wind.Rows[0]["v" + damageParams.WindSpeed.ToString()]);
 
                     return result;
                 }
@@ -102,11 +102,11 @@ namespace Life_safety
             {
                 if ((string)row["state"] == damageParams.Air.ToString())
                 {
-                    float result = float.Parse((string)row[damageParams.WindSpeed.ToString()]);
+                    float result = float.Parse((string)row["v" + damageParams.WindSpeed.ToString()]);
                     return result;
                 }
             }
-            return 0;
+            return 0.0f;
         }
         
         public float loadDepth(float equivalentMass)
@@ -116,11 +116,11 @@ namespace Life_safety
             {
                 if ((string)row["velocity"] == damageParams.WindSpeed.ToString())
                 {
-                    float result = float.Parse((string)row[equivalentMass.ToString()]);
+                    float result = float.Parse((string)row["t" + damageParams.Mass.ToString().Replace(",","")]);
                     return result;
                 }
             }
-            return 0;
+            return 0.0f;
         }
         
         public float loadDensity()
@@ -143,7 +143,7 @@ namespace Life_safety
                     return result;
                 }
             }
-            return 0;
+            return 0.0f;
         }
     }
 
@@ -229,7 +229,12 @@ namespace Life_safety
             {
                 if (column.ColumnName == "velocity" || column.ColumnName == "id")
                     continue;
-                result.Add(float.Parse(column.ColumnName.Substring(1)));
+                string massStr = column.ColumnName.Substring(1);
+                if (massStr[0] == '0')
+                {
+                    massStr = "0," + massStr.Substring(1);
+                }
+                result.Add(float.Parse(massStr));
             }
             return result.ToArray();
         }

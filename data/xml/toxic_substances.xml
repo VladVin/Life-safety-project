@@ -5,7 +5,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>0,839</liquid_density>
 		<heat_temperature>52,7</heat_temperature>
-		<toxic_dose>0,2*</toxic_dose>
+		<toxic_dose>0,2</toxic_dose>
 		<k1>0</k1>
 		<k2>0,013</k2>
 		<k3>3,0</k3>
@@ -50,7 +50,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>0,786</liquid_density>
 		<heat_temperature>81,6</heat_temperature>
-		<toxic_dose>21,6**</toxic_dose>
+		<toxic_dose>21,6</toxic_dose>
 		<k1>0</k1>
 		<k2>0,004</k2>
 		<k3>0,028</k3>
@@ -65,7 +65,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>0,932</liquid_density>
 		<heat_temperature>120</heat_temperature>
-		<toxic_dose>1,9**</toxic_dose>
+		<toxic_dose>1,9</toxic_dose>
 		<k1>0</k1>
 		<k2>0,002</k2>
 		<k3>0,316</k3>
@@ -80,7 +80,7 @@
 		<gas_density>0,0035</gas_density>
 		<liquid_density>1,64</liquid_density>
 		<heat_temperature>-62,47</heat_temperature>
-		<toxic_dose>0,2**</toxic_dose>
+		<toxic_dose>0,2</toxic_dose>
 		<k1>0,17</k1>
 		<k2>0,054</k2>
 		<k3>3,0</k3>
@@ -125,7 +125,7 @@
 		<gas_density>0,0036</gas_density>
 		<liquid_density>1,490</liquid_density>
 		<heat_temperature>-66,77</heat_temperature>
-		<toxic_dose>2,4*</toxic_dose>
+		<toxic_dose>2,4</toxic_dose>
 		<k1>0,13</k1>
 		<k2>0,055</k2>
 		<k3>0,25</k3>
@@ -155,7 +155,7 @@
 		<gas_density>0,0020</gas_density>
 		<liquid_density>0,680</liquid_density>
 		<heat_temperature>6,9</heat_temperature>
-		<toxic_dose>1,2*</toxic_dose>
+		<toxic_dose>1,2</toxic_dose>
 		<k1>0,06</k1>
 		<k2>0,041</k2>
 		<k3>0,5</k3>
@@ -170,7 +170,7 @@
 		<gas_density>0,0014</gas_density>
 		<liquid_density>0,699</liquid_density>
 		<heat_temperature>-6,5</heat_temperature>
-		<toxic_dose>1,2*</toxic_dose>
+		<toxic_dose>1,2</toxic_dose>
 		<k1>0,13</k1>
 		<k2>0,034</k2>
 		<k3>0,5</k3>
@@ -185,7 +185,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>1,732</liquid_density>
 		<heat_temperature>3,6</heat_temperature>
-		<toxic_dose>1,2*</toxic_dose>
+		<toxic_dose>1,2</toxic_dose>
 		<k1>0,04</k1>
 		<k2>0,039</k2>
 		<k3>0,5</k3>
@@ -200,7 +200,7 @@
 		<gas_density>0,0023</gas_density>
 		<liquid_density>0,983</liquid_density>
 		<heat_temperature>-23,76</heat_temperature>
-		<toxic_dose>10,8**</toxic_dose>
+		<toxic_dose>10,8</toxic_dose>
 		<k1>0,125</k1>
 		<k2>0,044</k2>
 		<k3>0,056</k3>
@@ -215,7 +215,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>0,953</liquid_density>
 		<heat_temperature>80,2</heat_temperature>
-		<toxic_dose>6*</toxic_dose>
+		<toxic_dose>6</toxic_dose>
 		<k1>0</k1>
 		<k2>0,005</k2>
 		<k3>0,1</k3>
@@ -275,7 +275,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>0,882</liquid_density>
 		<heat_temperature>10,7</heat_temperature>
-		<toxic_dose>2,2**</toxic_dose>
+		<toxic_dose>2,2</toxic_dose>
 		<k1>0,05</k1>
 		<k2>0,041</k2>
 		<k3>0,27</k3>
@@ -350,7 +350,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>0,671</liquid_density>
 		<heat_temperature>2,9</heat_temperature>
-		<toxic_dose>6*</toxic_dose>
+		<toxic_dose>6</toxic_dose>
 		<k1>0,07</k1>
 		<k2>0,047</k2>
 		<k3>0,1</k3>
@@ -365,7 +365,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>0,815</liquid_density>
 		<heat_temperature>-19,0</heat_temperature>
-		<toxic_dose>0,6*</toxic_dose>
+		<toxic_dose>0,6</toxic_dose>
 		<k1>0,19</k1>
 		<k2>0,034</k2>
 		<k3>1,0</k3>
@@ -395,7 +395,7 @@
 		<gas_density>0,0017</gas_density>
 		<liquid_density>1,512</liquid_density>
 		<heat_temperature>-188,2</heat_temperature>
-		<toxic_dose>0,2*</toxic_dose>
+		<toxic_dose>0,2</toxic_dose>
 		<k1>0,95</k1>
 		<k2>0,038</k2>
 		<k3>3,0</k3>
@@ -425,7 +425,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>1,675</liquid_density>
 		<heat_temperature>107,2</heat_temperature>
-		<toxic_dose>0,06*</toxic_dose>
+		<toxic_dose>0,06</toxic_dose>
 		<k1>0</k1>
 		<k2>0,003</k2>
 		<k3>10,0</k3>
@@ -500,7 +500,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>1,005</liquid_density>
 		<heat_temperature>55,0</heat_temperature>
-		<toxic_dose>0,1*</toxic_dose>
+		<toxic_dose>0,1</toxic_dose>
 		<k1>0</k1>
 		<k2>0,013</k2>
 		<k3>6,0</k3>
@@ -515,7 +515,7 @@
 		<gas_density>-</gas_density>
 		<liquid_density>0,839</liquid_density>
 		<heat_temperature>35</heat_temperature>
-		<toxic_dose>2,2**</toxic_dose>
+		<toxic_dose>2,2</toxic_dose>
 		<k1>0</k1>
 		<k2>0,028</k2>
 		<k3>0,27</k3>

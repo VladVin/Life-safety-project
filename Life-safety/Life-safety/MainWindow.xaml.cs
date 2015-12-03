@@ -27,15 +27,27 @@ namespace Life_safety
         {
             InitializeComponent();
 
-            initSubstanceLoader = new InitSubstanceLoader();
 
-            this.windowManager = new MainWindowManager(this);
+            initSubstanceLoader = new InitSubstanceLoader();
             InitializeWindow();
+            this.windowManager = new MainWindowManager(this);
+
+            substanceBox.SelectedIndex = 10;
+            substanceStateBox.SelectedIndex = 0;
+            substanceMassBox.SelectedIndex = 2;
+            windSpeedBox.SelectedIndex = 1;
+            airTypeBox.SelectedIndex = 0;
+            overflowTypeBox.SelectedIndex = 0;
+            temperatureTypeBox.SelectedIndex = 2;
         }
 
-        public void RefreshAll(Core.PossibleDangerZone possibleDangerZone, Core.RealDangerZone realDangerZone)
+        public void RefreshAll(Core.PossibleDangerZone possibleDangerZone, Core.RealDangerZone realDangerZone,
+            float timeOfComing, float timeOfSteam)
         {
-
+            depthField.Text = possibleDangerZone.Depth.ToString();
+            areaField.Text = possibleDangerZone.Area.ToString();
+            timeField.Text = timeOfComing.ToString();
+            timeOfSteamField.Text = timeOfSteam.ToString();
         }
 
         private void InitializeWindow()
@@ -137,6 +149,11 @@ namespace Life_safety
             if (temperatureTypeBox.SelectedIndex == 4) temperatureType = Core.DamageParams.TemperatureType.Hot;
             if (temperatureType == Core.DamageParams.TemperatureType.None) return;
             windowManager.UpdateTemperature(temperatureType);
+        }
+
+        private void timeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            windowManager.UpdateTime(Convert.ToSingle(timeSlider.Value));
         }
     }
 }
