@@ -112,12 +112,38 @@ namespace Life_safety
         public float loadDepth(float equivalentMass)
         {
             DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
+            float[] elems = new float[] { 0.01F, 0.05F, 0.1F, 0.5F, 1, 3, 5, 10, 20, 30, 50, 70, 100, 300, 500, 700, 1000, 2000 };
+            int n = -1;
+            for (int i = 0; i < elems.Length; i++)
+            {
+                if (damageParams.Mass < elems[i])
+                {
+                    n = i;
+                }
+            }
             foreach (DataRow row in table.Rows)
             {
+                
+               
                 if ((string)row["velocity"] == damageParams.WindSpeed.ToString())
                 {
+<<<<<<< Updated upstream
                     float result = float.Parse((string)row[equivalentMass.ToString()]);
                     return result;
+=======
+                    if (n == elems.Length - 1 || n == 0)
+                    {
+                        float result = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
+                        return result;
+                    }
+                    else
+                    {
+                        float a = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
+                        float b = float.Parse((string)row["t" + elems[n+1].ToString().Replace(".", "")]);
+                        float result = b * ((damageParams.Mass - elems[n]) / (elems[n + 1] - elems[n])) + a * ((elems[n+1] - damageParams.Mass) / (elems[n + 1] - elems[n]));
+                        return result;
+                    }
+>>>>>>> Stashed changes
                 }
             }
             return 0;
