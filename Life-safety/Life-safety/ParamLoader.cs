@@ -45,7 +45,7 @@ namespace Life_safety
                 if ((string)row["substance"] == damageParams.Substance)
                 {
 
-                    Model.Coeff[] result = new Model.Coeff[9];
+                    Model.Coeff[] result = new Model.Coeff[8];
 
                     result[0] = float.Parse((string)row["k1"]);
                     result[1] = float.Parse((string)row["k2"]);
@@ -79,13 +79,13 @@ namespace Life_safety
                     string[] parts = ((string)row[temperature]).Split('/');
                     if (parts.Length == 1)
                     {
+                        result[6] = float.Parse((string)row[temperature]);
                         result[7] = float.Parse((string)row[temperature]);
-                        result[8] = float.Parse((string)row[temperature]);
                     }
                     else if (parts.Length == 2)
                     {
-                        result[7] = float.Parse(parts[0]);
-                        result[8] = float.Parse(parts[1]);
+                        result[6] = float.Parse(parts[0]);
+                        result[7] = float.Parse(parts[1]);
                     }
                     else
                     {
@@ -108,7 +108,7 @@ namespace Life_safety
 
                     DataTable wind = dataLoader.GetTable(DataLoader.Table.WIND_COEF);
                     result[4] = float.Parse((string)wind.Rows[0]["v" + damageParams.WindSpeed.ToString()]);
-
+                    result[3] = loadTranslationSpeed();
                     return result;
                 }
             }
