@@ -17,6 +17,21 @@ namespace Life_safety
             public enum AirType { None, Convection, Isotermia, Inversion }
             public enum WherePeopleType { None, OpenAir, Building }
 
+            public AirType fromString(string str)
+            {
+                switch (str)
+                {
+                    case "Изотермия":
+                        return AirType.Isotermia;
+                    case "Инверсия":
+                        return AirType.Inversion;
+                    case "Конвекция":
+                        return AirType.Convection;
+                }
+
+                throw new ArgumentException("Wrong argument of AirType string");
+            }
+
             // Substance params
             private string substance;
             private SubstanceStateType substanceState;
