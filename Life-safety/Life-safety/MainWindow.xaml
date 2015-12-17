@@ -24,13 +24,18 @@
             <ComboBox x:Name="temperatureTypeBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="temperatureTypeBox_SelectionChanged"/>
         </StackPanel>
 
-        <Image x:Name="mapField" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" Source="{DynamicResource nn-map}"/>
+        <Canvas x:Name="mapFieldArea" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" ClipToBounds="True" MouseDown="mapFieldArea_MouseDown" MouseUp="mapFieldArea_MouseUp" MouseWheel="mapFieldArea_MouseWheel" MouseMove="mapFieldArea_MouseMove">
+            <Canvas x:Name="mapFieldCanvas">
+                <Image x:Name="mapField" Source="{DynamicResource nn-map}"/>
+                <Ellipse x:Name="realDangerZoneEllipse" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Width="100" Height="187" Canvas.Left="212" Canvas.Top="125" Opacity="0.7" Stroke="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" StrokeThickness="5" />
+            </Canvas>
+        </Canvas>
         <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>
         <TextBox x:Name="timeTextField" Text="{Binding ElementName=timeSlider, Path=Value, StringFormat='{}{0:F0}'}"  Width="40" Height="30" Margin="90,547,888,162" TextAlignment="Center"/>
         <Slider x:Name="timeSlider" Height="30" Margin="130,547,682,162" Maximum="180" Value="{Binding ElementName=timeTextField, Path=Text}" SmallChange="1" ValueChanged="timeSlider_ValueChanged"/>
 
         <Rectangle Margin="348,579,0,0" Width="278" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Fill="#64B5F6" Opacity="0.3"/>
-            <StackPanel Orientation="Vertical" Margin="352,579,0,0" Width="270" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical" Margin="352,579,0,0" Width="270" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Глубина" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
                 <TextBlock x:Name="depthField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
@@ -79,6 +84,9 @@
         <TextBlock HorizontalAlignment="Left" Margin="68,582,0,0" TextWrapping="Wrap" Text="Параметры АХОВ" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
         <TextBlock HorizontalAlignment="Left" Margin="352,544,0,0" TextWrapping="Wrap" Text="Распространение АХОВ" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
         <TextBlock HorizontalAlignment="Left" Margin="785,541,0,0" TextWrapping="Wrap" Text="Потери" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
+        <Button x:Name="startPointBtn" Content="Место аварии" HorizontalAlignment="Left" Margin="0,522,0,0" VerticalAlignment="Top" Width="130
+                " Click="startPointBtn_Click"/>
+        <Button x:Name="endPointBtn" Content="Место исследований" HorizontalAlignment="Left" Margin="130,522,0,0" VerticalAlignment="Top" Width="130" Click="endPointBtn_Click"/>
 
     </Grid>
 </Window>

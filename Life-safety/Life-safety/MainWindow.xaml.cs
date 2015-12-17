@@ -23,22 +23,29 @@ namespace Life_safety
         InitSubstanceLoader initSubstanceLoader;
         MainWindowManager windowManager;
 
+        Point oldMapMousePosition;
+        bool movingMode = false;
+        bool startPointMode = false;
+        bool endPointMode = false;
+
+        private MapConverter mapConverter;
+
         public MainWindow()
         {
             InitializeComponent();
 
-
+            mapConverter = new MapConverter(40000, (int)mapField.ActualWidth, (int)mapField.ActualHeight);
             initSubstanceLoader = new InitSubstanceLoader();
             InitializeWindow();
             this.windowManager = new MainWindowManager(this);
 
-            substanceBox.SelectedIndex = 10;
-            substanceStateBox.SelectedIndex = 0;
-            substanceMassBox.SelectedIndex = 2;
-            windSpeedBox.SelectedIndex = 1;
-            airTypeBox.SelectedIndex = 0;
-            overflowTypeBox.SelectedIndex = 0;
-            temperatureTypeBox.SelectedIndex = 2;
+            //initValues();
+
+            var mat = realDangerZoneEllipse.RenderTransform.Value;
+            double angle = Math.Atan2(-0.5, 0.5) / Math.PI * 180.0;
+            Console.WriteLine("Angle: {0}", angle);
+            mat.RotateAtPrepend(angle, realDangerZoneEllipse.ActualWidth / 2, realDangerZoneEllipse.ActualHeight / 2);
+            realDangerZoneEllipse.RenderTransform = new MatrixTransform(mat);
         }
 
         public void RefreshAll(Core.PossibleDangerZone possibleDangerZone, Core.RealDangerZone realDangerZone,
@@ -48,6 +55,7 @@ namespace Life_safety
             areaField.Text = possibleDangerZone.Area.ToString();
             timeField.Text = timeOfComing.ToString();
             timeOfSteamField.Text = timeOfSteam.ToString();
+            //realDangerZone.Direction.
         }
 
         private void InitializeWindow()
@@ -95,6 +103,17 @@ namespace Life_safety
             }
         }
 
+        private void initValues()
+        {
+            substanceBox.SelectedIndex = 10;
+            substanceStateBox.SelectedIndex = 0;
+            substanceMassBox.SelectedIndex = 2;
+            windSpeedBox.SelectedIndex = 1;
+            airTypeBox.SelectedIndex = 0;
+            overflowTypeBox.SelectedIndex = 0;
+            temperatureTypeBox.SelectedIndex = 2;
+        }
+
         private void substanceBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             windowManager.UpdateSubstanceName(e.AddedItems[0].ToString());
@@ -127,7 +146,6 @@ namespace Life_safety
             if (airTypeBox.SelectedIndex == 2) airType = Core.DamageParams.AirType.Convection;
             if (airType == Core.DamageParams.AirType.None) return;
             windowManager.UpdateAirType(airType);
-            //windowManager.UpdateAirType()
         }
 
         private void overflowTypeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -154,6 +172,77 @@ namespace Life_safety
         private void timeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             windowManager.UpdateTime(Convert.ToSingle(timeSlider.Value));
+        }
+
+        private void mapFieldArea_MouseMove(object sender, MouseEventArgs e)
+        {
+            int diff = 0;
+            Point pos = e.GetPosition(mapFieldCanvas);
+
+            Console.WriteLine(pos);
+
+            if (movingMode && (Math.Abs(pos.X - oldMapMousePosition.X) > diff ||
+                Math.Abs(pos.Y - oldMapMousePosition.Y) > diff))
+            {
+                // TODO:
+                //movingMode = false;
+                //return;
+                //Console.WriteLine(Mouse.GetPosition(mapFieldArea));
+                var mat = mapFieldCanvas.RenderTransform.Value;
+                mat.TranslatePrepend(pos.X - oldMapMousePosition.X, pos.Y - oldMapMousePosition.Y);
+                MatrixTransform matTrans = new MatrixTransform(mat);
+                mapFieldCanvas.RenderTransform = matTrans;
+            }
+        }
+
+        private void mapFieldArea_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Point pos = e.GetPosition(mapFieldCanvas);
+            oldMapMousePosition = new Point(pos.X, pos.Y);
+            movingMode = true;
+
+            if (startPointMode)
+            {
+                windowManager.UpdatePosition(mapConverter.TranslatePointToMeters(pos));
+            }
+
+            if (endPointMode)
+            {
+                windowManager.UpdateEndPosition(mapConverter.TranslatePointToMeters(pos));
+            }
+        }
+
+        private void mapFieldArea_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            movingMode = false;
+        }
+
+        private void mapFieldArea_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var scaleFactor = 1.0;
+            if (e.Delta > 0)
+            {
+                scaleFactor = 1.2;
+            }
+            else
+            {
+                scaleFactor = 1.0 / 1.2;
+            }
+            var mat = mapFieldCanvas.RenderTransform.Value;
+            mat.ScaleAt(scaleFactor, scaleFactor, ((Canvas)sender).ActualWidth / 2, ((Canvas)sender).ActualHeight / 2);
+            mapFieldCanvas.RenderTransform = new MatrixTransform(mat);
+        }
+
+        private void startPointBtn_Click(object sender, RoutedEventArgs e)
+        {
+            startPointMode = !startPointMode;
+            endPointMode = false;
+        }
+
+        private void endPointBtn_Click(object sender, RoutedEventArgs e)
+        {
+            endPointMode = !endPointMode;
+            startPointMode = false;
         }
     }
 }
