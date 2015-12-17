@@ -44,32 +44,50 @@ namespace Life_safety
             {
                 if ((string)row["substance"] == damageParams.Substance.ToString())
                 {
-                    float[] result = new float[8];
+                    float[] result = new float[9];
                     result[0] = float.Parse((string)row["k1"]);
                     result[1] = float.Parse((string)row["k2"]);
                     result[2] = float.Parse((string)row["k3"]);
-
+                    string temperature;
                     switch(damageParams.Temperature)
                     {
                         case Core.DamageParams.TemperatureType.Cold:
-                            result[7] = float.Parse((string)row["k7m40"]);
+                            temperature = "k7m40";
                             break;
 
                         case Core.DamageParams.TemperatureType.Freezy:
-                            result[7] = float.Parse((string)row["k7m20"]);
+                            temperature = "k7m20";
                             break;
 
                         case Core.DamageParams.TemperatureType.Norm:
-                            result[7] = float.Parse((string)row["k7p0"]);
+                            temperature = "k7p0";
                             break;
 
                         case Core.DamageParams.TemperatureType.Warm:
-                            result[7] = float.Parse((string)row["k7p20"]); 
+                            temperature = "k7p20"; 
                             break;
 
                         case Core.DamageParams.TemperatureType.Hot:
-                            result[7] = float.Parse((string)row["k7p40"]);
+                            temperature = "k7p40";
                             break;
+                        default:
+                            throw new ArgumentException("Wrong temperature type in loadCoeffs()");
+                    }
+
+                    string[] parts = ((string)row[temperature]).Split('/');
+                    if (parts.Length == 1)
+                    {
+                        result[7] = float.Parse((string)row[temperature]);
+                        result[8] = float.Parse((string)row[temperature]);
+                    }
+                    else if (parts.Length == 2)
+                    {
+                        result[7] = float.Parse(parts[0]);
+                        result[8] = float.Parse(parts[1]);
+                    }
+                    else
+                    {
+                        throw new Exception("Data type in loadCoeffs()");
                     }
 
                     Core.DamageParams.AirType air = damageParams.Air;
@@ -122,15 +140,9 @@ namespace Life_safety
                 }
             }
             foreach (DataRow row in table.Rows)
-            {
-                
-               
+            {       
                 if ((string)row["velocity"] == damageParams.WindSpeed.ToString())
                 {
-<<<<<<< Updated upstream
-                    float result = float.Parse((string)row[equivalentMass.ToString()]);
-                    return result;
-=======
                     if (n == elems.Length - 1 || n == 0)
                     {
                         float result = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
@@ -143,7 +155,6 @@ namespace Life_safety
                         float result = b * ((damageParams.Mass - elems[n]) / (elems[n + 1] - elems[n])) + a * ((elems[n+1] - damageParams.Mass) / (elems[n + 1] - elems[n]));
                         return result;
                     }
->>>>>>> Stashed changes
                 }
             }
             return 0;

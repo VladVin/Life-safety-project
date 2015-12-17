@@ -22,6 +22,21 @@ namespace Life_safety
             public enum OverflowType { Free, VPoddon }
             public enum TemperatureType { Freezy, Cold, Norm, Warm, Hot }
 
+            public AirType fromString(string str)
+            {
+                switch (str)
+                {
+                    case "Изотермия":
+                        return AirType.Isotermia;
+                    case "Инверсия":
+                        return AirType.Inversion;
+                    case "Конвекция":
+                        return AirType.Convection;
+                }
+
+                throw new ArgumentException("Wrong argument of AirType string");
+            }
+
             // Substance params
             private SubstanceType substance;
             private SubstanceStateType substanceState;
