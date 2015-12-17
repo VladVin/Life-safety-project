@@ -44,32 +44,52 @@ namespace Life_safety
             {
                 if ((string)row["substance"] == damageParams.Substance)
                 {
-                    Model.Coeff[] result = new Model.Coeff[8];
+
+                    Model.Coeff[] result = new Model.Coeff[9];
+
                     result[0] = float.Parse((string)row["k1"]);
                     result[1] = float.Parse((string)row["k2"]);
                     result[2] = float.Parse((string)row["k3"]);
-
+                    string temperature;
                     switch(damageParams.Temperature)
                     {
-                        case Core.DamageParams.TemperatureType.Freezy:
-                            result[7] = float.Parse(((string)row["k7m40"]).Split('/')[0]);
+                        case Core.DamageParams.TemperatureType.Cold:
+                            temperature = "k7m40";
                             break;
 
-                        case Core.DamageParams.TemperatureType.Cold:
-                            result[7] = float.Parse(((string)row["k7m20"]).Split('/')[0]);
+                        case Core.DamageParams.TemperatureType.Freezy:
+                            temperature = "k7m20";
                             break;
 
                         case Core.DamageParams.TemperatureType.Norm:
-                            result[7] = float.Parse(((string)row["k7p0"]).Split('/')[0]);
+                            temperature = "k7p0";
                             break;
 
                         case Core.DamageParams.TemperatureType.Warm:
-                            result[7] = float.Parse(((string)row["k7p20"]).Split('/')[0]);
+                            temperature = "k7p20"; 
                             break;
 
                         case Core.DamageParams.TemperatureType.Hot:
-                            result[7] = float.Parse(((string)row["k7p40"]).Split('/')[0]);
+                            temperature = "k7p40";
                             break;
+                        default:
+                            throw new ArgumentException("Wrong temperature type in loadCoeffs()");
+                    }
+
+                    string[] parts = ((string)row[temperature]).Split('/');
+                    if (parts.Length == 1)
+                    {
+                        result[7] = float.Parse((string)row[temperature]);
+                        result[8] = float.Parse((string)row[temperature]);
+                    }
+                    else if (parts.Length == 2)
+                    {
+                        result[7] = float.Parse(parts[0]);
+                        result[8] = float.Parse(parts[1]);
+                    }
+                    else
+                    {
+                        throw new Exception("Data type in loadCoeffs()");
                     }
 
                     Core.DamageParams.AirType air = damageParams.Air;
@@ -112,12 +132,32 @@ namespace Life_safety
         public float loadDepth(float equivalentMass)
         {
             DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
-            foreach (DataRow row in table.Rows)
+            float[] elems = new float[] { 0.01F, 0.05F, 0.1F, 0.5F, 1, 3, 5, 10, 20, 30, 50, 70, 100, 300, 500, 700, 1000, 2000 };
+            int n = -1;
+            for (int i = 0; i < elems.Length; i++)
             {
+                if (damageParams.Mass < elems[i])
+                {
+                    n = i;
+                }
+            }
+            foreach (DataRow row in table.Rows)
+            {       
                 if ((string)row["velocity"] == damageParams.WindSpeed.ToString())
                 {
-                    float result = float.Parse((string)row["t" + damageParams.Mass.ToString().Replace(",","")]);
-                    return result;
+                    if (n == elems.Length - 1 || n == 0)
+                    {
+                        float result = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
+                        return result;
+                    }
+                    else
+                    {
+                        float a = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
+                        float b = float.Parse((string)row["t" + elems[n+1].ToString().Replace(".", "")]);
+                        float result = b * ((damageParams.Mass - elems[n]) / (elems[n + 1] - elems[n])) + a * ((elems[n+1] - damageParams.Mass) / (elems[n + 1] - elems[n]));
+                        return result;
+                    }
+
                 }
             }
             return 0.0f;
