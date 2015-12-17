@@ -217,8 +217,8 @@ namespace Life_safety
 
         private float Depth(float time)
         {
-            float mass_first_cloud = (float)(coeffs[1] * coeffs[3] *
-                                     coeffs[5] * coeffs[7] *
+            float mass_first_cloud = (float)(coeffs[0] * coeffs[2] *
+                                     coeffs[4] * coeffs[6] *
                                      damageParams.Mass);
 
             float time_steam = TimeOfSteam();
@@ -232,10 +232,10 @@ namespace Life_safety
                 coeffs[6] = (float)Math.Pow(time_steam, 0.8);
             }
 
-            float mass_second_cloud = (float)((1.0f - coeffs[1]) * coeffs[2] *
-                                      coeffs[3] * coeffs[4] *
-                                      coeffs[5] * coeffs[6] *
-                                      coeffs[8] * damageParams.Mass /
+            float mass_second_cloud = (float)((1.0f - coeffs[0]) * coeffs[1] *
+                                      coeffs[2] * coeffs[3] *
+                                      coeffs[4] * coeffs[5] *
+                                      coeffs[7] * damageParams.Mass /
                                       damageParams.Thickness / density);
 
             float trans_speed = paramLoader.loadTranslationSpeed();
