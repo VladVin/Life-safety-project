@@ -37,14 +37,16 @@ namespace Life_safety
             throw new Exception("Incorrect depth data");
         }
         
-        public float[] loadCoeffs()
+        public Model.Coeff[] loadCoeffs()
         {
             DataTable table = dataLoader.GetTable(DataLoader.Table.SUBSTANCES);
             foreach (DataRow row in table.Rows)
             {
-                if ((string)row["substance"] == damageParams.Substance.ToString())
+                if ((string)row["substance"] == damageParams.Substance)
                 {
-                    float[] result = new float[9];
+
+                    Model.Coeff[] result = new Model.Coeff[9];
+
                     result[0] = float.Parse((string)row["k1"]);
                     result[1] = float.Parse((string)row["k2"]);
                     result[2] = float.Parse((string)row["k3"]);
@@ -105,7 +107,7 @@ namespace Life_safety
                     }
 
                     DataTable wind = dataLoader.GetTable(DataLoader.Table.WIND_COEF);
-                    result[4] = float.Parse((string)wind.Rows[0][damageParams.WindSpeed.ToString()]);
+                    result[4] = float.Parse((string)wind.Rows[0]["v" + damageParams.WindSpeed.ToString()]);
 
                     return result;
                 }
@@ -120,11 +122,11 @@ namespace Life_safety
             {
                 if ((string)row["state"] == damageParams.Air.ToString())
                 {
-                    float result = float.Parse((string)row[damageParams.WindSpeed.ToString()]);
+                    float result = float.Parse((string)row["v" + damageParams.WindSpeed.ToString()]);
                     return result;
                 }
             }
-            return 0;
+            return 0.0f;
         }
         
         public float loadDepth(float equivalentMass)
@@ -155,9 +157,10 @@ namespace Life_safety
                         float result = b * ((damageParams.Mass - elems[n]) / (elems[n + 1] - elems[n])) + a * ((elems[n+1] - damageParams.Mass) / (elems[n + 1] - elems[n]));
                         return result;
                     }
+
                 }
             }
-            return 0;
+            return 0.0f;
         }
         
         public float loadDensity()
@@ -180,7 +183,7 @@ namespace Life_safety
                     return result;
                 }
             }
-            return 0;
+            return 0.0f;
         }
     }
 
@@ -266,7 +269,12 @@ namespace Life_safety
             {
                 if (column.ColumnName == "velocity" || column.ColumnName == "id")
                     continue;
-                result.Add(float.Parse(column.ColumnName.Substring(1)));
+                string massStr = column.ColumnName.Substring(1);
+                if (massStr[0] == '0')
+                {
+                    massStr = "0," + massStr.Substring(1);
+                }
+                result.Add(float.Parse(massStr));
             }
             return result.ToArray();
         }

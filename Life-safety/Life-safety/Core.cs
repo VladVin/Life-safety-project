@@ -11,16 +11,11 @@ namespace Life_safety
     {
         public class DamageParams
         {
-            public enum SubstanceType { Ammonia }
-            public enum SubstanceStateType { Gas, Fluid }
-
-            public enum AirType { Convection, Isotermia, Inversion }
-            public enum Clouds
-            {
-                Clean, Cloudy
-            }
-            public enum OverflowType { Free, VPoddon }
-            public enum TemperatureType { Freezy, Cold, Norm, Warm, Hot }
+            public enum SubstanceStateType { None, Gas, Fluid }
+            public enum OverflowType { None, Free, VPoddon }
+            public enum TemperatureType { None, Freezy, Cold, Norm, Warm, Hot }
+            public enum AirType { None, Convection, Isotermia, Inversion }
+            public enum WherePeopleType { None, OpenAir, Building }
 
             public AirType fromString(string str)
             {
@@ -38,11 +33,27 @@ namespace Life_safety
             }
 
             // Substance params
-            private SubstanceType substance;
+            private string substance;
             private SubstanceStateType substanceState;
             private float mass;
             private float thickness;
             private Point position;
+            private float percentGasMask;
+            private int numHuman;
+            private WherePeopleType wherePeople;
+
+            public class Loss
+            {
+                public Loss(int h, int m, int l)
+                {
+                    hard = h;
+                    medium = m;
+                    lite = l;
+                }
+                public int hard;
+                public int medium;
+                public int lite;
+            }
 
             // Air params
             private Vector windVector;
@@ -50,7 +61,9 @@ namespace Life_safety
             private OverflowType overflow;
             private TemperatureType temperature;
 
-            public SubstanceType Substance
+            private float time;
+
+            public string Substance
             {
                 get
                 {
@@ -168,6 +181,36 @@ namespace Life_safety
                 {
                     temperature = value;
                 }
+            }
+
+            public float Time
+            {
+                get
+                {
+                    return time;
+                }
+                set
+                {
+                    time = value;
+                }
+            }
+
+            public WherePeopleType WherePeople
+            {
+                get { return wherePeople; }
+                set { wherePeople = value; }
+            }
+
+            public float PercentGasMask
+            {
+                get { return percentGasMask; }
+                set { percentGasMask = value; }
+            }
+
+            public int NumHuman
+            {
+                get { return numHuman; }
+                set { numHuman = value; }
             }
         }
 

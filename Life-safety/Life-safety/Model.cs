@@ -6,18 +6,64 @@ using System.Threading.Tasks;
 
 namespace Life_safety
 {
-    class Model
+    public class Model
     {
+        public class Coeff
+        {
+            private static float eps = 1e-4f;
+            private float value;
+
+            public Coeff(float value)
+            {
+                this.value = value;
+            }
+
+
+            public float Value
+            {
+                get { return value; }
+                set { this.value = value; }
+            }
+
+            public static Coeff operator + (Coeff c1, Coeff c2)
+            {
+                return new Coeff(c1.Value + c2.Value);
+            }
+            public static Coeff operator - (Coeff c1, Coeff c2)
+            {
+                return new Coeff(c1.Value - c2.Value);
+            }
+            public static Coeff operator * (Coeff c1, Coeff c2)
+            {
+                if (c1.value < eps) return new Coeff(c2.value);
+                if (c2.value < eps) return new Coeff(c1.value);
+                return new Coeff(c1.Value * c2.Value);
+            }
+            public static Coeff operator / (Coeff c1, Coeff c2)
+            {
+                if (c1.value < eps && c2.value > eps) return new Coeff(1.0f / c2.value);
+                if (c2.value < eps) return new Coeff(c1.value);
+                return new Coeff(c1.Value / c2.Value);
+            }
+
+            public static explicit operator float(Coeff c)
+            {
+                return c.value;
+            }
+            public static implicit operator Coeff(float f)
+            {
+                return new Coeff(f);
+            }
+        }
+
         private Core.DamageParams damageParams;
         private ParametersLoader paramLoader;
-        private float[] coeffs;
+        private Coeff[] coeffs;
         private float density;
 
-        Model()
+        public Model()
         {
-            paramLoader = new ParametersLoader();
-            coeffs = paramLoader.loadCoeffs();
-            density = paramLoader.loadDensity();
+            this.paramLoader = new ParametersLoader();
         }
 
         public void updateDamageParams(Core.DamageParams damageParams)
@@ -25,13 +71,156 @@ namespace Life_safety
             this.damageParams = damageParams;
             paramLoader.updateDamageParams(damageParams);
         }
-    
+
+        public Core.PossibleDangerZone getPossibleDangerZone(float time)
+        {
+            coeffs = paramLoader.loadCoeffs();
+            density = paramLoader.loadDensity();
+            Core.PossibleDangerZone pDangerZone = new Core.PossibleDangerZone();
+            pDangerZone.Angle = Angle();
+            pDangerZone.Depth = Depth(time);
+            pDangerZone.Area = PossibleZoneArea(time);
+            pDangerZone.Position = damageParams.Position;
+            pDangerZone.Direction = damageParams.WindVector;
+            return pDangerZone;
+        }
+
+        public Core.RealDangerZone getRealDangerZone(float time)
+        {
+            coeffs = paramLoader.loadCoeffs();
+            density = paramLoader.loadDensity();
+            Core.RealDangerZone rDangerZone = new Core.RealDangerZone();
+            rDangerZone.Depth = Depth(time);
+            rDangerZone.Area = RealZoneArea(time);
+            rDangerZone.Width = Width(rDangerZone.Depth);
+            rDangerZone.Position = damageParams.Position;
+            rDangerZone.Direction = damageParams.WindVector;
+            rDangerZone.ShiftedCenter = ShiftedCenter(rDangerZone.Depth);
+            return rDangerZone;
+        }
+
+        public float TimeOfComing(System.Windows.Point point)
+        {
+            float trans_speed = paramLoader.loadTranslationSpeed();
+            System.Windows.Vector v = new System.Windows.Vector(
+                point.X - damageParams.Position.X, 
+                point.Y - damageParams.Position.Y);
+            float dist = (float)v.Length;
+            return dist / trans_speed;
+        }
+
+        public float TimeOfSteam()
+        {
+            return (float)((damageParams.Thickness * density) /
+                   (coeffs[2] * coeffs[4] * coeffs[7]));
+        }
+
+        public Core.DamageParams.Loss Loss()
+        {
+            float perLoss = 0.0f;
+            if (damageParams.WherePeople == Core.DamageParams.WherePeopleType.OpenAir)
+            {
+                float perGM = damageParams.PercentGasMask;
+                if (perGM < 0.18f)
+                {
+                    perLoss = 0.9f;
+                }
+                else if (perGM >= 0.18f && perGM < 0.3f)
+                {
+                    perLoss = 0.75f;
+                }
+                else if (perGM >= 0.3f && perGM < 0.4f)
+                {
+                    perLoss = 0.65f;
+                }
+                else if (perGM >= 0.4f && perGM < 0.5f)
+                {
+                    perLoss = 0.58f;
+                }
+                else if (perGM >= 0.5f && perGM < 0.6f)
+                {
+                    perLoss = 0.5f;
+                }
+                else if (perGM >= 0.6f && perGM < 0.7f)
+                {
+                    perLoss = 0.4f;
+                }
+                else if (perGM >= 0.7f && perGM < 0.8f)
+                {
+                    perLoss = 0.35f;
+                }
+                else if (perGM >= 0.8f && perGM < 0.9f)
+                {
+                    perLoss = 0.25f;
+                }
+                else if (perGM >= 0.9f && perGM < 0.98f)
+                {
+                    perLoss = 0.18f;
+                }
+                else if (perGM >= 0.98f)
+                {
+                    perLoss = 0.1f;
+                }
+            }
+            else if (damageParams.WherePeople == Core.DamageParams.WherePeopleType.Building)
+            {
+                float perGM = damageParams.PercentGasMask;
+                if (perGM < 0.18f)
+                {
+                    perLoss = 0.5f;
+                }
+                else if (perGM >= 0.18f && perGM < 0.3f)
+                {
+                    perLoss = 0.4f;
+                }
+                else if (perGM >= 0.3f && perGM < 0.4f)
+                {
+                    perLoss = 0.35f;
+                }
+                else if (perGM >= 0.4f && perGM < 0.5f)
+                {
+                    perLoss = 0.3f;
+                }
+                else if (perGM >= 0.5f && perGM < 0.6f)
+                {
+                    perLoss = 0.27f;
+                }
+                else if (perGM >= 0.6f && perGM < 0.7f)
+                {
+                    perLoss = 0.22f;
+                }
+                else if (perGM >= 0.7f && perGM < 0.8f)
+                {
+                    perLoss = 0.18f;
+                }
+                else if (perGM >= 0.8f && perGM < 0.9f)
+                {
+                    perLoss = 0.14f;
+                }
+                else if (perGM >= 0.9f && perGM < 0.98f)
+                {
+                    perLoss = 0.09f;
+                }
+                else if (perGM >= 0.98f)
+                {
+                    perLoss = 0.04f;
+                }
+            }
+
+            int countLoss = (int)(damageParams.NumHuman * perLoss);
+            Core.DamageParams.Loss loss =
+                new Core.DamageParams.Loss((int)(countLoss * 0.25f), 
+                                           (int)(countLoss * 0.4f), 
+                                           (int)(countLoss * 0.35f));
+            return loss;
+        }
+
         private float Depth(float time)
         {
-            float mass_first_cloud = coeffs[1] * coeffs[3] *
+            float mass_first_cloud = (float)(coeffs[1] * coeffs[3] *
                                      coeffs[5] * coeffs[7] *
-                                     damageParams.Mass;
-            
+                                     damageParams.Mass);
+
             float time_steam = TimeOfSteam();
             if (time_steam < 1.0f) time_steam = 1.0f;
             if (time < time_steam)
@@ -43,11 +232,11 @@ namespace Life_safety
                 coeffs[6] = (float)Math.Pow(time_steam, 0.8);
             }
 
-            float mass_second_cloud = (1.0f - coeffs[1]) * coeffs[2] *
+            float mass_second_cloud = (float)((1.0f - coeffs[1]) * coeffs[2] *
                                       coeffs[3] * coeffs[4] *
                                       coeffs[5] * coeffs[6] *
-                                      coeffs[7] * damageParams.Mass /
-                                      damageParams.Thickness / density;
+                                      coeffs[8] * damageParams.Mass /
+                                      damageParams.Thickness / density);
 
             float trans_speed = paramLoader.loadTranslationSpeed();
             float max_depth = time * trans_speed;
@@ -58,12 +247,6 @@ namespace Life_safety
             float depth = Math.Max(depth_first, depth_second) + 0.5f * Math.Min(depth_first, depth_second);
 
             return Math.Min(max_depth, depth);
-        }
-
-        public float TimeOfSteam()
-        {
-            return (damageParams.Thickness * density) / 
-                   (coeffs[2] * coeffs[4] * coeffs[7]);
         }
 
         private float Angle()
@@ -169,39 +352,6 @@ namespace Life_safety
             float depth = Depth(time);
 
             return coeff8 * depth * depth * (float)Math.Pow(time, 0.2);
-        }
-
-        public Core.PossibleDangerZone getPossibleDangerZone(float time)
-        {
-            Core.PossibleDangerZone pDangerZone = new Core.PossibleDangerZone();
-            pDangerZone.Angle = Angle();
-            pDangerZone.Depth = Depth(time);
-            pDangerZone.Area = PossibleZoneArea(time);
-            pDangerZone.Position = damageParams.Position;
-            pDangerZone.Direction = damageParams.WindVector;
-            return pDangerZone;
-        }
-
-        public Core.RealDangerZone getRealDangerZone(float time)
-        {
-            Core.RealDangerZone rDangerZone = new Core.RealDangerZone();
-            rDangerZone.Depth = Depth(time);
-            rDangerZone.Area = RealZoneArea(time);
-            rDangerZone.Width = Width(rDangerZone.Depth);
-            rDangerZone.Position = damageParams.Position;
-            rDangerZone.Direction = damageParams.WindVector;
-            rDangerZone.ShiftedCenter = ShiftedCenter(rDangerZone.Depth);
-            return rDangerZone;
-        }
-
-        public float TimeOfComing(System.Windows.Point point)
-        {
-            float trans_speed = paramLoader.loadTranslationSpeed();
-            System.Windows.Vector v = new System.Windows.Vector(
-                point.X - damageParams.Position.X, 
-                point.Y - damageParams.Position.Y);
-            float dist = (float)v.Length;
-            return dist / trans_speed;
         }
     }
 }
