@@ -24,7 +24,9 @@
             <ComboBox x:Name="temperatureTypeBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="temperatureTypeBox_SelectionChanged"/>
         </StackPanel>
 
-        <Image x:Name="mapField" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" Source="{DynamicResource nn-map}"/>
+        <Canvas HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" ClipToBounds="True">
+            <Image x:Name="mapField" Source="{DynamicResource nn-map}" MouseMove="mapField_MouseMove" MouseDown="mapField_MouseDown" MouseUp="mapField_MouseUp" MouseWheel="mapField_MouseWheel"/>
+        </Canvas>
         <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>
         <TextBox x:Name="timeTextField" Text="{Binding ElementName=timeSlider, Path=Value, StringFormat='{}{0:F0}'}"  Width="40" Height="30" Margin="90,547,888,162" TextAlignment="Center"/>
         <Slider x:Name="timeSlider" Height="30" Margin="130,547,682,162" Maximum="180" Value="{Binding ElementName=timeTextField, Path=Text}" SmallChange="1" ValueChanged="timeSlider_ValueChanged"/>

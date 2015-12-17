@@ -23,6 +23,9 @@ namespace Life_safety
         InitSubstanceLoader initSubstanceLoader;
         MainWindowManager windowManager;
 
+        Point oldMapMousePosition;
+        bool movingMode = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -127,7 +130,6 @@ namespace Life_safety
             if (airTypeBox.SelectedIndex == 2) airType = Core.DamageParams.AirType.Convection;
             if (airType == Core.DamageParams.AirType.None) return;
             windowManager.UpdateAirType(airType);
-            //windowManager.UpdateAirType()
         }
 
         private void overflowTypeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -154,6 +156,49 @@ namespace Life_safety
         private void timeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             windowManager.UpdateTime(Convert.ToSingle(timeSlider.Value));
+        }
+
+        private void mapField_MouseMove(object sender, MouseEventArgs e)
+        {
+            int diff = 0;
+            Point pos = e.GetPosition(mapField);
+
+            if (movingMode && (Math.Abs(pos.X - oldMapMousePosition.X) > diff ||
+                Math.Abs(pos.Y - oldMapMousePosition.Y) > diff))
+            {
+                var mat = mapField.RenderTransform.Value;
+                mat.TranslatePrepend(pos.X - oldMapMousePosition.X, pos.Y - oldMapMousePosition.Y);
+                MatrixTransform matTrans = new MatrixTransform(mat);
+                mapField.RenderTransform = matTrans;
+            }
+        }
+
+        private void mapField_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Point pos = e.GetPosition(mapField);
+            oldMapMousePosition = new Point(pos.X, pos.Y);
+            movingMode = true;
+        }
+
+        private void mapField_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            movingMode = false;
+        }
+
+        private void mapField_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var scaleFactor = 1.0;
+            if (e.Delta > 0)
+            {
+                scaleFactor = 1.2;
+            }
+            else
+            {
+                scaleFactor = 1.0 / 1.2;
+            }
+            Matrix m = mapField.RenderTransform.Value;
+            m.ScaleAt(scaleFactor, scaleFactor, ((Image)sender).ActualWidth / 2, ((Image)sender).ActualHeight / 2);
+            mapField.RenderTransform = new MatrixTransform(m);
         }
     }
 }
