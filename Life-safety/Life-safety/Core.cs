@@ -11,10 +11,11 @@ namespace Life_safety
     {
         public class DamageParams
         {
-            public enum SubstanceStateType {None, Gas, Fluid }
+            public enum SubstanceStateType { None, Gas, Fluid }
             public enum OverflowType { None, Free, VPoddon }
             public enum TemperatureType { None, Freezy, Cold, Norm, Warm, Hot }
             public enum AirType { None, Convection, Isotermia, Inversion }
+            public enum WherePeopleType { None, OpenAir, Building }
 
             // Substance params
             private string substance;
@@ -22,6 +23,22 @@ namespace Life_safety
             private float mass;
             private float thickness;
             private Point position;
+            private float percentGasMask;
+            private int numHuman;
+            private WherePeopleType wherePeople;
+
+            public class Loss
+            {
+                public Loss(int h, int m, int l)
+                {
+                    hard = h;
+                    medium = m;
+                    lite = l;
+                }
+                public int hard;
+                public int medium;
+                public int lite;
+            }
 
             // Air params
             private Vector windVector;
@@ -161,6 +178,24 @@ namespace Life_safety
                 {
                     time = value;
                 }
+            }
+
+            public WherePeopleType WherePeople
+            {
+                get { return wherePeople; }
+                set { wherePeople = value; }
+            }
+
+            public float PercentGasMask
+            {
+                get { return percentGasMask; }
+                set { percentGasMask = value; }
+            }
+
+            public int NumHuman
+            {
+                get { return numHuman; }
+                set { numHuman = value; }
             }
         }
 

@@ -37,14 +37,14 @@ namespace Life_safety
             throw new Exception("Incorrect depth data");
         }
         
-        public float[] loadCoeffs()
+        public Model.Coeff[] loadCoeffs()
         {
             DataTable table = dataLoader.GetTable(DataLoader.Table.SUBSTANCES);
             foreach (DataRow row in table.Rows)
             {
                 if ((string)row["substance"] == damageParams.Substance)
                 {
-                    float[] result = new float[8];
+                    Model.Coeff[] result = new Model.Coeff[8];
                     result[0] = float.Parse((string)row["k1"]);
                     result[1] = float.Parse((string)row["k2"]);
                     result[2] = float.Parse((string)row["k3"]);
