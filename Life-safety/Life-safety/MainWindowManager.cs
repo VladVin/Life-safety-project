@@ -14,6 +14,8 @@ namespace Life_safety
         private Vector normWindVector;
         private Model model;
 
+        private Point endPosition;
+
         public MainWindowManager(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
@@ -86,6 +88,12 @@ namespace Life_safety
             UpdateAll();
         }
 
+        public void UpdateEndPosition(Point position)
+        {
+            endPosition = position;
+            UpdateAll();
+        }
+
         public void UpdateAirType(Core.DamageParams.AirType airType)
         {
             damageParams.Air = airType;
@@ -117,7 +125,7 @@ namespace Life_safety
             model.updateDamageParams(damageParams);
             Core.PossibleDangerZone possibleDangerZone = model.getPossibleDangerZone(damageParams.Time);
             Core.RealDangerZone realDangerZone = model.getRealDangerZone(damageParams.Time);
-            float timeOfComing = model.TimeOfComing(new Point(3.0, 3.0));
+            float timeOfComing = model.TimeOfComing(endPosition);
             float timeOfSteam = model.TimeOfSteam();
             mainWindow.RefreshAll(possibleDangerZone, realDangerZone, timeOfComing, timeOfSteam);
         }

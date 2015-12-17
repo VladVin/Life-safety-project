@@ -71,6 +71,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MapConverter.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ParamLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
