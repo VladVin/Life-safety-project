@@ -112,7 +112,7 @@ namespace Life_safety
         public float TimeOfSteam()
         {
             return (float)((damageParams.Thickness * density) /
-                   (coeffs[2] * coeffs[4] * coeffs[7]));
+                   (coeffs[1] * coeffs[3] * coeffs[6]));
         }
 
         public Core.DamageParams.Loss Loss()
@@ -225,11 +225,11 @@ namespace Life_safety
             if (time_steam < 1.0f) time_steam = 1.0f;
             if (time < time_steam)
             {
-                coeffs[6] = (float)Math.Pow(time, 0.8);
+                coeffs[5] = (float)Math.Pow(time, 0.8);
             }
             else
             {
-                coeffs[6] = (float)Math.Pow(time_steam, 0.8);
+                coeffs[5] = (float)Math.Pow(time_steam, 0.8);
             }
 
             float mass_second_cloud = (float)((1.0f - coeffs[0]) * coeffs[1] *
