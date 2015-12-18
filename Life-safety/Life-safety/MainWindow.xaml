@@ -32,7 +32,7 @@
         </Canvas>
         <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>
         <TextBox x:Name="timeTextField" Text="{Binding ElementName=timeSlider, Path=Value, StringFormat='{}{0:F0}'}"  Width="40" Height="30" Margin="90,547,888,162" TextAlignment="Center"/>
-        <Slider x:Name="timeSlider" Height="30" Margin="130,547,682,162" Maximum="180" Value="{Binding ElementName=timeTextField, Path=Text}" SmallChange="1" ValueChanged="timeSlider_ValueChanged"/>
+        <Slider x:Name="timeSlider" Height="30" Margin="130,547,682,162" Maximum="24" Value="{Binding ElementName=timeTextField, Path=Text}" SmallChange="1" ValueChanged="timeSlider_ValueChanged"/>
 
         <Rectangle Margin="348,579,0,0" Width="278" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Fill="#64B5F6" Opacity="0.3"/>
         <StackPanel Orientation="Vertical" Margin="352,579,0,0" Width="270" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top">
@@ -87,6 +87,7 @@
         <Button x:Name="startPointBtn" Content="Место аварии" HorizontalAlignment="Left" Margin="0,522,0,0" VerticalAlignment="Top" Width="130
                 " Click="startPointBtn_Click"/>
         <Button x:Name="endPointBtn" Content="Место исследований" HorizontalAlignment="Left" Margin="130,522,0,0" VerticalAlignment="Top" Width="130" Click="endPointBtn_Click"/>
+        <Button x:Name="windVectorBtn" Content="Направление ветра" HorizontalAlignment="Left" Margin="260,522,0,0" VerticalAlignment="Top" Width="130" Click="speedVectorBtn_Click"/>
 
     </Grid>
 </Window>
