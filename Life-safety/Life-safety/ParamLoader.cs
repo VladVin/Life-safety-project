@@ -45,7 +45,7 @@ namespace Life_safety
                 if ((string)row["substance"] == damageParams.Substance)
                 {
 
-                    Model.Coeff[] result = new Model.Coeff[9];
+                    Model.Coeff[] result = new Model.Coeff[8];
 
                     result[0] = float.Parse((string)row["k1"]);
                     result[1] = float.Parse((string)row["k2"]);
@@ -79,13 +79,13 @@ namespace Life_safety
                     string[] parts = ((string)row[temperature]).Split('/');
                     if (parts.Length == 1)
                     {
+                        result[6] = float.Parse((string)row[temperature]);
                         result[7] = float.Parse((string)row[temperature]);
-                        result[8] = float.Parse((string)row[temperature]);
                     }
                     else if (parts.Length == 2)
                     {
-                        result[7] = float.Parse(parts[0]);
-                        result[8] = float.Parse(parts[1]);
+                        result[6] = float.Parse(parts[0]);
+                        result[7] = float.Parse(parts[1]);
                     }
                     else
                     {
@@ -95,20 +95,19 @@ namespace Life_safety
                     Core.DamageParams.AirType air = damageParams.Air;
                     if (air == Core.DamageParams.AirType.Inversion)
                     {
-                        result[5] = 1f;
+                        result[4] = 1f;
                     }
                     else if (air == Core.DamageParams.AirType.Isotermia)
                     {
-                        result[5] = 0.23f;
+                        result[4] = 0.23f;
                     }
                     else
                     {
-                        result[5] = 0.08f;
+                        result[4] = 0.08f;
                     }
 
                     DataTable wind = dataLoader.GetTable(DataLoader.Table.WIND_COEF);
-                    result[4] = float.Parse((string)wind.Rows[0]["v" + damageParams.WindSpeed.ToString()]);
-
+                    result[3] = loadTranslationSpeed();
                     return result;
                 }
             }
@@ -120,9 +119,9 @@ namespace Life_safety
             DataTable table = dataLoader.GetTable(DataLoader.Table.WIND_VELOCITY);
             foreach (DataRow row in table.Rows)
             {
-                if ((string)row["state"] == damageParams.Air.ToString())
+                if (damageParams.airFromString((string)row["state"]) == damageParams.Air)
                 {
-                    float result = float.Parse((string)row["v" + damageParams.WindSpeed.ToString()]);
+                    float result = float.Parse((string)row["v" + ((int)(damageParams.WindSpeed)).ToString()]);
                     return result;
                 }
             }
@@ -134,30 +133,29 @@ namespace Life_safety
             DataTable table = dataLoader.GetTable(DataLoader.Table.ZONE_DEPTH);
             float[] elems = new float[] { 0.01F, 0.05F, 0.1F, 0.5F, 1, 3, 5, 10, 20, 30, 50, 70, 100, 300, 500, 700, 1000, 2000 };
             int n = -1;
-            for (int i = 0; i < elems.Length; i++)
+            for (int i = 0; i < elems.Length - 1; i++)
             {
-                if (damageParams.Mass < elems[i])
+                if (equivalentMass - (elems[i + 1] - elems[i]) / 2.0f <= elems[i])
                 {
                     n = i;
+                    break;
                 }
             }
+            if (n == -1)
+                n = elems.Length - 1;
+            if (n == elems.Length - 1)
+                n = elems.Length - 2;
             foreach (DataRow row in table.Rows)
             {       
-                if ((string)row["velocity"] == damageParams.WindSpeed.ToString())
+                if ((string)row["velocity"] == ((int)(damageParams.WindSpeed)).ToString())
                 {
-                    if (n == elems.Length - 1 || n == 0)
-                    {
-                        float result = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
-                        return result;
-                    }
-                    else
-                    {
-                        float a = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
-                        float b = float.Parse((string)row["t" + elems[n+1].ToString().Replace(".", "")]);
-                        float result = b * ((damageParams.Mass - elems[n]) / (elems[n + 1] - elems[n])) + a * ((elems[n+1] - damageParams.Mass) / (elems[n + 1] - elems[n]));
-                        return result;
-                    }
-
+                    float fa = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
+                    float fb = float.Parse((string)row["t" + elems[n+1].ToString().Replace(".", "")]);
+                    float a = elems[n];
+                    float b = elems[n + 1];
+                    float x = equivalentMass;
+                    float fx = fa + (fb - fa) / (b - a) * (x - a);
+                    return fx;
                 }
             }
             return 0.0f;

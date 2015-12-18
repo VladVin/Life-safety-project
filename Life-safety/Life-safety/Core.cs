@@ -17,7 +17,7 @@ namespace Life_safety
             public enum AirType { None, Convection, Isotermia, Inversion }
             public enum WherePeopleType { None, OpenAir, Building }
 
-            public AirType fromString(string str)
+            public AirType airFromString(string str)
             {
                 switch (str)
                 {
