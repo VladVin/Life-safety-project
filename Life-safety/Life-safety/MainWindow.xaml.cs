@@ -27,6 +27,13 @@ namespace Life_safety
         bool movingMode = false;
         bool startPointMode = false;
         bool endPointMode = false;
+        bool windVectorMode = false;
+
+        Line windVectorLine;
+        Point startWindPoint;
+        Point endWindPoint;
+        bool startWindPointGiven = false;
+        bool endWindPointGiven = false;
 
         private MapConverter mapConverter;
 
@@ -101,6 +108,8 @@ namespace Life_safety
             {
                 temperatureTypeBox.Items.Add(Convert.ToString(temperatureVar));
             }
+
+            updatePointSelectionState();
         }
 
         private void initValues()
@@ -179,8 +188,6 @@ namespace Life_safety
             int diff = 0;
             Point pos = e.GetPosition(mapFieldCanvas);
 
-            Console.WriteLine(pos);
-
             if (movingMode && (Math.Abs(pos.X - oldMapMousePosition.X) > diff ||
                 Math.Abs(pos.Y - oldMapMousePosition.Y) > diff))
             {
@@ -193,22 +200,69 @@ namespace Life_safety
                 MatrixTransform matTrans = new MatrixTransform(mat);
                 mapFieldCanvas.RenderTransform = matTrans;
             }
+
+            if (windVectorMode)
+            {
+                if (startWindPointGiven && !endWindPointGiven)
+                {
+                    windVectorLine.X2 = pos.X;
+                    windVectorLine.Y2 = pos.Y;
+                }
+            }
         }
 
         private void mapFieldArea_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Point pos = e.GetPosition(mapFieldCanvas);
             oldMapMousePosition = new Point(pos.X, pos.Y);
-            movingMode = true;
+
+            if (canMove())
+            {
+                movingMode = true;
+            }
 
             if (startPointMode)
             {
                 windowManager.UpdatePosition(mapConverter.TranslatePointToMeters(pos));
+                Console.WriteLine("Start point: {0}", pos);
             }
 
             if (endPointMode)
             {
                 windowManager.UpdateEndPosition(mapConverter.TranslatePointToMeters(pos));
+                Console.WriteLine("End point: {0}", pos);
+            }
+
+            if (windVectorMode)
+            {
+                if (startWindPointGiven && endWindPointGiven)
+                {
+                    removeWindVectorLine();
+                }
+
+                if (!startWindPointGiven)
+                {
+                    createWindVectorLine();
+                    startWindPoint = pos;
+                    startWindPointGiven = true;
+                    windVectorLine.X1 = startWindPoint.X;
+                    windVectorLine.Y1 = startWindPoint.Y;
+                }
+                else if (startWindPointGiven && !endWindPointGiven)
+                {
+                    endWindPoint = pos;
+                    endWindPointGiven = true;
+                    windVectorLine.X2 = endWindPoint.X;
+                    windVectorLine.Y2 = endWindPoint.Y;
+                    Vector windVector = new Vector(endWindPoint.X - startWindPoint.X, endWindPoint.Y - startWindPoint.Y);
+                    windowManager.UpdateWindVector(windVector);
+                }
+                else
+                {
+                    startWindPointGiven = false;
+                    endWindPointGiven = false;
+                    windowManager.UpdateWindVector(new Vector(0.0, 0.0));
+                }
             }
         }
 
@@ -237,12 +291,88 @@ namespace Life_safety
         {
             startPointMode = !startPointMode;
             endPointMode = false;
+            windVectorMode = false;
+            updatePointSelectionState();
         }
 
         private void endPointBtn_Click(object sender, RoutedEventArgs e)
         {
             endPointMode = !endPointMode;
+            windVectorMode = false;
             startPointMode = false;
+            updatePointSelectionState();
+        }
+
+        private void speedVectorBtn_Click(object sender, RoutedEventArgs e)
+        {
+            windVectorMode = !windVectorMode;
+            startPointMode = false;
+            endPointMode = false;
+            updatePointSelectionState();
+        }
+
+        private bool canMove()
+        {
+            if (startPointMode || endPointMode || windVectorMode)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        private void updatePointSelectionState()
+        {
+            if (startPointMode)
+            {
+                startPointBtn.Background = Brushes.CornflowerBlue;
+                mapFieldArea.Cursor = Cursors.Cross;
+            }
+            else
+            {
+                startPointBtn.Background = null;
+            }
+
+            if (endPointMode)
+            {
+                endPointBtn.Background = Brushes.Coral;
+                mapFieldArea.Cursor = Cursors.Cross;
+            }
+            else
+            {
+                endPointBtn.Background = null;
+            }
+
+            if (windVectorMode)
+            {
+                windVectorBtn.Background = Brushes.LightGreen;
+                mapFieldArea.Cursor = Cursors.Pen;
+            }
+            else
+            {
+                windVectorBtn.Background = null;
+            }
+
+            if (!startPointMode && !endPointMode && !windVectorMode)
+            {
+                mapFieldArea.Cursor = Cursors.Arrow;
+            }
+        }
+
+        private void createWindVectorLine()
+        {
+            windVectorLine = new Line();
+            windVectorLine.Stroke = Brushes.Brown;
+            windVectorLine.StrokeThickness = 4.0;
+            mapFieldCanvas.Children.Add(windVectorLine);
+        }
+
+        private void removeWindVectorLine()
+        {
+            mapFieldCanvas.Children.Remove(windVectorLine);
+            windVectorLine = null;
         }
     }
 }
