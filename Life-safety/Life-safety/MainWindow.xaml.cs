@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Expression.Controls;
 
 namespace Life_safety
 {
@@ -29,7 +30,7 @@ namespace Life_safety
         bool endPointMode = false;
         bool windVectorMode = false;
 
-        Line windVectorLine;
+        LineArrow windArrow;
         Point startWindPoint;
         Point endWindPoint;
         bool startWindPointGiven = false;
@@ -46,7 +47,7 @@ namespace Life_safety
             InitializeWindow();
             this.windowManager = new MainWindowManager(this);
 
-            //initValues();
+            initValues();
 
             var mat = realDangerZoneEllipse.RenderTransform.Value;
             double angle = Math.Atan2(-0.5, 0.5) / Math.PI * 180.0;
@@ -205,8 +206,11 @@ namespace Life_safety
             {
                 if (startWindPointGiven && !endWindPointGiven)
                 {
-                    windVectorLine.X2 = pos.X;
-                    windVectorLine.Y2 = pos.Y;
+                    windArrow.Width = Math.Sqrt(Math.Pow(pos.X - startWindPoint.X, 2) + Math.Pow(pos.Y - startWindPoint.Y, 2));
+                    var mat = windArrow.RenderTransform.Value;
+                    double angle = Math.Atan((pos.Y - startWindPoint.Y) / (pos.X - startWindPoint.X));
+                    mat.Rotate(angle);
+                    windArrow.RenderTransform = new MatrixTransform(mat);
                 }
             }
         }
@@ -237,23 +241,21 @@ namespace Life_safety
             {
                 if (startWindPointGiven && endWindPointGiven)
                 {
-                    removeWindVectorLine();
+                    removeWindArrow();
                 }
 
                 if (!startWindPointGiven)
                 {
                     createWindVectorLine();
+                    windArrow.Margin = new Thickness(pos.X, pos.Y, 0, 0);
                     startWindPoint = pos;
                     startWindPointGiven = true;
-                    windVectorLine.X1 = startWindPoint.X;
-                    windVectorLine.Y1 = startWindPoint.Y;
                 }
                 else if (startWindPointGiven && !endWindPointGiven)
                 {
                     endWindPoint = pos;
                     endWindPointGiven = true;
-                    windVectorLine.X2 = endWindPoint.X;
-                    windVectorLine.Y2 = endWindPoint.Y;
+                    windArrow.Width = Math.Sqrt(Math.Pow(pos.X - startWindPoint.X, 2) + Math.Pow(pos.Y - startWindPoint.Y, 2));
                     Vector windVector = new Vector(endWindPoint.X - startWindPoint.X, endWindPoint.Y - startWindPoint.Y);
                     windowManager.UpdateWindVector(windVector);
                 }
@@ -347,7 +349,7 @@ namespace Life_safety
 
             if (windVectorMode)
             {
-                windVectorBtn.Background = Brushes.LightGreen;
+                windVectorBtn.Background = Brushes.PaleVioletRed;
                 mapFieldArea.Cursor = Cursors.Pen;
             }
             else
@@ -363,16 +365,71 @@ namespace Life_safety
 
         private void createWindVectorLine()
         {
-            windVectorLine = new Line();
-            windVectorLine.Stroke = Brushes.Brown;
-            windVectorLine.StrokeThickness = 4.0;
-            mapFieldCanvas.Children.Add(windVectorLine);
+            windArrow = new LineArrow();
+            windArrow.Height = 0;
+            windArrow.Stroke = Brushes.PaleVioletRed;
+            windArrow.StrokeThickness = 4.0;
+            mapFieldCanvas.Children.Add(windArrow);
         }
 
-        private void removeWindVectorLine()
+        private void removeWindArrow()
         {
-            mapFieldCanvas.Children.Remove(windVectorLine);
-            windVectorLine = null;
+            mapFieldCanvas.Children.Remove(windArrow);
+            windArrow = null;
+        }
+
+        private void updateAllArrows(Image except)
+        {
+            arrowN.Source = (ImageSource)FindResource("arrow");
+            arrowNW.Source = (ImageSource)FindResource("arrow");
+            arrowNE.Source = (ImageSource)FindResource("arrow");
+            arrowW.Source = (ImageSource)FindResource("arrow");
+            arrowE.Source = (ImageSource)FindResource("arrow");
+            arrowS.Source = (ImageSource)FindResource("arrow");
+            arrowSW.Source = (ImageSource)FindResource("arrow");
+            arrowSE.Source = (ImageSource)FindResource("arrow");
+
+            except.Source = (ImageSource)FindResource("arrow-red");
+        }
+
+        private void arrowNW_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            updateAllArrows((Image)sender);
+        }
+
+        private void arrowN_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            updateAllArrows((Image)sender);
+        }
+
+        private void arrowNE_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            updateAllArrows((Image)sender);
+        }
+
+        private void arrowW_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            updateAllArrows((Image)sender);
+        }
+
+        private void arrowE_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            updateAllArrows((Image)sender);
+        }
+
+        private void arrowS_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            updateAllArrows((Image)sender);
+        }
+
+        private void arrowSW_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            updateAllArrows((Image)sender);
+        }
+
+        private void arrowSE_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            updateAllArrows((Image)sender);
         }
     }
 }
