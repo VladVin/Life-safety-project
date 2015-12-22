@@ -26,7 +26,7 @@ namespace Life_safety
             this.damageParams.SubstanceState = Core.DamageParams.SubstanceStateType.None;
             this.damageParams.Mass = -1.0f;
             this.damageParams.WindVector = new Vector(1.0, 0.0);
-            this.damageParams.Position = new Point(0.0, 0.0);
+            this.damageParams.Position = new Point(5.0, 5.0);
             this.damageParams.Air = Core.DamageParams.AirType.None;
             this.damageParams.Overflow = Core.DamageParams.OverflowType.None;
             this.damageParams.Temperature = Core.DamageParams.TemperatureType.None;
@@ -120,14 +120,22 @@ namespace Life_safety
 
         private void UpdateAll()
         {
-            if (!isReadyToCalculate()) return;
-            damageParams.Thickness = 0.05f;
-            model.updateDamageParams(damageParams);
-            Core.PossibleDangerZone possibleDangerZone = model.getPossibleDangerZone(damageParams.Time);
-            Core.RealDangerZone realDangerZone = model.getRealDangerZone(damageParams.Time);
-            float timeOfComing = model.TimeOfComing(endPosition);
-            float timeOfSteam = model.TimeOfSteam();
-            mainWindow.RefreshAll(possibleDangerZone, realDangerZone, timeOfComing, timeOfSteam);
+            try
+            {
+                if (!isReadyToCalculate()) return;
+                damageParams.Thickness = 0.05f;
+                model.updateDamageParams(damageParams);
+                Core.PossibleDangerZone possibleDangerZone = model.getPossibleDangerZone(damageParams.Time);
+                Core.RealDangerZone realDangerZone = model.getRealDangerZone(damageParams.Time);
+                float timeOfComing = model.TimeOfComing(endPosition);
+                float timeOfSteam = model.TimeOfSteam();
+                mainWindow.RefreshAll(possibleDangerZone, realDangerZone, timeOfComing, timeOfSteam);
+            }
+            catch
+            {
+                MessageBox.Show("Возможно выбранное вещество не может находиться в газообразном состоянии" + 
+                    "или при текущем состоянии атмосферы не может быть заданной скорости ветра", "Неверные данные");
+            }
         }
 
         private bool isReadyToCalculate()

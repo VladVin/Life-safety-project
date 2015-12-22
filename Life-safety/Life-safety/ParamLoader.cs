@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Life_safety
 {
@@ -149,8 +150,12 @@ namespace Life_safety
             {       
                 if ((string)row["velocity"] == ((int)(damageParams.WindSpeed)).ToString())
                 {
-                    float fa = float.Parse((string)row["t" + elems[n].ToString().Replace(".", "")]);
-                    float fb = float.Parse((string)row["t" + elems[n+1].ToString().Replace(".", "")]);
+                    string sN = "t" + elems[n].ToString(CultureInfo.InvariantCulture).Replace(".", "");
+                    string sN1 = "t" + elems[n + 1].ToString(CultureInfo.InvariantCulture).Replace(".", "");
+                    float fa = float.Parse((string)row[sN], CultureInfo.InvariantCulture);
+                    float fb = float.Parse((string)row[sN1], CultureInfo.InvariantCulture);
+                    //float fa = float.Parse((string)row["t" + elems[n].ToString(CultureInfo.InvariantCulture).Replace(".", "")]);
+                    //float fb = float.Parse((string)row["t" + elems[n+1].ToString(CultureInfo.InvariantCulture).Replace(".", "")]);
                     float a = elems[n];
                     float b = elems[n + 1];
                     float x = equivalentMass;
