@@ -21,38 +21,33 @@ namespace Life_safety
     /// </summary>
     public partial class MainWindow : Window
     {
-        InitSubstanceLoader initSubstanceLoader;
-        MainWindowManager windowManager;
-
-        Point oldMapMousePosition;
-        bool movingMode = false;
-        bool startPointMode = false;
-        bool endPointMode = false;
-        bool windVectorMode = false;
-
-        Line cross1Line, cross2Line;
-        Ellipse experimentCircle, experimentCircle2;
-        LineArrow windArrow;
-
+        private InitSubstanceLoader initSubstanceLoader;
+        private MainWindowManager windowManager;
         private MapConverter mapConverter;
+
+        private Point oldMapMousePosition;
+        private bool movingMode = false;
+        private bool startPointMode = false;
+        private bool endPointMode = false;
+        private bool windVectorMode = false;
+
+        private Point realDangerZonePos;
+        private Point experimentZonePos;
+        private Line cross1Line, cross2Line;
+        private Ellipse experimentCircle, experimentCircle2;
+        private LineArrow windArrow;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            initSubstanceLoader = new InitSubstanceLoader();
-            InitializeWindow();
-            this.windowManager = new MainWindowManager(this);
-
-            initValues();
         }
 
         public void RefreshAll(Core.PossibleDangerZone possibleDangerZone, Core.RealDangerZone realDangerZone,
             float timeOfComing, float timeOfSteam)
         {
-
-            depthField.Text = possibleDangerZone.Depth.ToString();
-            areaField.Text = possibleDangerZone.Area.ToString();
+            depthField.Text = realDangerZone.Depth.ToString();
+            widthField.Text = realDangerZone.Width.ToString();
+            areaField.Text = realDangerZone.Area.ToString();
             timeField.Text = timeOfComing.ToString();
             timeOfSteamField.Text = timeOfSteam.ToString();
             realDangerZoneEllipse.Width = mapConverter.ConvertWidthToPixels(realDangerZone.Width);
@@ -68,7 +63,7 @@ namespace Life_safety
             realDangerZoneEllipse.Visibility = Visibility.Visible;
         }
 
-        private void InitializeWindow()
+        private void initializeWindow()
         {
             string[] substanceNames = initSubstanceLoader.getSubstancesNames();
             foreach(string substanceName in substanceNames)
@@ -112,11 +107,14 @@ namespace Life_safety
                 temperatureTypeBox.Items.Add(Convert.ToString(temperatureVar));
             }
 
-            updatePointSelectionState();
-        }
+            realDangerZonePos = new Point(300.0, 400.0);
+            experimentZonePos = new Point(800.0, 250.0);
 
-        private void initValues()
-        {
+            buildingPeopleCountField.Text = "1000";
+            openAirPeopleCountField.Text = "5000";
+            buildingSafetyPercent.Value = 70.0;
+            openAirSafetyPercent.Value = 30.0;
+
             substanceBox.SelectedIndex = 10;
             substanceStateBox.SelectedIndex = 0;
             substanceMassBox.SelectedIndex = 2;
@@ -125,6 +123,13 @@ namespace Life_safety
             overflowTypeBox.SelectedIndex = 0;
             temperatureTypeBox.SelectedIndex = 2;
             arrowE_MouseDown(arrowE, null);
+
+            drawCross(realDangerZonePos);
+            drawExperimentCircle(experimentZonePos);
+            windowManager.UpdatePosition(mapConverter.TranslatePointToMeters(realDangerZonePos));
+            windowManager.UpdateEndPosition(mapConverter.TranslatePointToMeters(experimentZonePos));
+
+            updatePointSelectionState();
         }
 
         private void drawCross(Point pos)
@@ -438,11 +443,6 @@ namespace Life_safety
             windowManager.UpdateWindVector(windVector);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            mapConverter = new MapConverter(40, mapField.ActualWidth, mapField.ActualHeight);
-        }
-
         private void arrowSW_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
@@ -455,6 +455,38 @@ namespace Life_safety
             updateAllArrows((Image)sender);
             Vector windVector = new Vector(1.0, -1.0);
             windowManager.UpdateWindVector(windVector);
+        }
+
+        private void buildingPeopleCountField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int count = Convert.ToInt32(((TextBox)sender).Text);
+            windowManager.UpdateBuildingPeopleCount(count);
+        }
+
+        private void openAirPeopleCountField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            int count = Convert.ToInt32(((TextBox)sender).Text);
+            windowManager.UpdateOpenAirPeopleCount(count);
+        }
+
+        private void buildingSafetyPercent_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            double percent = ((Slider)sender).Value;
+            windowManager.UpdateBuildingSafetyPeoplePercent(percent);
+        }
+
+        private void openAirSafetyPercent_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            double percent = ((Slider)sender).Value;
+            windowManager.UpdateOpenAirSafetyPeoplePercent(percent);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            initSubstanceLoader = new InitSubstanceLoader();
+            mapConverter = new MapConverter(40, mapField.ActualWidth, mapField.ActualHeight);
+            windowManager = new MainWindowManager(this);
+            initializeWindow();
         }
     }
 }

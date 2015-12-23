@@ -12,6 +12,7 @@ namespace Life_safety
         private MainWindow mainWindow;
         private Core.DamageParams damageParams;
         private Vector normWindVector;
+        private double windSpeed;
         private Model model;
 
         private Point endPosition;
@@ -21,12 +22,13 @@ namespace Life_safety
             this.mainWindow = mainWindow;
 
             this.normWindVector = new Vector(1.0, 0.0);
+            this.windSpeed = 1.0;
             this.damageParams = new Core.DamageParams();
             this.damageParams.Substance = "";
             this.damageParams.SubstanceState = Core.DamageParams.SubstanceStateType.None;
             this.damageParams.Mass = -1.0f;
-            this.damageParams.WindVector = new Vector(1.0, 0.0);
-            this.damageParams.Position = new Point(5.0, 5.0);
+            this.damageParams.WindVector = normWindVector;
+            this.damageParams.Position = new Point(0.0, 0.0);
             this.damageParams.Air = Core.DamageParams.AirType.None;
             this.damageParams.Overflow = Core.DamageParams.OverflowType.None;
             this.damageParams.Temperature = Core.DamageParams.TemperatureType.None;
@@ -63,21 +65,13 @@ namespace Life_safety
                 normWindVector.X = 0.0;
                 normWindVector.Y = 0.0;
             }
-            damageParams.WindVector = normWindVector * damageParams.WindSpeed;
+            damageParams.WindVector = normWindVector * windSpeed;
             UpdateAll();
         }
 
         public void UpdateWindSpeed(float windSpeed)
         {
-            if (damageParams.WindVector.Length != 0.0)
-            {
-                normWindVector = damageParams.WindVector / damageParams.WindVector.Length;
-            }
-            else
-            {
-                normWindVector.X = 0.0;
-                normWindVector.Y = 0.0;
-            }
+            this.windSpeed = windSpeed;
             damageParams.WindVector = normWindVector * windSpeed;
             UpdateAll();
         }
@@ -115,6 +109,26 @@ namespace Life_safety
         public void UpdateTime(float time)
         {
             damageParams.Time = time;
+            UpdateAll();
+        }
+
+        public void UpdateBuildingPeopleCount(int count)
+        {
+            UpdateAll();
+        }
+
+        public void UpdateOpenAirPeopleCount(int count)
+        {
+            UpdateAll();
+        }
+
+        public void UpdateBuildingSafetyPeoplePercent(double percent)
+        {
+            UpdateAll();
+        }
+
+        public void UpdateOpenAirSafetyPeoplePercent(double percent)
+        {
             UpdateAll();
         }
 

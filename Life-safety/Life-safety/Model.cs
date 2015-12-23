@@ -303,7 +303,11 @@ namespace Life_safety
             System.Windows.Point position = damageParams.Position;
             System.Windows.Point center;
             System.Windows.Vector shift = damageParams.WindVector;
-            shift.Normalize();
+
+            if (shift.Length != 0.0)
+            {
+                shift.Normalize();
+            }
 
             if (windSpeed < 0.5f)
             {
