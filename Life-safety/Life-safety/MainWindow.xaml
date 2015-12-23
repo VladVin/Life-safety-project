@@ -14,8 +14,9 @@
     </Window.Resources>
     <Grid>
         <Ellipse Fill="#90CAF9" Margin="5,5,1164,561" Panel.ZIndex="6"/>
-        <Grid Margin="5,5,1164,561" Panel.ZIndex="6" >
-            <Image x:Name="arrowNW" Width="25" Height="25" Source="{StaticResource arrow}" Margin="0,1,50,49" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowNW_MouseDown">
+        <Grid Margin="-30,-27,1128,530" Panel.ZIndex="6" >
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Ветер" Foreground="GhostWhite" FontSize="20"/>
+            <Image x:Name="arrowNW" Width="25" Height="25" Source="{StaticResource arrow}" Margin="45,41,100,96" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowNW_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -25,7 +26,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Image x:Name="arrowN" Width="25" Height="25" Source="{StaticResource arrow}" Margin="25,0,25,50" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowN_MouseDown">
+            <Image x:Name="arrowN" Width="25" Height="25" Source="{StaticResource arrow}" Margin="49,10,51,90" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowN_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -35,7 +36,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Image x:Name="arrowNE" Width="25" Height="25" Source="{StaticResource arrow}" Margin="50,0,0,50" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowNE_MouseDown">
+            <Image x:Name="arrowNE" Width="25" Height="25" Source="{StaticResource arrow}" Margin="101,41,44,96" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowNE_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -45,7 +46,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Image x:Name="arrowW" Width="25" Height="25" Source="{StaticResource arrow}" Margin="0,25,50,25" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowW_MouseDown">
+            <Image x:Name="arrowW" Width="25" Height="25" Source="{StaticResource arrow}" Margin="10,49,90,51" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowW_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -55,7 +56,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Image x:Name="arrowE" Width="25" Height="25" Source="{StaticResource arrow}" Margin="50,25,0,25" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowE_MouseDown">
+            <Image x:Name="arrowE" Width="25" Height="25" Source="{StaticResource arrow}" Margin="90,50,10,50" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowE_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -65,7 +66,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Image x:Name="arrowSW" Width="25" Height="25" Source="{StaticResource arrow}" Margin="0,50,50,0" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowSW_MouseDown">
+            <Image x:Name="arrowSW" Width="25" Height="25" Source="{StaticResource arrow}" Margin="45,97,100,40" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowSW_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -75,7 +76,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Image x:Name="arrowS" Width="25" Height="25" Source="{StaticResource arrow}" Margin="25,50,25,0" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowS_MouseDown">
+            <Image x:Name="arrowS" Width="25" Height="25" Source="{StaticResource arrow}" Margin="51,90,49,10" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowS_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -85,7 +86,7 @@
                     </TransformGroup>
                 </Image.RenderTransform>
             </Image>
-            <Image x:Name="arrowSE" Width="25" Height="25" Source="{StaticResource arrow}" Margin="50,50,0,0" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowSE_MouseDown">
+            <Image x:Name="arrowSE" Width="25" Height="25" Source="{StaticResource arrow}" Margin="101,97,44,40" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowSE_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
