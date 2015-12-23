@@ -135,7 +135,7 @@ namespace Life_safety
                 model.updateDamageParams(damageParams);
                 Core.PossibleDangerZone possibleDangerZone = model.getPossibleDangerZone(damageParams.Time);
                 Core.RealDangerZone realDangerZone = model.getRealDangerZone(damageParams.Time);
-                float timeOfComing = model.TimeOfComing(endPosition);
+                float timeOfComing = model.TimeOfComing(endPosition, damageParams.Time);
                 float timeOfSteam = model.TimeOfSteam();
                 mainWindow.RefreshAll(possibleDangerZone, realDangerZone, timeOfComing, timeOfSteam);
             }

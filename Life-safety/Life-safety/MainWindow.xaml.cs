@@ -62,13 +62,13 @@ namespace Life_safety
 
             Vector dir = realDangerZone.Direction;
             double angle = Math.Atan2(dir.Y, dir.X) / Math.PI * 180.0 + 90.0;
-            realDangerZoneEllipse.Margin = 
-                new Thickness(center.X - realDangerZoneEllipse.Width / 2, 
-                center.Y - realDangerZoneEllipse.Height / 2,
-                0.0, 0.0);
 
             Matrix m = new Matrix(1, 0, 0, 1, 0, 0);
+
+            m.TranslatePrepend(center.X - realDangerZoneEllipse.Width / 2,
+                center.Y - realDangerZoneEllipse.Height / 2);
             m.RotateAtPrepend(angle, realDangerZoneEllipse.Width / 2, realDangerZoneEllipse.Height / 2);
+            
             realDangerZoneEllipse.RenderTransform = new MatrixTransform(m);
             realDangerZoneEllipse.Visibility = Visibility.Visible;
         }
@@ -404,21 +404,21 @@ namespace Life_safety
         private void arrowNW_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
-            Vector windVector = new Vector(-1.0, 1.0);
+            Vector windVector = new Vector(-1.0, -1.0);
             windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowN_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
-            Vector windVector = new Vector(0.0, 1.0);
+            Vector windVector = new Vector(0.0, -1.0);
             windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowNE_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
-            Vector windVector = new Vector(1.0, 1.0);
+            Vector windVector = new Vector(1.0, -1.0);
             windowManager.UpdateWindVector(windVector);
         }
 
@@ -439,27 +439,27 @@ namespace Life_safety
         private void arrowS_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
-            Vector windVector = new Vector(0.0, -1.0);
+            Vector windVector = new Vector(0.0, 1.0);
             windowManager.UpdateWindVector(windVector);
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            mapConverter = new MapConverter(40, mapField.ActualWidth, mapField.ActualHeight);
         }
 
         private void arrowSW_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
-            Vector windVector = new Vector(-1.0, -1.0);
+            Vector windVector = new Vector(-1.0, 1.0);
             windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowSE_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
-            Vector windVector = new Vector(1.0, -1.0);
+            Vector windVector = new Vector(1.0, 1.0);
             windowManager.UpdateWindVector(windVector);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            mapConverter = new MapConverter(40, mapField.ActualWidth, mapField.ActualHeight);
         }
     }
 }
