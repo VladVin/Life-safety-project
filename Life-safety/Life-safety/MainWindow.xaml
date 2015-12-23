@@ -8,9 +8,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024" ResizeMode="NoResize">
     <Window.Resources>
-        <BitmapImage x:Key="nn-map" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\projects\courses\life-safety-project\Life-safety\assets\nn_map.png"/>
-        <BitmapImage x:Key="arrow" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\projects\courses\life-safety-project\Life-safety\assets\arrow.png"/>
-        <BitmapImage x:Key="arrow-red" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\projects\courses\life-safety-project\Life-safety\assets\arrow_red.png"/>
+        <BitmapImage x:Key="nn-map" UriSource="Resources\nn_map.png"/>
+        <BitmapImage x:Key="arrow" UriSource="Resources\arrow.png"/>
+        <BitmapImage x:Key="arrow-red" UriSource="Resources\arrow_red.png"/>
     </Window.Resources>
     <Grid>
         <Ellipse Fill="#90CAF9" Width="100" Height="100" Margin="3,3,915,636" Panel.ZIndex="6"/>
