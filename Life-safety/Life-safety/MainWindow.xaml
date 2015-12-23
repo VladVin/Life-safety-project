@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:Life_safety"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="Life_safety.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="MainWindow" Height="719.866" Width="1300" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Window.Resources>
         <BitmapImage x:Key="nn-map" UriSource="Resources\nn_map.png"/>
         <BitmapImage x:Key="arrow" UriSource="Resources\arrow.png"/>
         <BitmapImage x:Key="arrow-red" UriSource="Resources\arrow_red.png"/>
     </Window.Resources>
     <Grid>
-        <Ellipse Fill="#90CAF9" Margin="5,5,890,614" Panel.ZIndex="6"/>
-        <Grid Margin="5,5,890,614" Panel.ZIndex="6" >
+        <Ellipse Fill="#90CAF9" Margin="5,5,1164,561" Panel.ZIndex="6"/>
+        <Grid Margin="5,5,1164,561" Panel.ZIndex="6" >
             <Image x:Name="arrowNW" Width="25" Height="25" Source="{StaticResource arrow}" Margin="0,1,50,49" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowNW_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -96,82 +96,82 @@
                 </Image.RenderTransform>
             </Image>
         </Grid>
-        <Rectangle Fill="#FFAED581" HorizontalAlignment="Left" Height="109" Margin="8,620,0,0" VerticalAlignment="Top" Width="322" Opacity="0.3"/>
-        <StackPanel HorizontalAlignment="Left" Height="90" Margin="11,630,0,0" VerticalAlignment="Top" Width="155">
-            <ComboBox x:Name="substanceBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceBox_SelectionChanged"/>
-            <ComboBox x:Name="substanceStateBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceStateBox_SelectionChanged"/>
-            <ComboBox x:Name="substanceMassBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceMassBox_SelectionChanged"/>
-            <ComboBox x:Name="windSpeedBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="windSpeedBox_SelectionChanged"/>
+
+        <StackPanel Width="350" Margin="934,0,10,0">
+            <TextBlock Text="Параметры АХОВ" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="130" Height="25" FontSize="17"/>
+                <TextBox x:Name="timeTextField" Text="{Binding Value, ElementName=timeSlider, StringFormat=\{0:F0\}}"  Width="40" Height="25" TextAlignment="Center"/>
+                <Slider x:Name="timeSlider" Width="180"  Height="25" Maximum="24" Value="{Binding Text, ElementName=timeTextField}" SmallChange="1" ValueChanged="timeSlider_ValueChanged"/>
+            </StackPanel>
+            <StackPanel Width="350" VerticalAlignment="Top" Orientation="Horizontal">
+                <StackPanel Width="170">
+                    <TextBlock Text="Вещество" Height="25" VerticalAlignment="Center" FontSize="17"/>
+                    <TextBlock Text="Состояние вещества" Height="25" VerticalAlignment="Center" FontSize="17"/>
+                    <TextBlock Text="Масса вещества" Height="25" VerticalAlignment="Center" FontSize="17"/>
+                    <TextBlock Text="Скорость ветра" Height="25" VerticalAlignment="Center" FontSize="17"/>
+                    <TextBlock Text="Атмосфера" Height="25" VerticalAlignment="Center" FontSize="17"/>
+                    <TextBlock Text="Тип разлива" Height="25" VerticalAlignment="Center" FontSize="17"/>
+                    <TextBlock Text="Температура окр. ср." Height="25" VerticalAlignment="Center" FontSize="17"/>
+                </StackPanel>
+                <StackPanel Width="170" HorizontalAlignment="Left">
+                    <ComboBox x:Name="substanceBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceBox_SelectionChanged"/>
+                    <ComboBox x:Name="substanceStateBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceStateBox_SelectionChanged"/>
+                    <ComboBox x:Name="substanceMassBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceMassBox_SelectionChanged"/>
+                    <ComboBox x:Name="windSpeedBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="windSpeedBox_SelectionChanged"/>
+                    <ComboBox x:Name="airTypeBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="airTypeBox_SelectionChanged"/>
+                    <ComboBox x:Name="overflowTypeBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="overflowTypeBox_SelectionChanged"/>
+                    <ComboBox x:Name="temperatureTypeBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="temperatureTypeBox_SelectionChanged"/>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="Распространение АХОВ" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="170">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Глубина" Width="180" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ширина" Width="180" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Площадь" Width="180" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время подхода" Width="180" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время испарения" Width="180" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                </StackPanel>
+                <StackPanel Width="170">
+                    <TextBlock x:Name="depthField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="widthField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="areaField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="timeField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="timeOfSteamField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock Text="Потери" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="170">
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="В зданииях (людей)" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="В противогазах (%)" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Откр. возд. (людей)" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="В противогазах (%)" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Малой тяжести" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Средней тяжести" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                    <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Летальный исход" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
+                </StackPanel>
+                <StackPanel Width="170">
+                    <TextBox x:Name="buildingPeopleCountField" Width="170" HorizontalAlignment="Left" Text="" Height="30" VerticalAlignment="Center" FontSize="18" TextChanged="buildingPeopleCountField_TextChanged"/>
+                    <Slider x:Name="buildingSafetyPercent" Height="30" VerticalAlignment="Center" Maximum="100" ValueChanged="buildingSafetyPercent_ValueChanged" AutoToolTipPlacement="TopLeft"/>
+                    <TextBox x:Name="openAirPeopleCountField" Width="170" HorizontalAlignment="Left" Text="" Height="30" VerticalAlignment="Center" FontSize="18" TextChanged="openAirPeopleCountField_TextChanged"/>
+                    <Slider x:Name="openAirSafetyPercent" Height="30" VerticalAlignment="Center" Maximum="100" ValueChanged="openAirSafetyPercent_ValueChanged" AutoToolTipPlacement="TopLeft"/>
+                    <TextBlock x:Name="liteProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="mediumProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="hardProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Left" Height="70" Margin="171,630,0,0" VerticalAlignment="Top" Width="155">
-            <ComboBox x:Name="airTypeBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="airTypeBox_SelectionChanged"/>
-            <ComboBox x:Name="overflowTypeBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="overflowTypeBox_SelectionChanged"/>
-            <ComboBox x:Name="temperatureTypeBox" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="temperatureTypeBox_SelectionChanged"/>
-        </StackPanel>
-
-        <Canvas x:Name="mapFieldArea" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" ClipToBounds="True" MouseDown="mapFieldArea_MouseDown" MouseUp="mapFieldArea_MouseUp" MouseWheel="mapFieldArea_MouseWheel" MouseMove="mapFieldArea_MouseMove">
+        <Canvas x:Name="mapFieldArea" HorizontalAlignment="Left" Height="675" VerticalAlignment="Top" Width="918" ClipToBounds="True" MouseDown="mapFieldArea_MouseDown" MouseUp="mapFieldArea_MouseUp" MouseWheel="mapFieldArea_MouseWheel" MouseMove="mapFieldArea_MouseMove">
             <Canvas x:Name="mapFieldCanvas">
                 <Image x:Name="mapField" Source="{DynamicResource nn-map}"/>
                 <Ellipse x:Name="realDangerZoneEllipse" Fill="Gray" Width="100" Height="187" Visibility="Hidden" Opacity="0.7" Stroke="Black" StrokeThickness="5" />
             </Canvas>
         </Canvas>
-        <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>
-        <TextBox x:Name="timeTextField" Text="{Binding Value, ElementName=timeSlider, StringFormat=\{0:F0\}}"  Width="40" Height="30" Margin="90,547,888,162" TextAlignment="Center"/>
-        <Slider x:Name="timeSlider" Height="30" Margin="130,547,682,162" Maximum="24" Value="{Binding Text, ElementName=timeTextField}" SmallChange="1" ValueChanged="timeSlider_ValueChanged"/>
-
-        <Rectangle Margin="348,579,0,0" Width="278" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Fill="#64B5F6" Opacity="0.3"/>
-        <StackPanel Orientation="Vertical" Margin="352,579,0,0" Width="270" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Глубина" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBlock x:Name="depthField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Ширина" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBlock x:Name="widthField" HorizontalAlignment="Left" TextWrapping="Wrap" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Площадь" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBlock x:Name="areaField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время подхода" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" TextAlignment="Justify"/>
-                <TextBlock x:Name="timeField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время испарения" Width="180" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" TextAlignment="Justify"/>
-                <TextBlock x:Name="timeOfSteamField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" Width="90" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
-            </StackPanel>
-        </StackPanel>
-
-        <Rectangle Margin="648,579,0,0" Width="358" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top" Fill="#FFB74D" Opacity="0.3"/>
-        <StackPanel Orientation="Vertical" Margin="652,579,0,0" Width="350" HorizontalAlignment="Left" Height="150" VerticalAlignment="Top">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Кол-во защищ. людей" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBox x:Name="safetyPeopleCountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20" Background="#FFB74D" Opacity="0.0"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Кол-во незащищ. людей" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBox x:Name="nonSafetyPeopleCountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20" Background="#FFB74D" Opacity="0.0"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Малой тяжести" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBlock x:Name="death1CountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Средней тяжести" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBlock x:Name="death2CountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="С летальным исходом" Width="250" Height="30" VerticalAlignment="Top" FontWeight="Bold" FontSize="20"/>
-                <TextBlock x:Name="death3CountField" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="100" Height="30" VerticalAlignment="Top" TextAlignment="Right" FontSize="20"/>
-            </StackPanel>
-        </StackPanel>
-        <TextBlock HorizontalAlignment="Left" Margin="68,582,0,0" TextWrapping="Wrap" Text="Параметры АХОВ" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
-        <TextBlock HorizontalAlignment="Left" Margin="352,544,0,0" TextWrapping="Wrap" Text="Распространение АХОВ" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
-        <TextBlock HorizontalAlignment="Left" Margin="785,541,0,0" TextWrapping="Wrap" Text="Потери" VerticalAlignment="Top" TextAlignment="Center" FontSize="25"/>
-        <Button x:Name="startPointBtn" Content="Место аварии" HorizontalAlignment="Left" Margin="0,522,0,0" VerticalAlignment="Top" Width="130                 " Click="startPointBtn_Click"/>
-        <Button x:Name="endPointBtn" Content="Место исследований" HorizontalAlignment="Left" Margin="130,522,0,0" VerticalAlignment="Top" Width="130" Click="endPointBtn_Click"/>
+        <Button x:Name="startPointBtn" Content="Место аварии" HorizontalAlignment="Left" Margin="1,655,0,0" VerticalAlignment="Top" Width="130                 " Click="startPointBtn_Click"/>
+        <Button x:Name="endPointBtn" Content="Место исследований" HorizontalAlignment="Left" Margin="131,655,0,0" VerticalAlignment="Top" Width="130" Click="endPointBtn_Click"/>
 
     </Grid>
 </Window>
