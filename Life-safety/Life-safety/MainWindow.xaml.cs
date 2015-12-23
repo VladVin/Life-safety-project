@@ -30,11 +30,9 @@ namespace Life_safety
         bool endPointMode = false;
         bool windVectorMode = false;
 
+        Line cross1Line, cross2Line;
+        Ellipse experimentCircle, experimentCircle2;
         LineArrow windArrow;
-        Point startWindPoint;
-        Point endWindPoint;
-        bool startWindPointGiven = false;
-        bool endWindPointGiven = false;
 
         private MapConverter mapConverter;
 
@@ -42,7 +40,7 @@ namespace Life_safety
         {
             InitializeComponent();
 
-            mapConverter = new MapConverter(40000, (int)mapField.ActualWidth, (int)mapField.ActualHeight);
+            mapConverter = new MapConverter(40, (int)mapField.ActualWidth, (int)mapField.ActualHeight);
             initSubstanceLoader = new InitSubstanceLoader();
             InitializeWindow();
             this.windowManager = new MainWindowManager(this);
@@ -63,7 +61,11 @@ namespace Life_safety
             areaField.Text = possibleDangerZone.Area.ToString();
             timeField.Text = timeOfComing.ToString();
             timeOfSteamField.Text = timeOfSteam.ToString();
-            //realDangerZone.Direction.
+            realDangerZoneEllipse.Width = mapConverter.ConvertWidthToPixels(realDangerZone.Width);
+            realDangerZoneEllipse.Height = mapConverter.ConvertHeightToPixels(realDangerZone.Depth);
+            Point position = mapConverter.TranslatePointToPixels(realDangerZone.Position);
+            Point center = mapConverter.TranslatePointToPixels(realDangerZone.ShiftedCenter);
+            realDangerZoneEllipse.Margin = new Thickness(center.X, center.Y, 0.0, 0.0);
         }
 
         private void InitializeWindow()
@@ -111,6 +113,9 @@ namespace Life_safety
             }
 
             updatePointSelectionState();
+            realDangerZoneEllipse = new Ellipse();
+            realDangerZoneEllipse.Fill = Brushes.Aquamarine;
+            mapFieldCanvas.Children.Add(realDangerZoneEllipse);
         }
 
         private void initValues()
@@ -122,6 +127,73 @@ namespace Life_safety
             airTypeBox.SelectedIndex = 0;
             overflowTypeBox.SelectedIndex = 0;
             temperatureTypeBox.SelectedIndex = 2;
+        }
+
+        private void drawCross(Point pos)
+        {
+            if (cross1Line != null)
+            {
+                mapFieldCanvas.Children.Remove(cross1Line);
+            }
+
+            if (cross2Line != null)
+            {
+                mapFieldCanvas.Children.Remove(cross2Line);
+            }
+
+            cross1Line = new Line();
+            cross1Line.StrokeThickness = 5.0;
+            cross1Line.Stroke = Brushes.Red;
+            cross1Line.Opacity = 0.7;
+            cross1Line.X1 = pos.X - 10.0;
+            cross1Line.Y1 = pos.Y - 10.0;
+            cross1Line.X2 = pos.X + 10.0;
+            cross1Line.Y2 = pos.Y + 10.0;
+
+            cross2Line = new Line();
+            cross2Line.StrokeThickness = 5.0;
+            cross2Line.Stroke = Brushes.Red;
+            cross2Line.Opacity = 0.7;
+            cross2Line.X1 = pos.X - 10.0;
+            cross2Line.Y1 = pos.Y + 10.0;
+            cross2Line.X2 = pos.X + 10.0;
+            cross2Line.Y2 = pos.Y - 10.0;
+
+            mapFieldCanvas.Children.Add(cross1Line);
+            mapFieldCanvas.Children.Add(cross2Line);
+        }
+
+        private void drawExperimentCircle(Point pos)
+        {
+            if (experimentCircle != null)
+            {
+                mapFieldCanvas.Children.Remove(experimentCircle);
+            }
+
+            if (experimentCircle2 != null)
+            {
+                mapFieldCanvas.Children.Remove(experimentCircle2);
+            }
+
+            experimentCircle = new Ellipse();
+            double r = 20.0;
+            experimentCircle.Width = 2 * r;
+            experimentCircle.Height = 2 * r;
+            experimentCircle.Margin = new Thickness(pos.X - r, pos.Y - r, 0, 0);
+            experimentCircle.Stroke = Brushes.Black;
+            experimentCircle.Fill = Brushes.BlueViolet;
+            experimentCircle.Opacity = 0.7;
+            mapFieldCanvas.Children.Add(experimentCircle);
+
+            experimentCircle2 = new Ellipse();
+            double r2 = 5.0;
+            experimentCircle2.Width = 2 * r2;
+            experimentCircle2.Height = 2 * r2;
+            experimentCircle2.Margin = new Thickness(pos.X - r2, pos.Y - r2, 0, 0);
+            experimentCircle2.Stroke = Brushes.Black;
+            experimentCircle2.Fill = Brushes.Black;
+            experimentCircle2.Opacity = 0.7;
+            mapFieldCanvas.Children.Add(experimentCircle2);
         }
 
         private void substanceBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -201,18 +273,6 @@ namespace Life_safety
                 MatrixTransform matTrans = new MatrixTransform(mat);
                 mapFieldCanvas.RenderTransform = matTrans;
             }
-
-            if (windVectorMode)
-            {
-                if (startWindPointGiven && !endWindPointGiven)
-                {
-                    windArrow.Width = Math.Sqrt(Math.Pow(pos.X - startWindPoint.X, 2) + Math.Pow(pos.Y - startWindPoint.Y, 2));
-                    var mat = windArrow.RenderTransform.Value;
-                    double angle = Math.Atan((pos.Y - startWindPoint.Y) / (pos.X - startWindPoint.X));
-                    mat.Rotate(angle);
-                    windArrow.RenderTransform = new MatrixTransform(mat);
-                }
-            }
         }
 
         private void mapFieldArea_MouseDown(object sender, MouseButtonEventArgs e)
@@ -228,43 +288,13 @@ namespace Life_safety
             if (startPointMode)
             {
                 windowManager.UpdatePosition(mapConverter.TranslatePointToMeters(pos));
-                Console.WriteLine("Start point: {0}", pos);
+                drawCross(pos);
             }
 
             if (endPointMode)
             {
                 windowManager.UpdateEndPosition(mapConverter.TranslatePointToMeters(pos));
-                Console.WriteLine("End point: {0}", pos);
-            }
-
-            if (windVectorMode)
-            {
-                if (startWindPointGiven && endWindPointGiven)
-                {
-                    removeWindArrow();
-                }
-
-                if (!startWindPointGiven)
-                {
-                    createWindVectorLine();
-                    windArrow.Margin = new Thickness(pos.X, pos.Y, 0, 0);
-                    startWindPoint = pos;
-                    startWindPointGiven = true;
-                }
-                else if (startWindPointGiven && !endWindPointGiven)
-                {
-                    endWindPoint = pos;
-                    endWindPointGiven = true;
-                    windArrow.Width = Math.Sqrt(Math.Pow(pos.X - startWindPoint.X, 2) + Math.Pow(pos.Y - startWindPoint.Y, 2));
-                    Vector windVector = new Vector(endWindPoint.X - startWindPoint.X, endWindPoint.Y - startWindPoint.Y);
-                    windowManager.UpdateWindVector(windVector);
-                }
-                else
-                {
-                    startWindPointGiven = false;
-                    endWindPointGiven = false;
-                    windowManager.UpdateWindVector(new Vector(0.0, 0.0));
-                }
+                drawExperimentCircle(pos);
             }
         }
 
@@ -305,14 +335,6 @@ namespace Life_safety
             updatePointSelectionState();
         }
 
-        private void speedVectorBtn_Click(object sender, RoutedEventArgs e)
-        {
-            windVectorMode = !windVectorMode;
-            startPointMode = false;
-            endPointMode = false;
-            updatePointSelectionState();
-        }
-
         private bool canMove()
         {
             if (startPointMode || endPointMode || windVectorMode)
@@ -347,16 +369,6 @@ namespace Life_safety
                 endPointBtn.Background = null;
             }
 
-            if (windVectorMode)
-            {
-                windVectorBtn.Background = Brushes.PaleVioletRed;
-                mapFieldArea.Cursor = Cursors.Pen;
-            }
-            else
-            {
-                windVectorBtn.Background = null;
-            }
-
             if (!startPointMode && !endPointMode && !windVectorMode)
             {
                 mapFieldArea.Cursor = Cursors.Arrow;
@@ -370,12 +382,6 @@ namespace Life_safety
             windArrow.Stroke = Brushes.PaleVioletRed;
             windArrow.StrokeThickness = 4.0;
             mapFieldCanvas.Children.Add(windArrow);
-        }
-
-        private void removeWindArrow()
-        {
-            mapFieldCanvas.Children.Remove(windArrow);
-            windArrow = null;
         }
 
         private void updateAllArrows(Image except)
@@ -395,41 +401,57 @@ namespace Life_safety
         private void arrowNW_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
+            Vector windVector = new Vector(-1.0, 1.0);
+            windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowN_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
+            Vector windVector = new Vector(0.0, 1.0);
+            windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowNE_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
+            Vector windVector = new Vector(1.0, 1.0);
+            windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowW_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
+            Vector windVector = new Vector(-1.0, 0.0);
+            windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowE_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
+            Vector windVector = new Vector(1.0, 0.0);
+            windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowS_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
+            Vector windVector = new Vector(0.0, -1.0);
+            windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowSW_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
+            Vector windVector = new Vector(-1.0, -1.0);
+            windowManager.UpdateWindVector(windVector);
         }
 
         private void arrowSE_MouseDown(object sender, MouseButtonEventArgs e)
         {
             updateAllArrows((Image)sender);
+            Vector windVector = new Vector(1.0, -1.0);
+            windowManager.UpdateWindVector(windVector);
         }
     }
 }
