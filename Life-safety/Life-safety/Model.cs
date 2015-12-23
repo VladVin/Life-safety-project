@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Life_safety
 {
@@ -99,10 +101,10 @@ namespace Life_safety
             return rDangerZone;
         }
 
-        public float TimeOfComing(System.Windows.Point point)
+        public float TimeOfComing(Point point)
         {
             float trans_speed = paramLoader.loadTranslationSpeed();
-            System.Windows.Vector v = new System.Windows.Vector(
+            Vector v = new Vector(
                 point.X - damageParams.Position.X, 
                 point.Y - damageParams.Position.Y);
             float dist = (float)v.Length;
@@ -297,12 +299,12 @@ namespace Life_safety
             return width;
         }
 
-        private System.Windows.Point ShiftedCenter(float depth)
+        private Point ShiftedCenter(float depth)
         {
             float windSpeed = damageParams.WindSpeed;
-            System.Windows.Point position = damageParams.Position;
-            System.Windows.Point center;
-            System.Windows.Vector shift = damageParams.WindVector;
+            Point position = damageParams.Position;
+            Point center;
+            Vector shift = damageParams.WindVector;
 
             if (shift.Length != 0.0)
             {
@@ -315,15 +317,15 @@ namespace Life_safety
             }
             else if (windSpeed >= 0.5f && windSpeed < 1f)
             {
-                center = System.Windows.Point.Add(position, System.Windows.Vector.Multiply(depth / 8f, shift));
+                center = Point.Add(position, Vector.Multiply(depth / 8f, shift));
             }
             else if (windSpeed >= 1f && windSpeed < 2f)
             {
-                center = System.Windows.Point.Add(position, System.Windows.Vector.Multiply(depth / 4f, shift));
+                center = Point.Add(position, Vector.Multiply(depth / 4f, shift));
             }
             else
             {
-                center = System.Windows.Point.Add(position, System.Windows.Vector.Multiply(depth / 2f, shift));
+                center = Point.Add(position, Vector.Multiply(depth / 2f, shift));
             }
 
             return center;

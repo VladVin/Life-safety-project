@@ -6,15 +6,15 @@
         xmlns:local="clr-namespace:Life_safety"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="Life_safety.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="719.866" Width="1400" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="MainWindow" Height="719.866" Width="1300" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Window.Resources>
         <BitmapImage x:Key="nn-map" UriSource="Resources\nn_map.png"/>
         <BitmapImage x:Key="arrow" UriSource="Resources\arrow.png"/>
         <BitmapImage x:Key="arrow-red" UriSource="Resources\arrow_red.png"/>
     </Window.Resources>
     <Grid>
-        <Ellipse Fill="#90CAF9" Margin="5,5,1264,561" Panel.ZIndex="6"/>
-        <Grid Margin="5,5,1264,561" Panel.ZIndex="6" >
+        <Ellipse Fill="#90CAF9" Margin="5,5,1164,561" Panel.ZIndex="6"/>
+        <Grid Margin="5,5,1164,561" Panel.ZIndex="6" >
             <Image x:Name="arrowNW" Width="25" Height="25" Source="{StaticResource arrow}" Margin="0,1,50,49" Panel.ZIndex="5" RenderTransformOrigin="0.5,0.5" MouseDown="arrowNW_MouseDown">
                 <Image.RenderTransform>
                     <TransformGroup>
@@ -97,14 +97,14 @@
             </Image>
         </Grid>
 
-        <StackPanel Width="350" Margin="1024,0,10,0">
+        <StackPanel Width="350" Margin="934,0,10,0">
             <TextBlock Text="Параметры АХОВ" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="130" Height="25" FontSize="17"/>
                 <TextBox x:Name="timeTextField" Text="{Binding Value, ElementName=timeSlider, StringFormat=\{0:F0\}}"  Width="40" Height="25" TextAlignment="Center"/>
                 <Slider x:Name="timeSlider" Width="180"  Height="25" Maximum="24" Value="{Binding Text, ElementName=timeTextField}" SmallChange="1" ValueChanged="timeSlider_ValueChanged"/>
             </StackPanel>
-            <StackPanel Width="350" Margin="0,0,0,0" VerticalAlignment="Top" Orientation="Horizontal">
+            <StackPanel Width="350" VerticalAlignment="Top" Orientation="Horizontal">
                 <StackPanel Width="170">
                     <TextBlock Text="Вещество" Height="25" VerticalAlignment="Center" FontSize="17"/>
                     <TextBlock Text="Состояние вещества" Height="25" VerticalAlignment="Center" FontSize="17"/>
@@ -114,7 +114,7 @@
                     <TextBlock Text="Тип разлива" Height="25" VerticalAlignment="Center" FontSize="17"/>
                     <TextBlock Text="Температура окр. ср." Height="25" VerticalAlignment="Center" FontSize="17"/>
                 </StackPanel>
-                <StackPanel Width="180" HorizontalAlignment="Left">
+                <StackPanel Width="170" HorizontalAlignment="Left">
                     <ComboBox x:Name="substanceBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceBox_SelectionChanged"/>
                     <ComboBox x:Name="substanceStateBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceStateBox_SelectionChanged"/>
                     <ComboBox x:Name="substanceMassBox" Height="25" Background="#FFAED581" BorderBrush="#FFAED581" SelectionChanged="substanceMassBox_SelectionChanged"/>
@@ -133,7 +133,7 @@
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время подхода" Width="180" Height="30" VerticalAlignment="Top" FontSize="18"/>
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Время испарения" Width="180" Height="30" VerticalAlignment="Top" FontSize="18"/>
                 </StackPanel>
-                <StackPanel Width="180">
+                <StackPanel Width="170">
                     <TextBlock x:Name="depthField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
                     <TextBlock x:Name="widthField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
                     <TextBlock x:Name="areaField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
@@ -152,10 +152,10 @@
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Средней тяжести" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
                     <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Летальный исход" Width="170" Height="30" VerticalAlignment="Top" FontSize="18"/>
                 </StackPanel>
-                <StackPanel Width="180">
-                    <TextBox x:Name="buildingPeopleCountField" Width="180" HorizontalAlignment="Left" Text="" Height="30" VerticalAlignment="Center" FontSize="18" TextChanged="buildingPeopleCountField_TextChanged"/>
+                <StackPanel Width="170">
+                    <TextBox x:Name="buildingPeopleCountField" Width="170" HorizontalAlignment="Left" Text="" Height="30" VerticalAlignment="Center" FontSize="18" TextChanged="buildingPeopleCountField_TextChanged"/>
                     <Slider x:Name="buildingSafetyPercent" Height="30" VerticalAlignment="Center" Maximum="100" ValueChanged="buildingSafetyPercent_ValueChanged" AutoToolTipPlacement="TopLeft"/>
-                    <TextBox x:Name="openAirPeopleCountField" Width="180" HorizontalAlignment="Left" Text="" Height="30" VerticalAlignment="Center" FontSize="18" TextChanged="openAirPeopleCountField_TextChanged"/>
+                    <TextBox x:Name="openAirPeopleCountField" Width="170" HorizontalAlignment="Left" Text="" Height="30" VerticalAlignment="Center" FontSize="18" TextChanged="openAirPeopleCountField_TextChanged"/>
                     <Slider x:Name="openAirSafetyPercent" Height="30" VerticalAlignment="Center" Maximum="100" ValueChanged="openAirSafetyPercent_ValueChanged" AutoToolTipPlacement="TopLeft"/>
                     <TextBlock x:Name="liteProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
                     <TextBlock x:Name="mediumProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
@@ -164,7 +164,7 @@
             </StackPanel>
         </StackPanel>
 
-        <Canvas x:Name="mapFieldArea" HorizontalAlignment="Left" Height="675" VerticalAlignment="Top" Width="1018" ClipToBounds="True" MouseDown="mapFieldArea_MouseDown" MouseUp="mapFieldArea_MouseUp" MouseWheel="mapFieldArea_MouseWheel" MouseMove="mapFieldArea_MouseMove">
+        <Canvas x:Name="mapFieldArea" HorizontalAlignment="Left" Height="675" VerticalAlignment="Top" Width="918" ClipToBounds="True" MouseDown="mapFieldArea_MouseDown" MouseUp="mapFieldArea_MouseUp" MouseWheel="mapFieldArea_MouseWheel" MouseMove="mapFieldArea_MouseMove">
             <Canvas x:Name="mapFieldCanvas">
                 <Image x:Name="mapField" Source="{DynamicResource nn-map}"/>
                 <Ellipse x:Name="realDangerZoneEllipse" Fill="Gray" Width="100" Height="187" Visibility="Hidden" Opacity="0.7" Stroke="Black" StrokeThickness="5" />
