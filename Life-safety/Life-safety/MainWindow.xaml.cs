@@ -59,12 +59,17 @@ namespace Life_safety
             realDangerZoneEllipse.Height = mapConverter.ConvertHeightToPixels(realDangerZone.Depth);
             Point position = mapConverter.TranslatePointToPixels(realDangerZone.Position);
             Point center = mapConverter.TranslatePointToPixels(realDangerZone.ShiftedCenter);
+
             Vector dir = realDangerZone.Direction;
-            realDangerZoneEllipse.Margin = new Thickness(position.X, position.Y, 0.0, 0.0);
-            var mat = realDangerZoneEllipse.RenderTransform.Value;
-            double angle = Math.Atan2(dir.Y, dir.X) / Math.PI * 180.0;
-            mat.RotateAtPrepend(angle, realDangerZoneEllipse.ActualWidth / 2.0, realDangerZoneEllipse.ActualHeight / 2.0);
-            realDangerZoneEllipse.RenderTransform = new MatrixTransform(mat);
+            double angle = Math.Atan2(dir.Y, dir.X) / Math.PI * 180.0 + 90.0;
+            realDangerZoneEllipse.Margin = 
+                new Thickness(center.X - realDangerZoneEllipse.Width / 2, 
+                center.Y - realDangerZoneEllipse.Height / 2,
+                0.0, 0.0);
+
+            Matrix m = new Matrix(1, 0, 0, 1, 0, 0);
+            m.RotateAtPrepend(angle, realDangerZoneEllipse.Width / 2, realDangerZoneEllipse.Height / 2);
+            realDangerZoneEllipse.RenderTransform = new MatrixTransform(m);
             realDangerZoneEllipse.Visibility = Visibility.Visible;
         }
 
