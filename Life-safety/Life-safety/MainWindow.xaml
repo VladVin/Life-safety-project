@@ -113,7 +113,7 @@
         <Canvas x:Name="mapFieldArea" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" ClipToBounds="True" MouseDown="mapFieldArea_MouseDown" MouseUp="mapFieldArea_MouseUp" MouseWheel="mapFieldArea_MouseWheel" MouseMove="mapFieldArea_MouseMove">
             <Canvas x:Name="mapFieldCanvas">
                 <Image x:Name="mapField" Source="{DynamicResource nn-map}"/>
-                <Ellipse x:Name="realDangerZoneEllipse" Fill="Gray" Width="100" Height="187" Opacity="0.7" Stroke="Black" StrokeThickness="5" />
+                <Ellipse x:Name="realDangerZoneEllipse" Fill="Gray" Width="100" Height="187" Visibility="Hidden" Opacity="0.7" Stroke="Black" StrokeThickness="5" />
             </Canvas>
         </Canvas>
         <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>

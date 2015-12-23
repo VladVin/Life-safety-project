@@ -65,6 +65,7 @@ namespace Life_safety
             double angle = Math.Atan2(dir.Y, dir.X) / Math.PI * 180.0;
             mat.RotateAtPrepend(angle, realDangerZoneEllipse.ActualWidth / 2.0, realDangerZoneEllipse.ActualHeight / 2.0);
             realDangerZoneEllipse.RenderTransform = new MatrixTransform(mat);
+            realDangerZoneEllipse.Visibility = Visibility.Visible;
         }
 
         private void InitializeWindow()
