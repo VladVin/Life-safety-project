@@ -40,23 +40,17 @@ namespace Life_safety
         {
             InitializeComponent();
 
-            mapConverter = new MapConverter(40, (int)mapField.ActualWidth, (int)mapField.ActualHeight);
             initSubstanceLoader = new InitSubstanceLoader();
             InitializeWindow();
             this.windowManager = new MainWindowManager(this);
 
             initValues();
-
-            var mat = realDangerZoneEllipse.RenderTransform.Value;
-            double angle = Math.Atan2(-0.5, 0.5) / Math.PI * 180.0;
-            Console.WriteLine("Angle: {0}", angle);
-            mat.RotateAtPrepend(angle, realDangerZoneEllipse.ActualWidth / 2, realDangerZoneEllipse.ActualHeight / 2);
-            realDangerZoneEllipse.RenderTransform = new MatrixTransform(mat);
         }
 
         public void RefreshAll(Core.PossibleDangerZone possibleDangerZone, Core.RealDangerZone realDangerZone,
             float timeOfComing, float timeOfSteam)
         {
+
             depthField.Text = possibleDangerZone.Depth.ToString();
             areaField.Text = possibleDangerZone.Area.ToString();
             timeField.Text = timeOfComing.ToString();
@@ -65,7 +59,13 @@ namespace Life_safety
             realDangerZoneEllipse.Height = mapConverter.ConvertHeightToPixels(realDangerZone.Depth);
             Point position = mapConverter.TranslatePointToPixels(realDangerZone.Position);
             Point center = mapConverter.TranslatePointToPixels(realDangerZone.ShiftedCenter);
-            realDangerZoneEllipse.Margin = new Thickness(center.X, center.Y, 0.0, 0.0);
+            Vector dir = realDangerZone.Direction;
+            realDangerZoneEllipse.Margin = new Thickness(position.X, position.Y, 0.0, 0.0);
+            var mat = realDangerZoneEllipse.RenderTransform.Value;
+            double angle = Math.Atan2(dir.Y, dir.X) / Math.PI * 180.0;
+            mat.RotateAtPrepend(angle, realDangerZoneEllipse.ActualWidth / 2.0, realDangerZoneEllipse.ActualHeight / 2.0);
+            realDangerZoneEllipse.RenderTransform = new MatrixTransform(mat);
+            realDangerZoneEllipse.Visibility = Visibility.Visible;
         }
 
         private void InitializeWindow()
@@ -113,9 +113,6 @@ namespace Life_safety
             }
 
             updatePointSelectionState();
-            realDangerZoneEllipse = new Ellipse();
-            realDangerZoneEllipse.Fill = Brushes.Aquamarine;
-            mapFieldCanvas.Children.Add(realDangerZoneEllipse);
         }
 
         private void initValues()
@@ -127,6 +124,7 @@ namespace Life_safety
             airTypeBox.SelectedIndex = 0;
             overflowTypeBox.SelectedIndex = 0;
             temperatureTypeBox.SelectedIndex = 2;
+            arrowE_MouseDown(arrowE, null);
         }
 
         private void drawCross(Point pos)
@@ -438,6 +436,11 @@ namespace Life_safety
             updateAllArrows((Image)sender);
             Vector windVector = new Vector(0.0, -1.0);
             windowManager.UpdateWindVector(windVector);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            mapConverter = new MapConverter(40, mapField.ActualWidth, mapField.ActualHeight);
         }
 
         private void arrowSW_MouseDown(object sender, MouseButtonEventArgs e)
