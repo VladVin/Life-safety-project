@@ -9,32 +9,32 @@ namespace Life_safety
 {
     class MapConverter
     {
-        private int plainWidth;
-        private int plainHeight;
-        private int mapWidth;
-        private int mapHeight;
+        private double plainWidth;
+        private double plainHeight;
+        private double mapWidth;
+        private double mapHeight;
 
         // Plain width in meters
         // mapWidth and mapHeight in pixels
-        public MapConverter(int plainWidth, int mapWidth, int mapHeight)
+        public MapConverter(double plainWidth, double mapWidth, double mapHeight)
         {
             this.plainWidth = plainWidth;
-            this.plainHeight = (int)((double)plainWidth / mapWidth * mapHeight);
+            this.plainHeight = plainWidth / mapWidth * mapHeight;
             this.mapWidth = mapWidth;
             this.mapHeight = mapHeight;
         }
 
         public Point TranslatePointToMeters(Point point)
         {
-            int xMeters = (int)((double)point.X / mapWidth * plainWidth);
-            int yMeters = (int)((double)point.Y / mapHeight * plainHeight);
+            double xMeters = point.X / mapWidth * plainWidth;
+            double yMeters = point.Y / mapHeight * plainHeight;
             return new Point(xMeters, yMeters);
         }
 
         public Point TranslatePointToPixels(Point point)
         {
-            double xPixels = mapWidth / plainWidth * (double)point.X;
-            double yPixels = mapHeight / plainHeight * (double)point.Y;
+            double xPixels = mapWidth / plainWidth * point.X;
+            double yPixels = mapHeight / plainHeight * point.Y;
             return new Point(xPixels, yPixels);
         }
 

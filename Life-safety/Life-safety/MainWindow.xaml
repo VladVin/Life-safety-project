@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Life_safety"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="Life_safety.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024" ResizeMode="NoResize">
+        Title="MainWindow" Height="768" Width="1024" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Window.Resources>
         <BitmapImage x:Key="nn-map" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\projects\courses\life-safety-project\Life-safety\assets\nn_map.png"/>
         <BitmapImage x:Key="arrow" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\projects\courses\life-safety-project\Life-safety\assets\arrow.png"/>
@@ -113,7 +113,7 @@
         <Canvas x:Name="mapFieldArea" HorizontalAlignment="Left" Height="542" VerticalAlignment="Top" Width="1018" ClipToBounds="True" MouseDown="mapFieldArea_MouseDown" MouseUp="mapFieldArea_MouseUp" MouseWheel="mapFieldArea_MouseWheel" MouseMove="mapFieldArea_MouseMove">
             <Canvas x:Name="mapFieldCanvas">
                 <Image x:Name="mapField" Source="{DynamicResource nn-map}"/>
-                <Ellipse x:Name="realDangerZoneEllipse" RenderTransformOrigin="0.5,0.5" Fill="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" Width="100" Height="187" Canvas.Left="212" Canvas.Top="125" Opacity="0.7" Stroke="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" StrokeThickness="5" />
+                <Ellipse x:Name="realDangerZoneEllipse" Fill="Gray" Width="100" Height="187" Opacity="0.7" Stroke="Black" StrokeThickness="5" />
             </Canvas>
         </Canvas>
         <TextBlock x:Name="timeBarDescription" Text="Время (мин)" Width="80" Height="30" Margin="10,547,928,162"/>
