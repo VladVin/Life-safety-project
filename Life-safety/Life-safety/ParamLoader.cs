@@ -108,7 +108,7 @@ namespace Life_safety
                     }
 
                     DataTable wind = dataLoader.GetTable(DataLoader.Table.WIND_COEF);
-                    result[3] = loadTranslationSpeed();
+                    result[3] = float.Parse((string)wind.Rows[0]["v" + damageParams.WindSpeed.ToString()]);
                     return result;
                 }
             }

@@ -123,7 +123,15 @@ namespace Life_safety
             try
             {
                 if (!isReadyToCalculate()) return;
-                damageParams.Thickness = 0.05f;
+                if (damageParams.Overflow == Core.DamageParams.OverflowType.Free)
+                {
+                    damageParams.Thickness = 0.05f;
+                }
+                else
+                {
+                    damageParams.Thickness = 0.5f;
+                }
+                
                 model.updateDamageParams(damageParams);
                 Core.PossibleDangerZone possibleDangerZone = model.getPossibleDangerZone(damageParams.Time);
                 Core.RealDangerZone realDangerZone = model.getRealDangerZone(damageParams.Time);
