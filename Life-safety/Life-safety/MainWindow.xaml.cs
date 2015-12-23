@@ -43,13 +43,18 @@ namespace Life_safety
         }
 
         public void RefreshAll(Core.PossibleDangerZone possibleDangerZone, Core.RealDangerZone realDangerZone,
-            float timeOfComing, float timeOfSteam)
+            float timeOfComing, float timeOfSteam, Core.Loss losses)
         {
             depthField.Text = realDangerZone.Depth.ToString();
             widthField.Text = realDangerZone.Width.ToString();
             areaField.Text = realDangerZone.Area.ToString();
             timeField.Text = timeOfComing.ToString();
             timeOfSteamField.Text = timeOfSteam.ToString();
+
+            liteProblemCountField.Text = losses.lite.ToString();
+            mediumProblemCountField.Text = losses.medium.ToString();
+            hardProblemCountField.Text = losses.hard.ToString();
+
             realDangerZoneEllipse.Width = mapConverter.ConvertWidthToPixels(realDangerZone.Width);
             realDangerZoneEllipse.Height = mapConverter.ConvertHeightToPixels(realDangerZone.Depth);
             Point position = mapConverter.TranslatePointToPixels(realDangerZone.Position);

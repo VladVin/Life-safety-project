@@ -13,9 +13,13 @@ namespace Life_safety
         private Core.DamageParams damageParams;
         private Vector normWindVector;
         private double windSpeed;
-        private Model model;
-
         private Point endPosition;
+        private int inBuidingPeopleCount;
+        private int onOpenAirPeopleCount;
+        private double buildingSafetyPercent;
+        private double openAirSafetyPercent;
+
+        private Model model;
 
         public MainWindowManager(MainWindow mainWindow)
         {
@@ -114,21 +118,25 @@ namespace Life_safety
 
         public void UpdateBuildingPeopleCount(int count)
         {
+            inBuidingPeopleCount = count;
             UpdateAll();
         }
 
         public void UpdateOpenAirPeopleCount(int count)
         {
+            onOpenAirPeopleCount = count;
             UpdateAll();
         }
 
         public void UpdateBuildingSafetyPeoplePercent(double percent)
         {
+            buildingSafetyPercent = percent;
             UpdateAll();
         }
 
         public void UpdateOpenAirSafetyPeoplePercent(double percent)
         {
+            openAirSafetyPercent = percent;
             UpdateAll();
         }
 
@@ -149,9 +157,10 @@ namespace Life_safety
                 model.updateDamageParams(damageParams);
                 Core.PossibleDangerZone possibleDangerZone = model.getPossibleDangerZone(damageParams.Time);
                 Core.RealDangerZone realDangerZone = model.getRealDangerZone(damageParams.Time);
+                Core.Loss losses = model.Loss(inBuidingPeopleCount, buildingSafetyPercent, onOpenAirPeopleCount, openAirSafetyPercent);
                 float timeOfComing = model.TimeOfComing(endPosition);
                 float timeOfSteam = model.TimeOfSteam();
-                mainWindow.RefreshAll(possibleDangerZone, realDangerZone, timeOfComing, timeOfSteam);
+                mainWindow.RefreshAll(possibleDangerZone, realDangerZone, timeOfComing, timeOfSteam, losses);
             }
             catch
             {

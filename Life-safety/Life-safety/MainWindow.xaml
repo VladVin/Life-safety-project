@@ -158,7 +158,7 @@
                     <TextBox x:Name="openAirPeopleCountField" Width="180" HorizontalAlignment="Left" Text="" Height="30" VerticalAlignment="Center" FontSize="18" TextChanged="openAirPeopleCountField_TextChanged"/>
                     <Slider x:Name="openAirSafetyPercent" Height="30" VerticalAlignment="Center" Maximum="100" ValueChanged="openAirSafetyPercent_ValueChanged" AutoToolTipPlacement="TopLeft"/>
                     <TextBlock x:Name="liteProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
-                    <TextBlock x:Name="middleProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
+                    <TextBlock x:Name="mediumProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
                     <TextBlock x:Name="hardProblemCountField" HorizontalAlignment="Left" Text="TextBlock" Height="30" VerticalAlignment="Center" FontSize="18"/>
                 </StackPanel>
             </StackPanel>

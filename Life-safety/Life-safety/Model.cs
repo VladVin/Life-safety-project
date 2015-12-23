@@ -115,101 +115,101 @@ namespace Life_safety
                    (coeffs[1] * coeffs[3] * coeffs[6]));
         }
 
-        public Core.DamageParams.Loss Loss()
+        public Core.Loss Loss(int inBuildingCount, double buildingSafetyPercent,
+            int onOpenAirCount, double openAirSafetyPercent)
         {
-            float perLoss = 0.0f;
-            if (damageParams.WherePeople == Core.DamageParams.WherePeopleType.OpenAir)
+            float openAirLossCoeff = 0.0f;
+            float perGM = (float)openAirSafetyPercent / 100.0f;
+            if (perGM < 0.18f)
             {
-                float perGM = damageParams.PercentGasMask;
-                if (perGM < 0.18f)
-                {
-                    perLoss = 0.9f;
-                }
-                else if (perGM >= 0.18f && perGM < 0.3f)
-                {
-                    perLoss = 0.75f;
-                }
-                else if (perGM >= 0.3f && perGM < 0.4f)
-                {
-                    perLoss = 0.65f;
-                }
-                else if (perGM >= 0.4f && perGM < 0.5f)
-                {
-                    perLoss = 0.58f;
-                }
-                else if (perGM >= 0.5f && perGM < 0.6f)
-                {
-                    perLoss = 0.5f;
-                }
-                else if (perGM >= 0.6f && perGM < 0.7f)
-                {
-                    perLoss = 0.4f;
-                }
-                else if (perGM >= 0.7f && perGM < 0.8f)
-                {
-                    perLoss = 0.35f;
-                }
-                else if (perGM >= 0.8f && perGM < 0.9f)
-                {
-                    perLoss = 0.25f;
-                }
-                else if (perGM >= 0.9f && perGM < 0.98f)
-                {
-                    perLoss = 0.18f;
-                }
-                else if (perGM >= 0.98f)
-                {
-                    perLoss = 0.1f;
-                }
+                openAirLossCoeff = 0.9f;
             }
-            else if (damageParams.WherePeople == Core.DamageParams.WherePeopleType.Building)
+            else if (perGM >= 0.18f && perGM < 0.3f)
             {
-                float perGM = damageParams.PercentGasMask;
-                if (perGM < 0.18f)
-                {
-                    perLoss = 0.5f;
-                }
-                else if (perGM >= 0.18f && perGM < 0.3f)
-                {
-                    perLoss = 0.4f;
-                }
-                else if (perGM >= 0.3f && perGM < 0.4f)
-                {
-                    perLoss = 0.35f;
-                }
-                else if (perGM >= 0.4f && perGM < 0.5f)
-                {
-                    perLoss = 0.3f;
-                }
-                else if (perGM >= 0.5f && perGM < 0.6f)
-                {
-                    perLoss = 0.27f;
-                }
-                else if (perGM >= 0.6f && perGM < 0.7f)
-                {
-                    perLoss = 0.22f;
-                }
-                else if (perGM >= 0.7f && perGM < 0.8f)
-                {
-                    perLoss = 0.18f;
-                }
-                else if (perGM >= 0.8f && perGM < 0.9f)
-                {
-                    perLoss = 0.14f;
-                }
-                else if (perGM >= 0.9f && perGM < 0.98f)
-                {
-                    perLoss = 0.09f;
-                }
-                else if (perGM >= 0.98f)
-                {
-                    perLoss = 0.04f;
-                }
+                openAirLossCoeff = 0.75f;
+            }
+            else if (perGM >= 0.3f && perGM < 0.4f)
+            {
+                openAirLossCoeff = 0.65f;
+            }
+            else if (perGM >= 0.4f && perGM < 0.5f)
+            {
+                openAirLossCoeff = 0.58f;
+            }
+            else if (perGM >= 0.5f && perGM < 0.6f)
+            {
+                openAirLossCoeff = 0.5f;
+            }
+            else if (perGM >= 0.6f && perGM < 0.7f)
+            {
+                openAirLossCoeff = 0.4f;
+            }
+            else if (perGM >= 0.7f && perGM < 0.8f)
+            {
+                openAirLossCoeff = 0.35f;
+            }
+            else if (perGM >= 0.8f && perGM < 0.9f)
+            {
+                openAirLossCoeff = 0.25f;
+            }
+            else if (perGM >= 0.9f && perGM < 0.98f)
+            {
+                openAirLossCoeff = 0.18f;
+            }
+            else if (perGM >= 0.98f)
+            {
+                openAirLossCoeff = 0.1f;
             }
 
-            int countLoss = (int)(damageParams.NumHuman * perLoss);
-            Core.DamageParams.Loss loss =
-                new Core.DamageParams.Loss((int)(countLoss * 0.25f), 
+            float buildingLossCoeff = 0.0f;
+            perGM = (float)buildingSafetyPercent / 100.0f;
+            if (perGM < 0.18f)
+            {
+                buildingLossCoeff = 0.5f;
+            }
+            else if (perGM >= 0.18f && perGM < 0.3f)
+            {
+                buildingLossCoeff = 0.4f;
+            }
+            else if (perGM >= 0.3f && perGM < 0.4f)
+            {
+                buildingLossCoeff = 0.35f;
+            }
+            else if (perGM >= 0.4f && perGM < 0.5f)
+            {
+                buildingLossCoeff = 0.3f;
+            }
+            else if (perGM >= 0.5f && perGM < 0.6f)
+            {
+                buildingLossCoeff = 0.27f;
+            }
+            else if (perGM >= 0.6f && perGM < 0.7f)
+            {
+                buildingLossCoeff = 0.22f;
+            }
+            else if (perGM >= 0.7f && perGM < 0.8f)
+            {
+                buildingLossCoeff = 0.18f;
+            }
+            else if (perGM >= 0.8f && perGM < 0.9f)
+            {
+                buildingLossCoeff = 0.14f;
+            }
+            else if (perGM >= 0.9f && perGM < 0.98f)
+            {
+                buildingLossCoeff = 0.09f;
+            }
+            else if (perGM >= 0.98f)
+            {
+                buildingLossCoeff = 0.04f;
+            }
+
+            int openAirLossCount = (int)(onOpenAirCount * openAirLossCoeff);
+            int buildingLossCount = (int)(inBuildingCount * buildingLossCoeff);
+
+            int countLoss = openAirLossCount + buildingLossCount;
+            Core.Loss loss =
+                new Core.Loss((int)(countLoss * 0.25f), 
                                            (int)(countLoss * 0.4f), 
                                            (int)(countLoss * 0.35f));
             return loss;
