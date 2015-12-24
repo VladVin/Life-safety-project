@@ -171,8 +171,8 @@
                 <Ellipse x:Name="realDangerZoneEllipse" Fill="Gray" Width="100" Height="187" Visibility="Hidden" Opacity="0.7" Stroke="Black" StrokeThickness="5" />
             </Canvas>
         </Canvas>
-        <Button x:Name="startPointBtn" Content="Место аварии" HorizontalAlignment="Left" Margin="1,655,0,0" VerticalAlignment="Top" Width="130                 " Click="startPointBtn_Click"/>
-        <Button x:Name="endPointBtn" Content="Место исследований" HorizontalAlignment="Left" Margin="131,655,0,0" VerticalAlignment="Top" Width="130" Click="endPointBtn_Click"/>
+        <Button x:Name="startPointBtn" Content="Место аварии" HorizontalAlignment="Left" Margin="0,644,0,0" VerticalAlignment="Top" Width="170" FontSize="20" Click="startPointBtn_Click"/>
+        <Button x:Name="endPointBtn" Content="Место исследований" HorizontalAlignment="Left" Margin="170,644,0,0" VerticalAlignment="Top" Width="200" FontSize="20" Click="endPointBtn_Click"/>
 
     </Grid>
 </Window>

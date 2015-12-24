@@ -117,7 +117,7 @@ namespace Life_safety
                 temperatureTypeBox.Items.Add(Convert.ToString(temperatureVar));
             }
 
-            realDangerZonePos = new Point(300.0, 400.0);
+            realDangerZonePos = new Point(300.0, 200.0);
             experimentZonePos = new Point(800.0, 250.0);
 
             buildingPeopleCountField.Text = "1000";
@@ -125,14 +125,15 @@ namespace Life_safety
             buildingSafetyPercent.Value = 70.0;
             openAirSafetyPercent.Value = 30.0;
 
-            substanceBox.SelectedIndex = 10;
+            timeSlider.Value = 3;
+            substanceBox.SelectedIndex = 11;
             substanceStateBox.SelectedIndex = 0;
-            substanceMassBox.SelectedIndex = 2;
-            windSpeedBox.SelectedIndex = 1;
+            substanceMassBox.SelectedIndex = 7;
+            windSpeedBox.SelectedIndex = 3;
             airTypeBox.SelectedIndex = 0;
-            overflowTypeBox.SelectedIndex = 0;
-            temperatureTypeBox.SelectedIndex = 2;
-            arrowE_MouseDown(arrowE, null);
+            overflowTypeBox.SelectedIndex = 1;
+            temperatureTypeBox.SelectedIndex = 3;
+            arrowSE_MouseDown(arrowSE, null);
 
             drawCross(realDangerZonePos);
             drawExperimentCircle(experimentZonePos);
@@ -369,7 +370,7 @@ namespace Life_safety
             }
             else
             {
-                startPointBtn.Background = null;
+                startPointBtn.Background = Brushes.Turquoise;
             }
 
             if (endPointMode)
@@ -379,7 +380,7 @@ namespace Life_safety
             }
             else
             {
-                endPointBtn.Background = null;
+                endPointBtn.Background = Brushes.Turquoise;
             }
 
             if (!startPointMode && !endPointMode && !windVectorMode)
@@ -469,14 +470,32 @@ namespace Life_safety
 
         private void buildingPeopleCountField_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int count = Convert.ToInt32(((TextBox)sender).Text);
-            windowManager.UpdateBuildingPeopleCount(count);
+            try
+            {
+                if (!((TextBox)sender).Text.Equals(""))
+                {
+                    int count = Convert.ToInt32(((TextBox)sender).Text);
+                    windowManager.UpdateBuildingPeopleCount(count);
+                }
+            }
+            catch
+            {
+            }
         }
 
         private void openAirPeopleCountField_TextChanged(object sender, TextChangedEventArgs e)
         {
-            int count = Convert.ToInt32(((TextBox)sender).Text);
-            windowManager.UpdateOpenAirPeopleCount(count);
+            try
+            {
+                if (!((TextBox)sender).Text.Equals(""))
+                {
+                    int count = Convert.ToInt32(((TextBox)sender).Text);
+                    windowManager.UpdateOpenAirPeopleCount(count);
+                }
+            }
+            catch
+            {
+            }
         }
 
         private void buildingSafetyPercent_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -494,7 +513,7 @@ namespace Life_safety
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             initSubstanceLoader = new InitSubstanceLoader();
-            mapConverter = new MapConverter(40, mapField.ActualWidth, mapField.ActualHeight);
+            mapConverter = new MapConverter(155, mapField.ActualWidth, mapField.ActualHeight);
             windowManager = new MainWindowManager(this);
             initializeWindow();
         }
