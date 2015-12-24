@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Life_safety"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="Life_safety.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="719.866" Width="1300" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="Исследование распространения АХОВ" Height="719.866" Width="1300" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Window.Resources>
         <BitmapImage x:Key="nn-map" UriSource="Resources\nn_map.png"/>
         <BitmapImage x:Key="arrow" UriSource="Resources\arrow.png"/>
