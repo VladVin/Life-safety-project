@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Life_safety"
         xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="Life_safety.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="719.866" Width="1300" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="Исследование распространения АХОВ" Height="719.866" Width="1300" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Window.Resources>
         <BitmapImage x:Key="nn-map" UriSource="Resources\nn_map.png"/>
         <BitmapImage x:Key="arrow" UriSource="Resources\arrow.png"/>
@@ -171,8 +171,8 @@
                 <Ellipse x:Name="realDangerZoneEllipse" Fill="Gray" Width="100" Height="187" Visibility="Hidden" Opacity="0.7" Stroke="Black" StrokeThickness="5" />
             </Canvas>
         </Canvas>
-        <Button x:Name="startPointBtn" Content="Место аварии" HorizontalAlignment="Left" Margin="1,655,0,0" VerticalAlignment="Top" Width="130                 " Click="startPointBtn_Click"/>
-        <Button x:Name="endPointBtn" Content="Место исследований" HorizontalAlignment="Left" Margin="131,655,0,0" VerticalAlignment="Top" Width="130" Click="endPointBtn_Click"/>
+        <Button x:Name="startPointBtn" Content="Место аварии" HorizontalAlignment="Left" Margin="0,644,0,0" VerticalAlignment="Top" Width="170" FontSize="20" Click="startPointBtn_Click"/>
+        <Button x:Name="endPointBtn" Content="Место исследований" HorizontalAlignment="Left" Margin="170,644,0,0" VerticalAlignment="Top" Width="200" FontSize="20" Click="endPointBtn_Click"/>
 
     </Grid>
 </Window>
