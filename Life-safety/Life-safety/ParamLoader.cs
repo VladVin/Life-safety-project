@@ -54,11 +54,11 @@ namespace Life_safety
                     string temperature;
                     switch(damageParams.Temperature)
                     {
-                        case Core.DamageParams.TemperatureType.Cold:
+                        case Core.DamageParams.TemperatureType.Freezy:
                             temperature = "k7m40";
                             break;
 
-                        case Core.DamageParams.TemperatureType.Freezy:
+                        case Core.DamageParams.TemperatureType.Cold:
                             temperature = "k7m20";
                             break;
 
